@@ -1,0 +1,81 @@
+html{
+        padding: 0;
+        margin: 0;
+        height: 100vh;
+}
+
+.container{
+        margin-top: 1em; 
+        text-align: center;
+        height: 100%;
+        
+}
+
+.listView{
+        font-size: 1.2em;
+        text-align: center;
+        padding: 0;
+        box-shadow: 1px 1px 1px 1px #666666;
+        border-radius: 0.5em;
+        min-width: 25vw;
+        min-height: 40vh;
+        max-height: 40vh;
+        overflow-y: scroll;
+}
+
+.listContainer{
+        
+        list-style-type: none;
+        margin: 0;
+        padding: 0; 
+        height: 100%;
+
+}
+
+.listTitle{
+        margin: 1em;
+}
+
+.listItem{
+
+        box-shadow: 5px 2px 1empx rgba(192, 192, 192, 0.541);
+        border-bottom: solid 1px rgb(192, 192, 192);
+        border-radius: 1em; 
+        
+}
+
+.listItem:hover{
+        background-color:rgba(192, 192, 192, 0.541);
+}
+
+.prevExams{
+        vertical-align: top;
+        display: inline-block; 
+        width: auto;
+        margin-right: 20vw;
+        height: 100%;
+}
+
+.upcomingExams{
+        vertical-align: top;
+        display: inline-block;
+        width: auto;
+        margin: 0 auto;
+        height: 100%;
+}
+
+
+.wideDescription{
+        word-wrap: break-word;
+}
+
+.wideContainer{
+        border-radius: 5px;
+        margin: 0 15vw;
+        font-size: 1.5em; 
+        min-height: 20vh;
+        margin-top: 10vh;
+        box-shadow: 1px 1px 1px 1px #666666
+}
+
+
