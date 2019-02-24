@@ -1,11 +1,11 @@
 import React from "react"
 import "../style.css"
-import TwilioConnection from "./teacher-exam-video-page/TwilioConnection"
+import TwilioTeacherVideo from "./teacher-exam-video-page/TwilioTeacherVideo"
 
 function MainContent() {
     return (
         <div>
-            <TwilioConnection />
+            <TwilioTeacherVideo />
         </div>
     )
 }
