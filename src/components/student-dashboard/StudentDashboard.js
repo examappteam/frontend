@@ -64,13 +64,16 @@ function StudentDashboard(){
 
         return(
                 <div>
-                        <div className="container">
-                                <div className="prevExams">
+                        <div className="pure-g">
+                                <div className="pure-u-1-5"></div>
+                                <div className="pure-u-1-5">
                                         <ListView title={prevExams.title} exam = {previousExams}/>
                                 </div>
-                                <div className="upcomingExams">
+                                <div className="pure-u-1-5"></div>
+                                <div className="pure-u-1-5">
                                         <ListView title={upcomingExams.title} exam = {upcExams}/>
-                                </div>        
+                                </div>
+                                <div className="pure-u-1-5"></div>        
                         </div>
                         <div>
                                 <WideListView title={prevExams.exams[0].name} exam={prevExams.exams[0]} />
