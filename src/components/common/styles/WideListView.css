@@ -1,0 +1,26 @@
+.wide-container{
+    border: 1px solid gray;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    color: #777777;
+}
+
+.wide-title{
+    margin: 0.5em;
+}
+
+.wide-description{
+    margin: 0.5em;
+    text-align: justify;
+}
+
+.wide-date{
+    margin: 2em 0.5em;
+}
+
+#wide-button{
+    float: right;
+    margin: 1em 5em;
+    width: 8em;
+    height: 2.5em;
+}
