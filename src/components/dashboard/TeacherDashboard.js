@@ -2,6 +2,8 @@ import React, {Component} from "react"
 
 import ScrollableListMenu from "./ScrollableListMenu"
 
+import "./styles/TeacherDashboardStyle.css"
+
 class TeacherDashboard extends Component {
     constructor() {
         super()

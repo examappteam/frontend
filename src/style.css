@@ -38,22 +38,6 @@
     width: 33.3%;
 }
 
-h3 {
-    border-bottom: 1px solid gray;
-}
-
-.scrollable-list-menu {
-    height: 26em;
-    width: 100%;
-    border: 1px solid gray;
-    border-radius: 4px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.padded-box {
-    padding: 1em;
-}
-
 .pure-button {
     margin-right: 0.5em;
     margin-top: 0.5em;
