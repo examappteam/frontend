@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 
-import ScrollableListMenu from "./ScrollableListMenu"
+import ScrollableListMenu from "../common/ScrollableListMenu"
 
 import "./styles/TeacherDashboardStyle.css"
 
