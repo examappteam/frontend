@@ -87,16 +87,22 @@ function StudentDashboard(){
                             <ScrollableListMenu menuItems = {upcExams} menuHeader = "Upcoming exams"/>
                         </div> 
                     </div>
-                    <div className="pure-u-1-5">
+                    <div className="pure-u-1-3">
                         <div className="padded-box">
                             <ScrollableListMenu menuItems = {previousExams} menuHeader = "Previous exams"/>
                         </div>
                     </div>
                 </div>
+                <div className="pure-g">
+                <div className="pure-u-3-24"></div>
+                <div className="pure-u-18-24">
                 <div className="padded-box">
                     <WideListView title={prevExams.exams[0].name} exam={prevExams.exams[0]}/>
                 </div>
-            </div>
+                </div>
+                </div>
+                <div className="pure-u-3-24"></div>
+                </div>
             
         )
 
