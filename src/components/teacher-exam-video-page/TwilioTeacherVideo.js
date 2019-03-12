@@ -1,23 +1,33 @@
 import React, {Component} from "react"
 import "../../style.css"
 import ChatWindow from "./ChatWindow";
+import ParticipantList from "./ParticipantList";
 
 class TwilioTeacherVideo extends Component {
     testToken = "";
     localMediaContainer;
+    participantList = new ParticipantList();
     chat = new ChatWindow();
     constructor() {
         super()
+        this.handler = this.handler.bind(this);
         this.state = {
             token: "",
             identity: "TestTeacher",
-            roomName: "TestRoom"
+            roomName: "TestRoom",
+            chosenStudent: ""
         }
+    }
+
+    handler(studentIdentity) {
+        this.setState({
+            chosenStudent: studentIdentity
+        });
+        console.log(this.state.chosenStudent);
     }
 
     componentDidMount() {
         console.log("componentDidMmount");
-        this.chat.showMessage("t7sika00","Hello World!");
         this.twilioConnection();
     }
 
@@ -69,6 +79,7 @@ class TwilioTeacherVideo extends Component {
                         //tee Peer-to-peer huone jokaisen käyttäjän kanssa. Huoneen nimi = participant.identity
                         //const fetchAddress = "kevindewit.io:22777/tokens?identity=";
                         //const fullAddress = fetchAddress.concat(_this.state.identity,"&roomName=",participant.identity);
+                        this.participantList.addParticipantToList(participant.identity);
                         const testAddress = "https://burlywood-macaw-4586.twil.io/create_peer_to_peer_room?student_identity=";
                         const fullTestAddress = testAddress.concat(participant.identity);
                         fetch(fullTestAddress)
@@ -114,6 +125,7 @@ class TwilioTeacherVideo extends Component {
                         //tee Peer-to-peer huone jokaisen käyttäjän kanssa. Huoneen nimi = participant.identity
                         //const fetchAddress = "kevindewit.io:22777/tokens?identity=";
                         //const fullAddress = fetchAddress.concat(_this.state.identity,"&roomName=",participant.identity);
+                        this.participantList.addParticipantToList(participant.identity);
                         const testAddress = "https://burlywood-macaw-4586.twil.io/create_peer_to_peer_room?student_identity=";
                         const fullTestAddress = testAddress.concat(participant.identity);
                         fetch(fullTestAddress)
@@ -156,18 +168,20 @@ class TwilioTeacherVideo extends Component {
                     
                     room.on('participantDisconnected', participant => {
                         console.log(`Participant disconnected: ${participant.identity}`);
+                        this.participantList.removeParticipantFromList(participant.identity);
                     });
                 });
             });
         }
 
     render() {
+        var handler = this.handler;
         return (
             <div>
                 <div className="pure-g">
                     <div id="teacher-preview" className="pure-u-1 pure-u-md-1-3" ></div>
-                    <div className="pure-u-1 pure-u-md-1-3"><div id="teacher-chat"><ChatWindow/></div></div>
-                    <div className="pure-u-1 pure-u-md-1-3"></div>
+                    <div className="pure-u-1 pure-u-md-1-3"><div id="teacher-chat"><ChatWindow identity={this.state.identity}/></div></div>
+                    <div className="pure-u-1 pure-u-md-1-3"><div id="participant-list-component"><ParticipantList handler = {handler.bind(this)} /></div></div>
                 </div>
             </div>
         )

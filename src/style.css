@@ -9,19 +9,17 @@
 #teacher-preview {
     width: 33.3%;
     height: 33.3%;
-    background-color: black;
 }
 
 #teacher-preview > video {
     width: 100%;
     height: 100%;
-    background-color: black;
+    margin: 1%;
 }
 
 #student-video {
     width: 100%;
     height: 100%;
-    background-color: black;
 }
 
 #logout-button {
@@ -40,7 +38,11 @@
 }
 #chat-window {
     width: 100%;
-    height: 100%;
+    height: 26em;
+    border: 1px solid gray;
+    border-radius: 4px;
+    margin: 2%;
+
 }
 
 #teacher-chat {
@@ -53,16 +55,35 @@
 }
 
 .time-element {
-    width: 10%;
+    width: 15%;
+    display: inline-block;
+    background-color: aquamarine;
+    font-size: small;
     vertical-align: top;
 }
 
 .identity-element {
     width: 20%;
+    display: inline-block;
+    background-color: cornflowerblue;
+    font-size: small;
     vertical-align: top;
 }
 
 .message-element {
-    width: 70%;
-    vertical-align: top;
+    width: 65%;
+    display: inline-block;
+    font-size: small;
+}
+
+#message-input {
+    margin: 2%;
+    width: 80%;
+}
+
+#scrollable-list {
+    border: 1px solid gray;
+    border-radius: 4px;
+    margin: 2%;
+    height: 26em;
 }
