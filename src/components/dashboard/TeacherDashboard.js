@@ -86,11 +86,11 @@ class TeacherDashboard extends Component {
                         <div className="padded-box">
                             <ScrollableListMenu 
                                 menuHeader="My own exams" 
-                                menuItems={this.state.ownExams}/>
-                                <Link to="/create_exam"><button className="pure-button pure-button-primary">Create new exam</button></Link>
                                 menuItems={this.state.categories[2]}
                                 category = {2}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
+                                <Link to="/create_exam"><button className="pure-button pure-button-primary">Create new exam</button></Link>
+                                
                                 <button className="pure-button pure-button-disabled">Delete selected</button>                         
                         </div>  
                     </div>
