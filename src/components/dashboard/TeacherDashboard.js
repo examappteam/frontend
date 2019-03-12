@@ -48,10 +48,9 @@ class TeacherDashboard extends Component {
             this.setState(() =>{
                 return{
                     selectedCategoryId: category,
-                    selectionId: id-1
-                    
+                    selectionId: id-1                   
                 }
-                console.log("states ", this.state.selectedCategoryId, this.state.selectionId)
+                //console.log("states ", this.state.selectedCategoryId, this.state.selectionId)
             })
     }
 
