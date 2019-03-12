@@ -3,11 +3,12 @@ import "../style.css"
 import TwilioConnection from "./teacher-exam-video-page/TwilioConnection"
 import StudentDashboard from "./dashboard/StudentDashboard"
 import TeacherDashboard from "./dashboard/TeacherDashboard"
+import CreateExamView from "./create-exam-view/CreateExamView"
 
 function MainContent() {
     return (
         <div>
-            <TeacherDashboard />
+            <CreateExamView />
         </div>
     )
 }
