@@ -2,6 +2,7 @@ import React from 'react'
 import "./styles/WideListView.css"
 
 function WideListButtonView(props){
+        console.log(props)
         return(
                 <div className="wide-container">
                     <div className="pure-g">
