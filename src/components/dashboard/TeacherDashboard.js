@@ -2,6 +2,7 @@ import React, {Component} from "react"
 
 import ScrollableListMenu from "../common/ScrollableListMenu"
 import WideListButtonView from "../common/WideListButtonView"
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import "./styles/DashboardStyle.css"
 
@@ -86,10 +87,11 @@ class TeacherDashboard extends Component {
                         <div className="padded-box">
                             <ScrollableListMenu 
                                 menuHeader="My own exams" 
+                                menuItems={this.state.ownExams}/>
+                                <Link to="/create_exam"><button className="pure-button pure-button-primary">Create new exam</button></Link>
                                 menuItems={this.state.categories[2]}
                                 category = {2}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
-                                <button className="pure-button pure-button-primary">Create new exam</button>
                                 <button className="pure-button pure-button-disabled">Delete selected</button>                         
                         </div>  
                     </div>

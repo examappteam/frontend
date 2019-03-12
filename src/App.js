@@ -1,15 +1,23 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 import Header from "./components/Header"
-import MainContent from "./components/MainContent"
+import TwilioConnection from "./components/teacher-exam-video-page/TwilioConnection"
+import StudentDashboard from "./components/dashboard/StudentDashboard"
+import TeacherDashboard from "./components/dashboard/TeacherDashboard"
+import CreateExamView from "./components/create-exam-view/CreateExamView"
 import Footer from "./components/Footer"
 
 function App()  {
     return (
-      <div>
-        <Header />
-        <MainContent />
-        <Footer />
+      <Router>
+        <div>
+          <Header />
+          <Route exact path="/dashboard" component={TeacherDashboard} />
+          <Route path="/create_exam" component={CreateExamView} />
+          <Footer />
       </div>
+      </Router>     
     )
 }
 

@@ -1,5 +1,6 @@
 import React from "react"
 import "../style.css"
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
 function Header() {
@@ -13,7 +14,7 @@ function Header() {
                 <div className="pure-u-1 pure-u-md-1-3">                
                     <button id="logout-button" class="pure-button button-error">Logout</button>
                     <button id="logout-button" class="pure-button button-secondary">Settings</button>
-                    <button id="logout-button" class="pure-button pure-button-primary">Dashboard</button>
+                    <Link to="/dashboard"><button id="logout-button" class="pure-button pure-button-primary">Dashboard</button></Link>                   
                 </div>
             </div>
         </header>
