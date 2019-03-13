@@ -2,7 +2,6 @@ import React from "react"
 import "../style.css"
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-
 function Header() {
     return (
         <header className="navbar">

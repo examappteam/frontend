@@ -179,9 +179,9 @@ class TwilioTeacherVideo extends Component {
         return (
             <div>
                 <div className="pure-g">
-                    <div id="teacher-preview" className="pure-u-1 pure-u-md-1-3" ></div>
-                    <div className="pure-u-1 pure-u-md-1-3"><div id="teacher-chat"><ChatWindow identity={this.state.identity}/></div></div>
-                    <div className="pure-u-1 pure-u-md-1-3"><div id="participant-list-component"><ParticipantList handler = {handler.bind(this)} /></div></div>
+                    <div id="teacher-preview" className="pure-u-1-3 pure-u-md-1-3" ></div>
+                    <div className="pure-u-1-3 pure-u-md-1-3"><div id="teacher-chat"><ChatWindow identity={this.state.identity}/></div></div>
+                    <div className="pure-u-1-3 pure-u-md-1-3"><div id="participant-list-component"><ParticipantList handler = {handler.bind(this)} /></div></div>
                 </div>
             </div>
         )
