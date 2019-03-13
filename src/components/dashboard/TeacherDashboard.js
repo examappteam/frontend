@@ -27,12 +27,12 @@ class TeacherDashboard extends Component {
                     { id: 6, name: "International exam", linkedClass: "TVT14SPL" }
                 ],[
                     { id: 1, name: "Professional English",
-                    description: "The English test consists of 30 questions. There’s no time limit, so take your time. You will need headphones or speakers for the listening section. You will get your results as soon as you’ve finished the test.",
+                    description: "The Professional English test consists of 30 questions. There’s no time limit, so take your time. You will need headphones or speakers for the listening section. You will get your results as soon as you’ve finished the test.",
                     date: "5.2.2019"},
 
-                    { id: 2, name: "Unprofessional English" },
-                    { id: 3, name: "Professional Swedish" },
-                    { id: 4, name: "Exam template" }
+                    { id: 2,description: "The Unprofessional English test consists of 30 questions. There’s no time limit, so take your time. You will need headphones or speakers for the listening section. You will get your results as soon as you’ve finished the test.", name: "Unprofessional English", date: "14.3.2019" },
+                    { id: 3,description: "The Professional Swedish test consists of 30 questions. There’s no time limit, so take your time. You will need headphones or speakers for the listening section. You will get your results as soon as you’ve finished the test.", name: "Professional Swedish", date: "14.4.2019" },
+                    { id: 4,description: "The Engineering mathematics test consists of 30 questions. There’s no time limit, so take your time. You will need headphones or speakers for the listening section. You will get your results as soon as you’ve finished the test.", name: "Engineering mathematics", date: "15.3.2019" }
             ]
         ],
             selectedCategoryId: 0,
@@ -100,9 +100,9 @@ class TeacherDashboard extends Component {
                 <div className="pure-u-3-24"></div>
                 <div className="pure-u-18-24">
                     <div className="padded-box">
-                        <Link to="/exam_view">
+                    
                             <WideListButtonView title={this.state.categories[this.state.selectedCategoryId][this.state.selectionId].name} exam={this.state.categories[this.state.selectedCategoryId][this.state.selectionId]}/>
-                        </Link>
+                        
                     </div>
                 </div>
                 <div className="pure-u-3-24"></div>
