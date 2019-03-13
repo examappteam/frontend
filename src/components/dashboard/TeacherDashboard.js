@@ -10,33 +10,35 @@ class TeacherDashboard extends Component {
     constructor() {
         super()
         this.state = {
-            categories:[[
+            categories:[
+                [
                     { id: 1, name: "TVT17SPO" },
                     { id: 2, name: "TVT17SPL" },
                     { id: 3, name: "EX16SPI" },
                     { id: 4, name: "EX16SPO" },
                     { id: 5, name: "TVT18SPO" },
                     { id: 6, name: "TVT18SPL" }
-                ]
-            ,[
+                ],
+                [
                     { id: 1, name: "Basics of Java", linkedClass: "TVT17SPO" },
                     { id: 2, name: "Basic beginner course", linkedClass: "TVT18SPO" },
                     { id: 3, name: "Object oriented analysis", linkedClass: "TVT18SPL" },
                     { id: 4, name: "Advanced maths", linkedClass: "TVT16SPO" },
                     { id: 5, name: "Best course ever", linkedClass: "TVT15SPO" },
                     { id: 6, name: "International exam", linkedClass: "TVT14SPL" }
-                ],[
+                ],
+                [
                     { id: 1, name: "Professional English",
-                    description: "The Professional English test consists of 30 questions. There’s no time limit, so take your time. You will need headphones or speakers for the listening section. You will get your results as soon as you’ve finished the test.",
-                    date: "5.2.2019"},
+                      description: "The Professional English test consists of 30 questions. There’s no time limit, so take your time. You will need headphones or speakers for the listening section. You will get your results as soon as you’ve finished the test.",
+                      date: "5.2.2019"},
 
                     { id: 2,description: "The Unprofessional English test consists of 30 questions. There’s no time limit, so take your time. You will need headphones or speakers for the listening section. You will get your results as soon as you’ve finished the test.", name: "Unprofessional English", date: "14.3.2019" },
                     { id: 3,description: "The Professional Swedish test consists of 30 questions. There’s no time limit, so take your time. You will need headphones or speakers for the listening section. You will get your results as soon as you’ve finished the test.", name: "Professional Swedish", date: "14.4.2019" },
                     { id: 4,description: "The Engineering mathematics test consists of 30 questions. There’s no time limit, so take your time. You will need headphones or speakers for the listening section. You will get your results as soon as you’ve finished the test.", name: "Engineering mathematics", date: "15.3.2019" }
-            ]
-        ],
+                ]
+            ],
             selectedCategoryId: 0,
-            selectionId: 0,
+            selectionId: 0
         }
 
         this.onScrollableListItemClicked = this.onScrollableListItemClicked.bind(this)
