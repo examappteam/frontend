@@ -1,4 +1,5 @@
 import React from 'react'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 import "./styles/WideListView.css"
 
 function WideListButtonView(props){
@@ -10,9 +11,11 @@ function WideListButtonView(props){
                             <h1 className="wide-title">{props.title}</h1>
                         </div>
                         <div className="pure-u-1-5">
-                            <button id="wide-button" className="pure-button pure-button-primary">
-                                Start exam
-                            </button>
+                            <Link to="/exam_view">
+                                <button id="wide-button" className="pure-button pure-button-primary">
+                                    Start exam
+                                </button>
+                            </Link>
                         </div>
                     </div>
                         <div className="wide-description">         
