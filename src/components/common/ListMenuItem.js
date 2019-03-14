@@ -1,13 +1,14 @@
 import React from "react"
+import "./styles/ScrollableListMenuStyle.css"
 
 function ListMenuItem(props) {
     return(
-        <div onClick = {(e) => props.handler(e)}>
+        <div className="listMenuItem" onClick = {(e) => props.handler(e)}>
             <li className="pure-menu-item">
-                <a href="#" class="pure-menu-link">
+                <p class="pure-menu-link">
                     {props.itemName} 
                     <p>{props.itemExtra}</p>
-                </a>
+                </p>
             </li>
         </div>
     )

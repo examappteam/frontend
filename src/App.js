@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link} from "react-router-dom";
 
 import Header from "./components/Header"
 import StudentDashboard from "./components/dashboard/StudentDashboard"
@@ -13,7 +13,7 @@ function App()  {
       <Router>
         <div>
           <Header />
-          <Route path="/dashboard" component={TeacherDashboard} />
+          <Route path="/dashboard" component={StudentDashboard} />
           <Route path="/create_exam" component={CreateExamView} />
           <Route path="/exam_view" component={TwilioTeacherVideo} />
           <Footer />

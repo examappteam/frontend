@@ -1,4 +1,4 @@
-import React, {Component} from "react"
+import React from "react"
 
 import ListMenuItem from "./ListMenuItem"
 import "./styles/ScrollableListMenuStyle.css"
@@ -12,7 +12,7 @@ function ScrollableListMenu(props) {
 
     return(
         <div className="pure-menu pure-menu-scrollable scrollable-list-menu">
-            <a href="#" className="pure-menu-link pure-menu-heading"><h3>{props.menuHeader}</h3></a>
+            <p className="pure-menu-link pure-menu-heading"><h3>{props.menuHeader}</h3></p>
             <ul className="pure-menu-list">
                {menuItems}
             </ul>

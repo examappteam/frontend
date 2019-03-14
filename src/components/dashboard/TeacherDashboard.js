@@ -2,7 +2,7 @@ import React, {Component} from "react"
 
 import ScrollableListMenu from "../common/ScrollableListMenu"
 import WideListButtonView from "../common/WideListButtonView"
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link} from "react-router-dom";
 
 import "./styles/DashboardStyle.css"
 
@@ -56,7 +56,6 @@ class TeacherDashboard extends Component {
 
     render() {
         console.log(this.state.categories[this.state.selectedCategoryId][this.state.selectionId])
-        var key
         
         return(
             <div>
@@ -68,7 +67,7 @@ class TeacherDashboard extends Component {
                                 menuItems={this.state.categories[0]}
                                 category = {0}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
-                                <button onClick = {this.onScrollableListItemClicked(2, 3)} className="pure-button pure-button-primary">Add new class</button>
+                                <button className="pure-button pure-button-primary">Add new class</button>
                                 <button className="pure-button pure-button-disabled">Delete selected</button> 
                         </div>                  
                     </div>
