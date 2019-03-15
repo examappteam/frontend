@@ -1,3 +1,9 @@
 .padded-box {
     margin: 2em;
 }
+
+.list-button {
+    float: right;
+    margin: 0;
+    margin-top: 0.15em;
+}
