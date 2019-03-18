@@ -76,7 +76,8 @@ class TeacherDashboard extends Component {
                 <div className="pure-g">
                     <div className="pure-u-1-3">
                         <div className="padded-box">
-                        <Modal close={this.changeShowState} show={this.state.showState}><h2>Here you can create new classes</h2></Modal>
+                        <Modal close={this.changeShowState} show={this.state.showState}>
+                        </Modal>
                             <ScrollableListMenu 
                                 menuHeader="My classes" 
                                 menuItems={this.state.categories[0]}
