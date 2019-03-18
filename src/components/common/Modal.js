@@ -25,8 +25,7 @@ const Modal = (props) => {
                         {props.children}
                     </p>
                 </div>
-                        <button className="pure-button btn-cancel" onClick={props.close}>Cancel</button>
-                        <button className="pure-button btn-continue">Continue</button>
+                        <button className="pure-button btn-cancel" onClick={props.close}>Cancel</button>         
                     
             </div>
         </div>

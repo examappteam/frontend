@@ -2,6 +2,7 @@ import React, {Component} from "react"
 
 import ScrollableListMenu from "../common/ScrollableListMenu"
 import WideListButtonView from "../common/WideListButtonView"
+import StudentManager from "../common/StudentManager"
 import Modal from "../common/Modal"
 import { BrowserRouter as Router, Route, Link} from "react-router-dom";
 
@@ -77,6 +78,7 @@ class TeacherDashboard extends Component {
                     <div className="pure-u-1-3">
                         <div className="padded-box">
                         <Modal close={this.changeShowState} show={this.state.showState}>
+                            <StudentManager />
                         </Modal>
                             <ScrollableListMenu 
                                 menuHeader="My classes" 
