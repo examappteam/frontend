@@ -2,6 +2,7 @@ import React, {Component} from "react"
 
 import ScrollableListMenu from "../common/ScrollableListMenu"
 import WideListButtonView from "../common/WideListButtonView"
+import Modal from "../common/Modal"
 import { BrowserRouter as Router, Route, Link} from "react-router-dom";
 
 import "./styles/DashboardStyle.css"
@@ -38,10 +39,12 @@ class TeacherDashboard extends Component {
                 ]
             ],
             selectedCategoryId: 0,
-            selectionId: 0
+            selectionId: 0,
+            showState: false
         }
 
         this.onScrollableListItemClicked = this.onScrollableListItemClicked.bind(this)
+        this.changeShowState = this.changeShowState.bind(this)
     }
     onScrollableListItemClicked = (category, id) =>(e)=>{
         console.log("event",e)
@@ -56,20 +59,30 @@ class TeacherDashboard extends Component {
             })
     }
 
+    changeShowState=()=>{
+        this.setState(prevState=>({
+                showState: !prevState.showState
+            
+        }));
+        console.log("showstate",this.state.showState)
+    }
+
     render() {
         console.log(this.state.categories[this.state.selectedCategoryId][this.state.selectionId])
         
         return(
             <div>
+                
                 <div className="pure-g">
                     <div className="pure-u-1-3">
                         <div className="padded-box">
+                        <Modal close={this.changeShowState} show={this.state.showState}><h2>Here you can create new classes</h2></Modal>
                             <ScrollableListMenu 
                                 menuHeader="My classes" 
                                 menuItems={this.state.categories[0]}
                                 category = {0}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
-                                <button className="pure-button pure-button-primary">Add new class</button>
+                                <button onClick={this.changeShowState} className="pure-button pure-button-primary">Add new class</button>
                                 <button className="pure-button pure-button-disabled">Delete selected</button> 
                         </div>                  
                     </div>

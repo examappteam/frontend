@@ -13,7 +13,7 @@ function App()  {
       <Router>
         <div>
           <Header />
-          <Route path="/dashboard" component={StudentDashboard} />
+          <Route path="/dashboard" component={TeacherDashboard} />
           <Route path="/create_exam" component={CreateExamView} />
           <Route path="/exam_view" component={TwilioTeacherVideo} />
           <Footer />

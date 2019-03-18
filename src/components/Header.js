@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Link} from "react-router-dom";
 function Header() {
     return (
         <header className="navbar">
+        
             <div className="pure-g">
                 <div className="pure-u-1 pure-u-md-1-3"></div>
                 <div className="pure-u-1 pure-u-md-1-3">
