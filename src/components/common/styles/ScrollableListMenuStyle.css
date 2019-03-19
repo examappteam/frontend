@@ -1,5 +1,9 @@
-h3 {
+.wide-date h3 {
     border-bottom: 1px solid gray;
+}
+
+.scrollable-list-menu h3{
+    border-bottom: 1px solid gray; 
 }
 
 .scrollable-list-menu {
