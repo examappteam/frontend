@@ -58,7 +58,7 @@ class TeacherDashboard extends Component {
 
     render() {
         console.log(this.state.categories[this.state.selectedCategoryId][this.state.selectionId])
-        
+
         return(
             <div>
                 <div className="pure-g">

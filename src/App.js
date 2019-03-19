@@ -1,8 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link} from "react-router-dom";
+import { BrowserRouter as Router, Route} from "react-router-dom";
 
 import Header from "./components/Header"
-import StudentDashboard from "./components/dashboard/StudentDashboard"
 import TeacherDashboard from "./components/dashboard/TeacherDashboard"
 import TeacherDashboardClassView from "./components/dashboard/TeacherDashboardClassView"
 import CreateExamView from "./components/create-exam-view/CreateExamView"

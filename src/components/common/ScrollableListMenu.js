@@ -1,4 +1,4 @@
-import React from "react"
+import React, {} from "react"
 
 import ListMenuItem from "./ListMenuItem"
 import "./styles/ScrollableListMenuStyle.css"

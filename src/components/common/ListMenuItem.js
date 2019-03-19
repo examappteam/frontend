@@ -8,16 +8,9 @@ function ListMenuItem(props) {
     return(
         <div className="listMenuItem" onClick = {(e) => props.handler(e)}>
             <li className="pure-menu-item">
-                <p className="pure-menu-link">
+                <p class="pure-menu-link">
                     {props.itemName} 
-                    {props.categoryId === props.selectedCategory ?
-                        props.id === props.selectedItem + 1 ? 
-                            <Link to="/class_view">                           
-                                <i class="fa fa-arrow-circle-right fa-lg list-button"></i>                           
-                            </Link> 
-                        : "" 
-                    : ""}
-                    <p>{props.itemExtra}</p>                 
+                    <p>{props.itemExtra}</p>
                 </p>
             </li>
         </div>
