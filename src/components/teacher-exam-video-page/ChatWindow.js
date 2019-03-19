@@ -10,13 +10,13 @@ class ChatWindow extends Component {
         super(props);
         this.state = {
             inputValue: '',
-            identity: ''
+            sender: ''
         };
         this.handleChange = this.handleChange.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
     }
 
-    showMessage(identity,message) {
+    showMessage(sender,receiver,message) {
         var currentdate = new Date();
         const tr = document.createElement("li");
         tr.classList.add("chat-list-element");
@@ -44,7 +44,7 @@ class ChatWindow extends Component {
 
         const tdIdentity = document.createElement("p");
         tdIdentity.classList.add("identity-element");
-        const nodeIdentity = document.createTextNode(identity);
+        const nodeIdentity = document.createTextNode(sender + " -> " + receiver);
         tdIdentity.appendChild(nodeIdentity);
         tr.appendChild(tdIdentity);
 
@@ -64,34 +64,36 @@ class ChatWindow extends Component {
     }
 
     sendMessage() { 
-        const identity = this.state.identity;
+        const sender = this.state.sender;
+        var receiver = document.getElementById("sendToName").innerText;
         //Show own message on chat
-        this.showMessage(identity,this.state.inputValue);
-
-        //TODO Send message to chosen student
-
+        this.showMessage(sender,receiver,this.state.inputValue);
+        this.props.sendTextMessage(receiver,this.state.inputValue);
         this.inputText = document.getElementById("message-input");
         this.inputText.value = "";
     }
 
     handleChange(event) {
-        this.setState({ identity: this.props.identity});
+        this.setState({ sender: this.props.identity});
         this.setState({ inputValue: event.target.value});
       }
 
-
+    setSendToName(identity) {
+        document.getElementById("sendToName").innerText = identity;
+    }
       
     render() {
         return(
             <div>
-                <div id="chat-window" class="pure-menu pure-menu-scrollable custom-restricted">
+                <div id="chat-window" className="pure-menu pure-menu-scrollable custom-restricted">
                     
-                    <ul id="chat-body" class="pure-menu-list">
+                    <ul id="chat-body" className="pure-menu-list">
 
                     </ul>
                 </div>
                 <input type="text" value={this.state.value} id="message-input" onChange={this.handleChange}></input>
-                <button id="send-message-button" class="pure-button pure-button-primary" onClick={this.sendMessage}>SEND</button>
+                <button id="send-message-button" className="pure-button pure-button-primary" onClick={this.sendMessage}>SEND</button>
+                <div><p id="sendToText">Send to:</p><p id="sendToName">All</p></div>
             </div>
         )
     }

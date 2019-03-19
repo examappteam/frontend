@@ -47,7 +47,7 @@ class TeacherDashboard extends Component {
         this.onScrollableListItemClicked = this.onScrollableListItemClicked.bind(this)
         this.changeShowState = this.changeShowState.bind(this)
     }
-    onScrollableListItemClicked = (category, id) =>(e)=>{
+    onScrollableListItemClicked = (category, id) => (e) => {
         console.log("event",e)
         e.preventDefault()
         console.log("ran itemclick", category, id)
@@ -70,7 +70,7 @@ class TeacherDashboard extends Component {
 
     render() {
         console.log(this.state.categories[this.state.selectedCategoryId][this.state.selectionId])
-        
+
         return(
             <div>
                 
@@ -83,6 +83,8 @@ class TeacherDashboard extends Component {
                             <ScrollableListMenu 
                                 menuHeader="My classes" 
                                 menuItems={this.state.categories[0]}
+                                selectedItem={this.state.selectionId}
+                                selectedCategory={this.state.selectedCategoryId}
                                 category = {0}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
                                 <button onClick={this.changeShowState} className="pure-button pure-button-primary">Add new class</button>
@@ -94,6 +96,8 @@ class TeacherDashboard extends Component {
                             <ScrollableListMenu 
                                 menuHeader="Ready for evaluation" 
                                 menuItems={this.state.categories[1]}
+                                selectedItem={this.state.selectionId}
+                                selectedCategory={this.state.selectedCategoryId}
                                 category = {1}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
                                 <button className="pure-button pure-button-disabled">Evaluate selected</button>
@@ -104,6 +108,8 @@ class TeacherDashboard extends Component {
                             <ScrollableListMenu 
                                 menuHeader="My own exams" 
                                 menuItems={this.state.categories[2]}
+                                selectedItem={this.state.selectionId}
+                                selectedCategory={this.state.selectedCategoryId}
                                 category = {2}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
                                 <Link to="/create_exam"><button className="pure-button pure-button-primary">Create new exam</button></Link>

@@ -89,6 +89,14 @@
 
 }
 
+#sendToText {
+    display: inline-block;
+}
+
+#sendToName {
+    display: inline-block;
+}
+
 #teacher-chat {
     max-height: 33.3%;
 }
