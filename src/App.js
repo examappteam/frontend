@@ -20,7 +20,7 @@ function App()  {
           <Route path="/exam_view" component={TwilioTeacherVideo} />
           <Footer />
       </div>
-      </Router>     
+      </Router>
     )
 }
 
