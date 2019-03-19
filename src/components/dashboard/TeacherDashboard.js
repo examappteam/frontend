@@ -2,7 +2,7 @@ import React, {Component} from "react"
 
 import ScrollableListMenu from "../common/ScrollableListMenu"
 import WideListButtonView from "../common/WideListButtonView"
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link} from "react-router-dom";
 
 import "./styles/DashboardStyle.css"
 
@@ -43,7 +43,7 @@ class TeacherDashboard extends Component {
 
         this.onScrollableListItemClicked = this.onScrollableListItemClicked.bind(this)
     }
-    onScrollableListItemClicked = (category, id) =>(e)=>{
+    onScrollableListItemClicked = (category, id) => (e) => {
         console.log("event",e)
         e.preventDefault()
         console.log("ran itemclick", category, id)
@@ -67,9 +67,11 @@ class TeacherDashboard extends Component {
                             <ScrollableListMenu 
                                 menuHeader="My classes" 
                                 menuItems={this.state.categories[0]}
+                                selectedItem={this.state.selectionId}
+                                selectedCategory={this.state.selectedCategoryId}
                                 category = {0}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
-                                <button onClick = {this.onScrollableListItemClicked(2, 3)} className="pure-button pure-button-primary">Add new class</button>
+                                <button className="pure-button pure-button-primary">Add new class</button>
                                 <button className="pure-button pure-button-disabled">Delete selected</button> 
                         </div>                  
                     </div>
@@ -78,6 +80,8 @@ class TeacherDashboard extends Component {
                             <ScrollableListMenu 
                                 menuHeader="Ready for evaluation" 
                                 menuItems={this.state.categories[1]}
+                                selectedItem={this.state.selectionId}
+                                selectedCategory={this.state.selectedCategoryId}
                                 category = {1}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
                                 <button className="pure-button pure-button-disabled">Evaluate selected</button>
@@ -88,6 +92,8 @@ class TeacherDashboard extends Component {
                             <ScrollableListMenu 
                                 menuHeader="My own exams" 
                                 menuItems={this.state.categories[2]}
+                                selectedItem={this.state.selectionId}
+                                selectedCategory={this.state.selectedCategoryId}
                                 category = {2}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
                                 <Link to="/create_exam"><button className="pure-button pure-button-primary">Create new exam</button></Link>
