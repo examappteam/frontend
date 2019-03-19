@@ -1,8 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route} from "react-router-dom";
 
 import Header from "./components/Header"
-import StudentDashboard from "./components/dashboard/StudentDashboard"
 import TeacherDashboard from "./components/dashboard/TeacherDashboard"
 import CreateExamView from "./components/create-exam-view/CreateExamView"
 import TwilioTeacherVideo from "./components/teacher-exam-video-page/TwilioTeacherVideo"
