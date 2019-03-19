@@ -84,7 +84,8 @@ class TeacherDashboard extends Component {
                                 menuHeader="My classes" 
                                 menuItems={this.state.categories[0]}
                                 category = {0}
-                                handler = {this.onScrollableListItemClicked.bind(this)}/>
+                                handler = {this.onScrollableListItemClicked.bind(this)}
+                                />
                                 <button onClick={this.changeShowState} className="pure-button pure-button-primary">Add new class</button>
                                 <button className="pure-button pure-button-disabled">Delete selected</button> 
                         </div>                  
@@ -95,7 +96,8 @@ class TeacherDashboard extends Component {
                                 menuHeader="Ready for evaluation" 
                                 menuItems={this.state.categories[1]}
                                 category = {1}
-                                handler = {this.onScrollableListItemClicked.bind(this)}/>
+                                handler = {this.onScrollableListItemClicked.bind(this)}
+                                />
                                 <button className="pure-button pure-button-disabled">Evaluate selected</button>
                         </div>  
                     </div>
