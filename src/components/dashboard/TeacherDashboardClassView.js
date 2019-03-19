@@ -2,6 +2,8 @@ import React, {Component} from "react"
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 
 import ScrollableListMenu from "../common/ScrollableListMenu"
+import StudentManager from "../common/StudentManager"
+import Modal from "../common/Modal"
 
 import "./styles/DashboardStyle.css"
 
@@ -33,9 +35,11 @@ class TeacherDashboardClassView extends Component {
                 ]
             ],
             selectedCategoryId: 0,
-            selectionId: 0
+            selectionId: 0,
+            showState: false
         }
         this.onScrollableListItemClicked = this.onScrollableListItemClicked.bind(this)
+        this.changeShowState = this.changeShowState.bind(this)
     }
 
     onScrollableListItemClicked = (category, id) => (e) => {
@@ -48,6 +52,13 @@ class TeacherDashboardClassView extends Component {
                 selectionId: id - 1                   
             }
         })
+    }
+
+    changeShowState=()=>{
+        this.setState(prevState=>({
+                showState: !prevState.showState       
+        }));
+        console.log("showstate",this.state.showState)
     }
 
     componentDidMount() {
@@ -67,7 +78,10 @@ class TeacherDashboardClassView extends Component {
                             category={0}
                             handler={this.onScrollableListItemClicked.bind(this)}
                         />
-                        <button className="pure-button pure-button-primary">Add new student</button>
+                        <button onClick={this.changeShowState} className="pure-button pure-button-primary">Add new student</button>
+                        <Modal close={this.changeShowState} show={this.state.showState}>
+                            <StudentManager />
+                        </Modal>
                         <button className="pure-button pure-button-disabled">Remove selected</button> 
                     </div>
                 </div>
