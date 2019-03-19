@@ -26,6 +26,5 @@ function WideListButtonView(props){
                         </div>
                     </div>
         )
-
 }
 export default WideListButtonView
