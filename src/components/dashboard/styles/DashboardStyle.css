@@ -7,3 +7,7 @@
     margin: 0;
     margin-top: 0.15em;
 }
+
+.floating-text {
+    text-align: center
+}
