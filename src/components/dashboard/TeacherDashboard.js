@@ -85,7 +85,7 @@ class TeacherDashboard extends Component {
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
                                 <button onClick={this.changeShowState} className="pure-button pure-button-primary">Create new class</button>
                                 <Modal close={this.changeShowState} show={this.state.showState}>
-                                    <CreateNewClassDialog />
+                                    <CreateNewClassDialog close={this.changeShowState}/>
                                 </Modal>
                                 <button className="pure-button pure-button-disabled">Delete selected</button> 
                         </div>                  

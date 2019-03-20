@@ -10,6 +10,7 @@ class CreateNewClassDialog extends Component {
             className: ""
         }
         this.handleChange = this.handleChange.bind(this)
+        this.handleClick = this.handleClick.bind(this)
     }
 
     handleChange(event) {
@@ -20,7 +21,11 @@ class CreateNewClassDialog extends Component {
         }) 
     }
 
-    render() {
+    handleClick(props) {
+        this.props.close()
+    }
+
+    render(props) {
         return(
             <div className="padded-box">
                 <form className="pure-form pure-form-aligned">
@@ -33,7 +38,7 @@ class CreateNewClassDialog extends Component {
                         onChange={this.handleChange}
                     />            
                 </form>
-                <button className="pure-button btn-continue">Create class</button>
+                <button onClick={this.handleClick} className="pure-button btn-continue">Create class</button>
             </div>        
         )
     }
