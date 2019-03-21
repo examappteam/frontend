@@ -2,8 +2,10 @@ import React, {Component} from "react"
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 
 import ScrollableListMenu from "../common/ScrollableListMenu"
+import MdModal from "../common/modals/MdModal"
 
 import "./styles/DashboardStyle.css"
+import StudentManager from "../common/StudentManager";
 
 class TeacherDashboardClassView extends Component {
     constructor() {
@@ -33,9 +35,12 @@ class TeacherDashboardClassView extends Component {
                 ]
             ],
             selectedCategoryId: 0,
-            selectionId: 0
+            selectionId: 0,
+            showState: false
         }
         this.onScrollableListItemClicked = this.onScrollableListItemClicked.bind(this)
+        this.changeShowState = this.changeShowState.bind(this)
+
     }
 
     onScrollableListItemClicked = (category, id) => (e) => {
@@ -50,15 +55,27 @@ class TeacherDashboardClassView extends Component {
         })
     }
 
+    changeShowState=()=>{
+        this.setState(prevState=>({
+                showState: !prevState.showState
+            
+        }));
+        console.log("showstate",this.state.showState)
+    }
+
     componentDidMount() {
 
     }
 
     render() {
         return(
+            
             <div className="pure-g">
                 <div className="pure-u-1-3">
                     <div className="padded-box">
+                    <MdModal show={this.state.showState} close={this.changeShowState}>
+                        <StudentManager />
+                    </MdModal>
                         <ScrollableListMenu 
                             menuHeader="List of students in class" 
                             menuItems={this.state.categories[0]}
@@ -67,7 +84,7 @@ class TeacherDashboardClassView extends Component {
                             category={0}
                             handler={this.onScrollableListItemClicked.bind(this)}
                         />
-                        <button className="pure-button pure-button-primary">Add new student</button>
+                        <button className="pure-button pure-button-primary" onClick={this.changeShowState}>Add new student</button>
                         <button className="pure-button pure-button-disabled">Remove selected</button> 
                     </div>
                 </div>

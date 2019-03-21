@@ -1,0 +1,26 @@
+.modal-wrapper-sm{
+    position: fixed;
+    top: 0;
+    background: white;
+    left: 40%;
+    z-index: 100;
+    border: 1px solid #d0cccc;
+    border-radius: 0.3em;
+    box-shadow: 0.1em 0.1em 0.1em 0.1em rgba(0,0,0,0.2), 0 7px 20px 0 rgba(0,0,0,0.17);
+    margin-top: 15%;
+    transition: all .3s ease;
+    width: 20%;
+    height: 25%;
+}
+
+
+.modal-header-sm h3 {
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+.modal-body-sm p{
+    margin-top: 5em;
+    text-align: center;
+}

@@ -3,7 +3,9 @@ import React, {Component} from "react"
 import ScrollableListMenu from "../common/ScrollableListMenu"
 import WideListButtonView from "../common/WideListButtonView"
 import StudentManager from "../common/StudentManager"
-import Modal from "../common/Modal"
+import SmModal from "../common/modals/SmModal"
+import MdModal from "../common/modals/MdModal"
+import LgModal from "../common/modals/LgModal"
 import { BrowserRouter as Router, Route, Link} from "react-router-dom";
 
 import "./styles/DashboardStyle.css"
@@ -77,9 +79,9 @@ class TeacherDashboard extends Component {
                 <div className="pure-g">
                     <div className="pure-u-1-3">
                         <div className="padded-box">
-                        <Modal close={this.changeShowState} show={this.state.showState}>
+                        <MdModal close={this.changeShowState} show={this.state.showState}>
                             <StudentManager />
-                        </Modal>
+                        </MdModal>
                             <ScrollableListMenu 
                                 menuHeader="My classes" 
                                 menuItems={this.state.categories[0]}

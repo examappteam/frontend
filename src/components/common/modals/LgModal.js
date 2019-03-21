@@ -1,8 +1,10 @@
 import React from 'react';
 
-import './styles/Modal.css'
+import './styles/LgModal.css'
+import './styles/GeneralModalStyle.css'
 
-const Modal = (props) => {
+const LgModal = (props) => {
+
     return (
         <div className="back-drop"
             style={{
@@ -10,17 +12,18 @@ const Modal = (props) => {
                     opacity: props.show ? '1' : '0',
                     visibility: props.show ? 'visible' : 'hidden'
             }}>
-            <div className="modal-wrapper"
+            <div className="modal-wrapper-lg"
+            
                 style={{
                     transform: props.show ? 'translateZ(0vh)' : 'translateZ(-100vh)',
                     opacity: props.show ? '1' : '0',
-                    visibility: props.show ? 'visible' : 'hidden'
-                }}>
-                <div className="modal-header">
+                    visibility: props.show ? 'visible' : 'hidden',
+                    }}>
+                <div className="modal-header-lg">
                     
                     <p className="close-container" onClick={props.close}><i class="close-modal-btn fas fa-times"></i></p>
                 </div>
-                <div className="modal-body">
+                <div className="modal-body-lg">
                     <p>
                         {props.children}
                     </p>
@@ -32,4 +35,4 @@ const Modal = (props) => {
     )
 }
 
-export default Modal;
+export default LgModal;
