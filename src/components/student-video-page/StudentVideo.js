@@ -1,8 +1,11 @@
-import React from "react";
-import ChatWindow from "..teacher-exam-video-page/ChatWindow";
+import React, {Component} from "react"
+import "../../style.css"
+import ChatWindow from "../teacher-exam-video-page/ChatWindow"
 
 class StudentVideo extends Component {
-    
+    fetchAddress = " http://examapp.crenxu.com:22501/";
+    chatWindow = new ChatWindow;
+    dataTrack;
     constructor() {
         super()
         this.sendTextMessage = this.sendTextMessage.bind(this);
@@ -15,16 +18,14 @@ class StudentVideo extends Component {
     }
 
     sendTextMessage(receiver, message) {
-        for(var i = 0; i < this.dataTrackList.length; i++) {
-            if(this.dataTrackList[i].id === receiver) {
-                this.dataTrackList[i].send(message);
-            }
+        if(this.dataTrack != null && message != "" && message != null) {
+            this.dataTrack.send(message)
         }
     }
 
     componentDidMount() {
         console.log("componentDidMmount");
-        const fullAddress = fetchAddress.concat("user/").concat(id);
+        const fullAddress = this.fetchAddress.concat("user/").concat(this.id);
         fetch(fullAddress)
         .then(response => response.json())
         .then(data => {
@@ -34,13 +35,13 @@ class StudentVideo extends Component {
                 identity: data.name
             })
         });
+        this.chatWindow.setSendToName("");
         this.connectToRoom();
     }
 
     connectToRoom() {
         //TODO fetch token from server
-        const fetchAddress = "kevindewit.io:22777/tokens?identity=";
-        const fullAddress = fetchAddress.concat(this.state.identity,"&roomName=",this.state.teacherIdentity);
+        const fullAddress = this.fetchAddress.concat("?identity=").concat(this.state.identity,"&roomName=",this.state.teacherIdentity);
         console.log("Address: " + fullAddress);
         fetch(fullAddress)
         .then(response => response.json())
@@ -52,6 +53,7 @@ class StudentVideo extends Component {
             })
         });
         //TODO fetch teacher name from server and use it as a room name
+        const Video = require("twilio-video");
         Video.connect(this.state.groupRoomToken, {
             name: this.state.teacherIdentity,
             video:false,		
@@ -63,16 +65,16 @@ class StudentVideo extends Component {
             room.participants.forEach(function(participant)
              {
                     console.log("Participant identity: " + participant.identity);
-                    participant.on('trackSubscribed', attachTrack);
+                    participant.on('trackSubscribed', this.attachTrack);
                     participant.tracks.forEach(function(track) 
                     {                   
-                        attachTrack(track);
+                        this.attachTrack(track);
                     })
                     //Jos participant on opettaja, luodaan peer-to-peer huone
                     if(participant.identity === room.name) {
+                        this.chatWindow.setSendToName(participant.identity);
                         //TODO fetch token from server
-                        const fetchAddress = "kevindewit.io:22777/tokens?identity=";
-                        const fullAddress = fetchAddress.concat(this.state.identity,"&roomName=",this.state.teacherIdentity);
+                        const fullAddress = this.fetchAddress.concat("?identity=").concat(this.state.identity,"&roomName=",this.state.teacherIdentity);
                         console.log("Address: " + fullAddress);
                         fetch(fullAddress)
                         .then(response => response.json())
@@ -83,12 +85,12 @@ class StudentVideo extends Component {
                                 privateRoomToken: data
                             })
                         });
-                        const localDataTrack = new Video.LocalDataTrack();
+                        this.dataTrack = new Video.LocalDataTrack();
                         Video.connect(this.state.privateRoomToken, {
                             name: this.state.identity,
                             video:false,		
                             audio:false,
-                            tracks: [localDataTrack]
+                            tracks: [this.dataTrack]
                         }).then(function(room)
                         {
                             console.log("Privaatti huone luotu: " + room.name);
@@ -98,13 +100,14 @@ class StudentVideo extends Component {
 
             room.on('participantConnected', participant => {
                 console.log("Participant identity: " + participant.identity);
-                participant.on('trackSubscribed', attachTrack); 
+                participant.on('trackSubscribed', this.attachTrack); 
                 participant.tracks.forEach(function(track) 
                 {                   
-                    attachTrack(track);
+                    this.attachTrack(track);
                 })
                 //Jos participant on opettaja, luodaan peer-to-peer huone
                 if(participant.identity === room.name) {
+                    this.chatWindow.setSendToName(participant.identity);
                     fetch(fullAddress)
                     .then(response => response.json())
                     .then(data => {
