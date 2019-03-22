@@ -13,6 +13,7 @@ class CreateExamView extends Component {
         }
         this.handleAddClick = this.handleAddClick.bind(this)
         this.handleRemoveClick = this.handleRemoveClick.bind(this)
+        this.handleSaveClick = this.handleSaveClick.bind(this)
         this.handleChange = this.handleChange.bind(this)
     }
 
@@ -37,6 +38,26 @@ class CreateExamView extends Component {
             }))
             questionsData.pop()
         }     
+    }
+
+    handleSaveClick() {
+        fetch('http://examapp.crenxu.com:22501/main/exam/', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify({
+                creatorId: 1,
+                questionDTOs: [
+                    {
+                        weightPercentage: 1,
+                        description: '',
+                        answer: ''
+                    }                    
+                ]
+            }),
+        });
     }
 
     render() {
@@ -66,7 +87,7 @@ class CreateExamView extends Component {
                     
                     <button className="pure-button button-secondary" onClick={this.handleAddClick}>Add new question</button>
                     <button className="pure-button button-error" onClick={this.handleRemoveClick}>Remove question</button>
-                    <button className="pure-button pure-button-primary">Done! - save this exam</button>    
+                    <button className="pure-button pure-button-primary" onClick={this.handleSaveClick}>Done! - save this exam</button>    
                 </div>
             </div>
         )
