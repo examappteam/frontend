@@ -9,7 +9,6 @@ class CreateExamView extends Component {
         this.state = {
             formsToRender: 0,
             examTitle: "",
-            examDate: "",
             examQuestions: questionsData
         }
         this.handleAddClick = this.handleAddClick.bind(this)
@@ -61,16 +60,7 @@ class CreateExamView extends Component {
                                 placeholder="Your exam title here" 
                                 onChange={this.handleChange}
                             />
-                        </div>                   
-                        <div style={{marginBottom: 1 + 'em'}}>
-                            <label>Date of exam: </label>
-                            <input
-                                type="date" 
-                                value={this.state.examDate} 
-                                name="examDate" 
-                                onChange={this.handleChange}
-                            />
-                        </div>                   
+                        </div>                                     
                     </form>
                     {formElements}    
                     

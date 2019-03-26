@@ -11,8 +11,23 @@
     transition: all .3s ease;
 }
 
+.modal-wrapper-lg{
+    background: rgba(39, 35, 33, 0.95)
+}
+
+.modal-wrapper-md{
+    background: rgba(56, 46, 41, 0.95)
+}
+
+.modal-wrapper-sm{
+    background: rgba(56, 46, 41, 0.95)
+}
+
 .btn-cancel {
     background-color: #b71c1c;
+}
+
+.modal-header h3 {
     float: left;
 }
 

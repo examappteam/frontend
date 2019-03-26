@@ -2,13 +2,11 @@ import React, {Component} from "react"
 
 import ScrollableListMenu from "../common/ScrollableListMenu"
 import WideListButtonView from "../common/WideListButtonView"
-import StudentManager from "../common/StudentManager"
-import SmModal from "../common/modals/SmModal"
-import MdModal from "../common/modals/MdModal"
 import LgModal from "../common/modals/LgModal"
 import { BrowserRouter as Router, Route, Link} from "react-router-dom";
 
 import "./styles/DashboardStyle.css"
+import CreateNewClassDialog from "./dialogs/CreateNewClassDialog";
 
 class TeacherDashboard extends Component {
     constructor() {
@@ -64,8 +62,7 @@ class TeacherDashboard extends Component {
 
     changeShowState=()=>{
         this.setState(prevState=>({
-                showState: !prevState.showState
-            
+                showState: !prevState.showState       
         }));
         console.log("showstate",this.state.showState)
     }
@@ -79,9 +76,6 @@ class TeacherDashboard extends Component {
                 <div className="pure-g">
                     <div className="pure-u-1-3">
                         <div className="padded-box">
-                        <MdModal close={this.changeShowState} show={this.state.showState}>
-                            <StudentManager />
-                        </MdModal>
                             <ScrollableListMenu 
                                 menuHeader="My classes" 
                                 menuItems={this.state.categories[0]}
@@ -89,7 +83,10 @@ class TeacherDashboard extends Component {
                                 selectedCategory={this.state.selectedCategoryId}
                                 category = {0}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
-                                <button onClick={this.changeShowState} className="pure-button pure-button-primary">Add new class</button>
+                                <button onClick={this.changeShowState} className="pure-button pure-button-primary">Create new class</button>
+                                <LgModal close={this.changeShowState} show={this.state.showState}>
+                                    <CreateNewClassDialog close={this.changeShowState}/>
+                                </LgModal>
                                 <button className="pure-button pure-button-disabled">Delete selected</button> 
                         </div>                  
                     </div>
@@ -124,10 +121,8 @@ class TeacherDashboard extends Component {
                 <div className="pure-g">
                 <div className="pure-u-3-24"></div>
                 <div className="pure-u-18-24">
-                    <div className="padded-box">
-                    
-                            <WideListButtonView title={this.state.categories[this.state.selectedCategoryId][this.state.selectionId].name} exam={this.state.categories[this.state.selectedCategoryId][this.state.selectionId]}/>
-                        
+                    <div className="padded-box">                   
+                        <WideListButtonView title={this.state.categories[this.state.selectedCategoryId][this.state.selectionId].name} exam={this.state.categories[this.state.selectedCategoryId][this.state.selectionId]}/>                     
                     </div>
                 </div>
                 <div className="pure-u-3-24"></div>

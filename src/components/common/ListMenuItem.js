@@ -20,7 +20,7 @@ function ListMenuItem(props) {
                     <p>{props.itemExtra}</p>                 
                 </p>
             </li>
-</div>
+        </div>
     )
 }
 

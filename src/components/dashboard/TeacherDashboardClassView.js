@@ -3,9 +3,8 @@ import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 
 import ScrollableListMenu from "../common/ScrollableListMenu"
 import MdModal from "../common/modals/MdModal"
-
+import StudentManager from "../common/StudentManager"
 import "./styles/DashboardStyle.css"
-import StudentManager from "../common/StudentManager";
 
 class TeacherDashboardClassView extends Component {
     constructor() {
@@ -69,53 +68,61 @@ class TeacherDashboardClassView extends Component {
 
     render() {
         return(
-            
-            <div className="pure-g">
-                <div className="pure-u-1-3">
-                    <div className="padded-box">
-                    <MdModal show={this.state.showState} close={this.changeShowState}>
-                        <StudentManager />
-                    </MdModal>
-                        <ScrollableListMenu 
-                            menuHeader="List of students in class" 
-                            menuItems={this.state.categories[0]}
-                            selectedItem={this.state.selectionId}
-                            selectedCategory={this.state.selectedCategoryId}
-                            category={0}
-                            handler={this.onScrollableListItemClicked.bind(this)}
-                        />
-                        <button className="pure-button pure-button-primary" onClick={this.changeShowState}>Add new student</button>
-                        <button className="pure-button pure-button-disabled">Remove selected</button> 
+                <div>
+                    <div className="pure-g class-head">
+                    <div className="pure-u-1-3"></div>
+                        <div className="pure-u-1-3 head-container">
+                            <h1>TVT17SPO</h1>
+                        </div>
+                        <div className="pure-u-1-3"></div>
+                    </div>
+                    <div className="pure-g">
+                    <div className="pure-u-1-3">
+                            <div className="padded-box">
+                                <MdModal show={this.state.showState} close={this.changeShowState}>
+                                    <StudentManager />
+                                </MdModal>
+                                <ScrollableListMenu 
+                                    menuHeader="List of students in class" 
+                                    menuItems={this.state.categories[0]}
+                                    selectedItem={this.state.selectionId}
+                                    selectedCategory={this.state.selectedCategoryId}
+                                    category={0}
+                                    handler={this.onScrollableListItemClicked.bind(this)}
+                                />
+                                <button onClick={this.changeShowState} className="pure-button pure-button-primary">Add new student</button>
+                                <button className="pure-button pure-button-disabled">Remove selected</button> 
+                            </div>
+                        </div>
+                        <div className="pure-u-1-3">
+                            <div className="padded-box">
+                                <ScrollableListMenu 
+                                    menuHeader="Previous exams" 
+                                    menuItems={this.state.categories[1]}
+                                    selectedItem={this.state.selectionId}
+                                    selectedCategory={this.state.selectedCategoryId}
+                                    category={1}
+                                    handler={this.onScrollableListItemClicked.bind(this)}
+                                />
+                                <button className="pure-button pure-button-disabled">View results</button>
+                            </div>
+                        </div>
+                        <div className="pure-u-1-3">
+                            <div className="padded-box">
+                                <ScrollableListMenu 
+                                    menuHeader="Upcoming exams" 
+                                    menuItems={this.state.categories[2]}
+                                    selectedItem={this.state.selectionId}
+                                    selectedCategory={this.state.selectedCategoryId}
+                                    category={2}
+                                    handler={this.onScrollableListItemClicked.bind(this)
+                                }/>
+                                <button className="pure-button pure-button-primary">Add exam from list</button>
+                                <button className="pure-button pure-button-disabled">Remove selected</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div className="pure-u-1-3">
-                    <div className="padded-box">
-                        <ScrollableListMenu 
-                            menuHeader="Previous exams" 
-                            menuItems={this.state.categories[1]}
-                            selectedItem={this.state.selectionId}
-                            selectedCategory={this.state.selectedCategoryId}
-                            category={1}
-                            handler={this.onScrollableListItemClicked.bind(this)}
-                        />
-                        <button className="pure-button pure-button-disabled">View results</button>
-                    </div>
-                </div>
-                <div className="pure-u-1-3">
-                    <div className="padded-box">
-                        <ScrollableListMenu 
-                            menuHeader="Upcoming exams" 
-                            menuItems={this.state.categories[2]}
-                            selectedItem={this.state.selectionId}
-                            selectedCategory={this.state.selectedCategoryId}
-                            category={2}
-                            handler={this.onScrollableListItemClicked.bind(this)
-                        }/>
-                        <button className="pure-button pure-button-primary">Add exam from list</button>
-                        <button className="pure-button pure-button-disabled">Remove selected</button>
-                    </div>
-                </div>
-            </div>
         )
     }
 }
