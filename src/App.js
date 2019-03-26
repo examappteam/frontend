@@ -13,10 +13,12 @@ function App()  {
       <Router>
         <div>
           <Header />
-          <Route path="/dashboard" component={TeacherDashboard} />
-          <Route path="/class_view" component={TeacherDashboardClassView} />
-          <Route path="/create_exam" component={CreateExamView} />
-          <Route path="/exam_view" component={TwilioTeacherVideo} />
+          <div className="container">
+            <Route path="/dashboard" component={TeacherDashboard} />
+            <Route path="/class_view" component={TeacherDashboardClassView} />
+            <Route path="/create_exam" component={CreateExamView} />
+            <Route path="/exam_view" component={TwilioTeacherVideo} />
+          </div>
           <Footer />
       </div>
       </Router>     

@@ -8,6 +8,11 @@
     margin-top: 0.15em;
 }
 
-.floating-text {
-    text-align: center
+.class-head {
+    width: 100%;
+}
+
+.head-container{
+    text-align: center;
+    color: rgb(212, 212, 212);
 }

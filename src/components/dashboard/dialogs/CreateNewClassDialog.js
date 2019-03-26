@@ -1,7 +1,7 @@
 import React, {Component} from "react"
 
 import "../styles/DashboardStyle.css"
-import "../../common/styles/Modal.css"
+import "../../common/modals/styles/GeneralModalStyle.css"
 
 class CreateNewClassDialog extends Component {
     constructor() {
