@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 
 import ScrollableListMenu from "../common/ScrollableListMenu"
 import StudentManager from "../common/StudentManager"
+import AddExamFromListDialog from "./dialogs/AddExamFromListDialog"
 import Modal from "../common/Modal"
 
 import "./styles/DashboardStyle.css"
@@ -115,7 +116,10 @@ class TeacherDashboardCourseView extends Component {
                                 category={2}
                                 handler={this.onScrollableListItemClicked.bind(this)
                             }/>
-                            <button className="pure-button pure-button-primary">Add exam from list</button>
+                            <button onClick={this.changeShowState} className="pure-button pure-button-primary">Add exam from list</button>
+                            <Modal close={this.changeShowState} show={this.state.showState}>
+                                <AddExamFromListDialog close={this.changeShowState}/>
+                            </Modal>
                             <button className="pure-button pure-button-disabled">Remove selected</button>
                         </div>
                     </div>
