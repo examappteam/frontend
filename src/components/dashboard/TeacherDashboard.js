@@ -6,7 +6,7 @@ import Modal from "../common/Modal"
 import { BrowserRouter as Router, Route, Link} from "react-router-dom";
 
 import "./styles/DashboardStyle.css"
-import CreateNewClassDialog from "./dialogs/CreateNewClassDialog";
+import CreateNewCourseDialog from "./dialogs/CreateNewCourseDialog";
 
 class TeacherDashboard extends Component {
     constructor() {
@@ -14,29 +14,29 @@ class TeacherDashboard extends Component {
         this.state = {
             categories:[
                 [
-                    { id: 1, name: "TVT17SPO" },
-                    { id: 2, name: "TVT17SPL" },
-                    { id: 3, name: "EX16SPI" },
-                    { id: 4, name: "EX16SPO" },
-                    { id: 5, name: "TVT18SPO" },
-                    { id: 6, name: "TVT18SPL" }
+                    { id: 1, name: "Basics of Java" },
+                    { id: 2, name: "Basic beginner course" },
+                    { id: 3, name: "Object oriented analysis" },
+                    { id: 4, name: "Advanced maths" },
+                    { id: 5, name: "Best course ever" },
+                    { id: 6, name: "Java for experts" }
                 ],
                 [
-                    { id: 1, name: "Basics of Java", linkedClass: "TVT17SPO" },
-                    { id: 2, name: "Basic beginner course", linkedClass: "TVT18SPO" },
-                    { id: 3, name: "Object oriented analysis", linkedClass: "TVT18SPL" },
-                    { id: 4, name: "Advanced maths", linkedClass: "TVT16SPO" },
-                    { id: 5, name: "Best course ever", linkedClass: "TVT15SPO" },
-                    { id: 6, name: "International exam", linkedClass: "TVT14SPL" }
+                    { id: 1, name: "Programming test", linkedCourse: "Basics of Java" },
+                    { id: 2, name: "Beginner exam", linkedCourse: "Basic beginner course" },
+                    { id: 3, name: "Analysis pt. 1", linkedCourse: "Object oriented analysis" },
+                    { id: 4, name: "Vector calculation", linkedCourse: "Advanced maths" },
+                    { id: 5, name: "Best exam ever", linkedCourse: "Best course ever" },
+                    { id: 6, name: "Live coding exam", linkedCourse: "Java for experts" }
                 ],
                 [
-                    { id: 1, name: "Professional English",
+                    { id: 1, name: "Professional English test",
                       description: "The Professional English test consists of 30 questions. There’s no time limit, so take your time. You will need headphones or speakers for the listening section. You will get your results as soon as you’ve finished the test.",
                       date: "5.2.2019"},
 
-                    { id: 2,description: "The Unprofessional English test consists of 30 questions. There’s no time limit, so take your time. You will need headphones or speakers for the listening section. You will get your results as soon as you’ve finished the test.", name: "Unprofessional English", date: "14.3.2019" },
-                    { id: 3,description: "The Professional Swedish test consists of 30 questions. There’s no time limit, so take your time. You will need headphones or speakers for the listening section. You will get your results as soon as you’ve finished the test.", name: "Professional Swedish", date: "14.4.2019" },
-                    { id: 4,description: "The Engineering mathematics test consists of 30 questions. There’s no time limit, so take your time. You will need headphones or speakers for the listening section. You will get your results as soon as you’ve finished the test.", name: "Engineering mathematics", date: "15.3.2019" }
+                    { id: 2,description: "The Unprofessional English test consists of 30 questions. There’s no time limit, so take your time. You will need headphones or speakers for the listening section. You will get your results as soon as you’ve finished the test.", name: "Unprofessional English exam", date: "14.3.2019" },
+                    { id: 3,description: "The Professional Swedish test consists of 30 questions. There’s no time limit, so take your time. You will need headphones or speakers for the listening section. You will get your results as soon as you’ve finished the test.", name: "Professional Swedish test", date: "14.4.2019" },
+                    { id: 4,description: "The Engineering mathematics test consists of 30 questions. There’s no time limit, so take your time. You will need headphones or speakers for the listening section. You will get your results as soon as you’ve finished the test.", name: "Engineering mathematics test", date: "15.3.2019" }
                 ]
             ],
             selectedCategoryId: 0,
@@ -77,15 +77,15 @@ class TeacherDashboard extends Component {
                     <div className="pure-u-1-3">
                         <div className="padded-box">
                             <ScrollableListMenu 
-                                menuHeader="My classes" 
+                                menuHeader="My courses" 
                                 menuItems={this.state.categories[0]}
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
                                 category = {0}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
-                                <button onClick={this.changeShowState} className="pure-button pure-button-primary">Create new class</button>
+                                <button onClick={this.changeShowState} className="pure-button pure-button-primary">Create new course</button>
                                 <Modal close={this.changeShowState} show={this.state.showState}>
-                                    <CreateNewClassDialog close={this.changeShowState}/>
+                                    <CreateNewCourseDialog close={this.changeShowState}/>
                                 </Modal>
                                 <button className="pure-button pure-button-disabled">Delete selected</button> 
                         </div>                  

@@ -7,7 +7,7 @@ import Modal from "../common/Modal"
 
 import "./styles/DashboardStyle.css"
 
-class TeacherDashboardClassView extends Component {
+class TeacherDashboardCourseView extends Component {
     constructor() {
         super()
         this.state = {
@@ -21,17 +21,17 @@ class TeacherDashboardClassView extends Component {
                     { id: 6, name: "Maija Meikäläinen" }
                 ],
                 [
-                    { id: 1, name: "Physics test" },
-                    { id: 2, name: "Basic beginner test" },
-                    { id: 3, name: "Object oriented test" },
-                    { id: 4, name: "Advanced maths test" },
-                    { id: 5, name: "Final exam" },
-                    { id: 6, name: "Introduction exam" }
+                    { id: 1, name: "Starting test" },
+                    { id: 2, name: "Middle test" },
+                    { id: 3, name: "Late test" },
+                    { id: 4, name: "Grammar test" },
+                    { id: 5, name: "Word test" },
+                    { id: 6, name: "Another test" }
                 ],
                 [
                     { id: 1, name: "Unprofessional English", date: "14.3.2019" },
-                    { id: 2, name: "Professional Swedish", date: "14.4.2019" },
-                    { id: 3, name: "Engineering mathematics", date: "15.3.2019" }
+                    { id: 2, name: "Professional English", date: "14.4.2019" },
+                    { id: 3, name: "Final English exam", date: "15.3.2019" }
                 ]
             ],
             selectedCategoryId: 0,
@@ -78,7 +78,7 @@ class TeacherDashboardClassView extends Component {
                     <div className="pure-u-1-3">
                         <div className="padded-box">
                             <ScrollableListMenu 
-                                menuHeader="List of students in class" 
+                                menuHeader="List of students in course" 
                                 menuItems={this.state.categories[0]}
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
@@ -125,4 +125,4 @@ class TeacherDashboardClassView extends Component {
     }
 }
 
-export default TeacherDashboardClassView
+export default TeacherDashboardCourseView
