@@ -15,7 +15,7 @@ function ScrollableListMenu(props) {
                 handler={props.handler(category, item.id)} 
                 id={item.id} 
                 itemName={item.name} 
-                itemExtra={item.linkedClass}    // !!!we should be able to use different item extras
+                itemExtra={item.linkedCourse}    // !!!we should be able to use different item extras
                 selectedItem={props.selectedItem}
                 categoryId={category}
                 selectedCategory={props.selectedCategory}/>

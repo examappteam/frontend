@@ -3,11 +3,11 @@ import React, {Component} from "react"
 import "../styles/DashboardStyle.css"
 import "../../common/modals/styles/GeneralModalStyle.css"
 
-class CreateNewClassDialog extends Component {
+class CreateNewCourseDialog extends Component {
     constructor() {
         super()
         this.state = {
-            className: ""
+            courseName: ""
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleClick = this.handleClick.bind(this)
@@ -29,19 +29,19 @@ class CreateNewClassDialog extends Component {
         return(
             <div className="padded-box">
                 <form className="pure-form pure-form-aligned">
-                    <label>Name of the class: </label>
+                    <label>Name of the course: </label>
                     <input
                         type="text" 
-                        value={this.state.className} 
-                        name="className" 
-                        placeholder="eg. TVT17SPO" 
+                        value={this.state.courseName} 
+                        name="courseName" 
+                        placeholder="eg. Basic Electronics" 
                         onChange={this.handleChange}
                     />            
                 </form>
-                <button onClick={this.handleClick} className="pure-button btn-continue">Create class</button>
+                <button onClick={this.handleClick} className="pure-button btn-continue">Create course</button>
             </div>        
         )
     }
 }
 
-export default CreateNewClassDialog
+export default CreateNewCourseDialog
