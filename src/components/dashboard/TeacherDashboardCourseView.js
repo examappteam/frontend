@@ -72,7 +72,6 @@ class TeacherDashboardCourseView extends Component {
                     <div className="pure-g class-head">
                     <div className="pure-u-1-3"></div>
                     <div className="pure-u-1-3">
-                        <h1 className="floating-text">TVT17SPO</h1>
                     </div>
                 </div>
                 <div className="pure-g">
@@ -87,31 +86,12 @@ class TeacherDashboardCourseView extends Component {
                                 handler={this.onScrollableListItemClicked.bind(this)}
                             />
                             <button onClick={this.changeShowState} className="pure-button pure-button-primary">Add new student</button>
-                            <Modal close={this.changeShowState} show={this.state.showState}>
+                            <MdModal close={this.changeShowState} show={this.state.showState}>
                                 <StudentManager />
-                            </Modal>
+                            </MdModal>
                             <button className="pure-button pure-button-disabled">Remove selected</button> 
                         </div>
-                        <div className="pure-u-1-3"></div>
                     </div>
-                    <div className="pure-g">
-                    <div className="pure-u-1-3">
-                            <div className="padded-box">
-                                <MdModal show={this.state.showState} close={this.changeShowState}>
-                                    <StudentManager />
-                                </MdModal>
-                                <ScrollableListMenu 
-                                    menuHeader="List of students in class" 
-                                    menuItems={this.state.categories[0]}
-                                    selectedItem={this.state.selectionId}
-                                    selectedCategory={this.state.selectedCategoryId}
-                                    category={0}
-                                    handler={this.onScrollableListItemClicked.bind(this)}
-                                />
-                                <button onClick={this.changeShowState} className="pure-button pure-button-primary">Add new student</button>
-                                <button className="pure-button pure-button-disabled">Remove selected</button> 
-                            </div>
-                        </div>
                         <div className="pure-u-1-3">
                             <div className="padded-box">
                                 <ScrollableListMenu 
