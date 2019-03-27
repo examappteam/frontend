@@ -4,6 +4,9 @@ import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import ScrollableListMenu from "../common/ScrollableListMenu"
 import MdModal from "../common/modals/MdModal"
 import StudentManager from "../common/StudentManager"
+import AddExamFromListDialog from "./dialogs/AddExamFromListDialog"
+import Modal from "../common/Modal"
+
 import "./styles/DashboardStyle.css"
 
 class TeacherDashboardCourseView extends Component {
@@ -105,19 +108,22 @@ class TeacherDashboardCourseView extends Component {
                                 <button className="pure-button pure-button-disabled">View results</button>
                             </div>
                         </div>
-                        <div className="pure-u-1-3">
-                            <div className="padded-box">
-                                <ScrollableListMenu 
-                                    menuHeader="Upcoming exams" 
-                                    menuItems={this.state.categories[2]}
-                                    selectedItem={this.state.selectionId}
-                                    selectedCategory={this.state.selectedCategoryId}
-                                    category={2}
-                                    handler={this.onScrollableListItemClicked.bind(this)
-                                }/>
-                                <button className="pure-button pure-button-primary">Add exam from list</button>
-                                <button className="pure-button pure-button-disabled">Remove selected</button>
-                            </div>
+                    </div>
+                    <div className="pure-u-1-3">
+                        <div className="padded-box">
+                            <ScrollableListMenu 
+                                menuHeader="Upcoming exams" 
+                                menuItems={this.state.categories[2]}
+                                selectedItem={this.state.selectionId}
+                                selectedCategory={this.state.selectedCategoryId}
+                                category={2}
+                                handler={this.onScrollableListItemClicked.bind(this)
+                            }/>
+                            <button onClick={this.changeShowState} className="pure-button pure-button-primary">Add exam from list</button>
+                            <Modal close={this.changeShowState} show={this.state.showState}>
+                                <AddExamFromListDialog close={this.changeShowState}/>
+                            </Modal>
+                            <button className="pure-button pure-button-disabled">Remove selected</button>
                         </div>
                     </div>
                 </div>
