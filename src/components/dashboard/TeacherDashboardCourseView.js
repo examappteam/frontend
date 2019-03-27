@@ -5,7 +5,7 @@ import ScrollableListMenu from "../common/ScrollableListMenu"
 import MdModal from "../common/modals/MdModal"
 import StudentManager from "../common/StudentManager"
 import AddExamFromListDialog from "./dialogs/AddExamFromListDialog"
-import Modal from "../common/Modal"
+import SmModal from "../common/modals/SmModal"
 
 import "./styles/DashboardStyle.css"
 
@@ -71,11 +71,10 @@ class TeacherDashboardCourseView extends Component {
 
     render() {
         return(
-                <div>
-                    <div className="pure-g class-head">
+            <div>
+                <div className="pure-g class-head">
                     <div className="pure-u-1-3"></div>
-                    <div className="pure-u-1-3">
-                    </div>
+                    <div className="pure-u-1-3"></div>
                 </div>
                 <div className="pure-g">
                     <div className="pure-u-1-3">
@@ -95,18 +94,17 @@ class TeacherDashboardCourseView extends Component {
                             <button className="pure-button pure-button-disabled">Remove selected</button> 
                         </div>
                     </div>
-                        <div className="pure-u-1-3">
-                            <div className="padded-box">
-                                <ScrollableListMenu 
-                                    menuHeader="Previous exams" 
-                                    menuItems={this.state.categories[1]}
-                                    selectedItem={this.state.selectionId}
-                                    selectedCategory={this.state.selectedCategoryId}
-                                    category={1}
-                                    handler={this.onScrollableListItemClicked.bind(this)}
-                                />
-                                <button className="pure-button pure-button-disabled">View results</button>
-                            </div>
+                    <div className="pure-u-1-3">
+                        <div className="padded-box">
+                            <ScrollableListMenu 
+                                menuHeader="Previous exams" 
+                                menuItems={this.state.categories[1]}
+                                selectedItem={this.state.selectionId}
+                                selectedCategory={this.state.selectedCategoryId}
+                                category={1}
+                                handler={this.onScrollableListItemClicked.bind(this)}
+                            />
+                            <button className="pure-button pure-button-disabled">View results</button>
                         </div>
                     </div>
                     <div className="pure-u-1-3">
@@ -120,13 +118,14 @@ class TeacherDashboardCourseView extends Component {
                                 handler={this.onScrollableListItemClicked.bind(this)
                             }/>
                             <button onClick={this.changeShowState} className="pure-button pure-button-primary">Add exam from list</button>
-                            <Modal close={this.changeShowState} show={this.state.showState}>
+                            <MdModal close={this.changeShowState} show={this.state.showState}>
                                 <AddExamFromListDialog close={this.changeShowState}/>
-                            </Modal>
+                            </MdModal>
                             <button className="pure-button pure-button-disabled">Remove selected</button>
                         </div>
                     </div>
                 </div>
+            </div>
         )
     }
 }
