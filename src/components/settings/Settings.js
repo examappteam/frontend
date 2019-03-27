@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import ScrollableListMenu from '../common/ScrollableListMenu';
 import './styles/Settings.css';
-import { BrowserRouter as Link } from "react-router-dom";
 import pic from './img/download.jpg';
 import Modal from '../common/Modal';
-
+import ChangeEmailContent from './ChangeEmailContent';
+import ChangePasswordContent from './ChangePasswordContent';
 /*
 menuItems = {this.state.users[0]} 
          menuHeader = "Classes"
@@ -16,6 +15,7 @@ class Settings extends Component{
     
 constructor(props){
     super(props)
+    this.state={ pswDialogIsOpen: false};
     this.state={ isOpen: false};
     this.state={
         email: "Pekka",
@@ -32,16 +32,29 @@ toggleModal = () => {
     this.setState({
       isOpen: !this.state.isOpen
     });
+   
   }
-
-    
+toggleModal2 = () => {
+this.setState({ 
+pswDialogIsOpen: !this.state.pswDialogIsOpen
+});
+} 
     render(){
     return(
         
         
         <div>
-            
-          
+
+            <Modal show={this.state.isOpen}
+                close={this.toggleModal}>
+                <ChangeEmailContent /> 
+            </Modal>
+
+            <Modal show={this.state.pswDialogIsOpen}
+                close={this.toggleModal2}>
+               <ChangePasswordContent />
+            </Modal>
+
             <div id= "settings">
         <div id="mleft">
         <h1>Personal Info</h1>
@@ -51,18 +64,26 @@ toggleModal = () => {
         <div className="pure-u-1-4">
             
 
-                <img src={pic}></img>
+                <img src={pic} alt="d"></img>
                 
         </div>
 
-        <p align="left">
-            <input className="buttonchangepswemail" onClick={this.toggleModal} type="button" value="Change Email / Password" />
-            </p>
-            <Modal show={this.state.isOpen}
-          close={this.toggleModal}>
-          <p>asd</p>
-          
-          </Modal> 
+        <div id="settings" class="dropdown">
+  <button id="settings" class="dropbtn">Change Information</button>
+  <div id="settings" class="dropdown-content">
+    
+    <input className="buttonchangepswemail" onClick={this.toggleModal} type="button" value="Change Email"/>
+
+    
+    
+    <input className="buttonchangepswemail" onClick={this.toggleModal2} type="button" value="Change Password" />
+    
+    
+
+  </div>
+</div>
+        
+
         
         
     </div>

@@ -1,8 +1,7 @@
 import React from 'react';
 import './styles/App.css';
 import getInfo from './GetInfo';
- 
-//export default class Login extends React.Component
+
 export default class Login extends React.Component{
     
 
@@ -12,18 +11,21 @@ export default class Login extends React.Component{
        
         
         this.state = {
+            token: "",
             email: "",
             teacherEmail: "",
             password: "",
             identity: "",
             loggedinStudent: false,
             loggedinTeacher: false,
+            error: false,
             
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleButton = this.handleButton.bind(this);
         this.handlebuttonfetch = this.handlebuttonfetch.bind(this);
+        
     }
     
     validateForm() {
@@ -31,20 +33,36 @@ export default class Login extends React.Component{
     }
     handlebuttonfetch(evt){
       evt.preventDefault(evt);
-      fetch('http://examapp.crenxu.com:22501/user/auth/login', {
+      fetch('http://examapp.crenxu.com:22501/auth/signin', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-type': 'application/json',
         },
         body: JSON.stringify({
-          email: 'dsa',
-          password: 'asdasd',
+          username: this.state.email,
+          password: this.state.password,
+          
         }),
-      });
-
+        
+        
+      })
+      .then(response => response.json())
+      
+      .then(data => {
+        this.setState({
+          token: data
+          
+        })
+        .catch(error => {throw(error)});
+        console.log(data);
+        
+      })
+      ;
+      
   
     }
+  
    
     handleChange (evt) {
         this.setState({ [evt.target.name]: evt.target.value });
@@ -87,6 +105,9 @@ export default class Login extends React.Component{
     <button disabled={!this.validateForm()} onClick={this.handleButton}>SUBMIT</button>
       <br />
       <button onClick={this.handlebuttonfetch}>dsa</button>
+
+     
+
       </form>
    </div>
    

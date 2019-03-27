@@ -1,5 +1,6 @@
 
 var objPeople = [
+
     {
       email: "student",
       password: "student",
@@ -32,6 +33,7 @@ function getInfo(){
         if(tidentity == objPeople[i].identity){
           console.log("Opettaja");
           tloggedin = true;
+          
           return tidentity;
         }
         if(sidentity == objPeople[i].identity){
@@ -48,6 +50,9 @@ function getInfo(){
     if (tloggedin === false){
       console.log("Invalid");
   }
+  
+  
+
   }
   
     
