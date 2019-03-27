@@ -2,7 +2,7 @@ import React, {Component} from "react"
 
 import ScrollableListMenu from "../common/ScrollableListMenu"
 import WideListButtonView from "../common/WideListButtonView"
-import Modal from "../common/Modal"
+import LgModal from "../common/modals/LgModal"
 import { BrowserRouter as Router, Route, Link} from "react-router-dom";
 
 import "./styles/DashboardStyle.css"
@@ -84,9 +84,9 @@ class TeacherDashboard extends Component {
                                 category = {0}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
                                 <button onClick={this.changeShowState} className="pure-button pure-button-primary">Create new course</button>
-                                <Modal close={this.changeShowState} show={this.state.showState}>
+                                <LgModal close={this.changeShowState} show={this.state.showState}>
                                     <CreateNewCourseDialog close={this.changeShowState}/>
-                                </Modal>
+                                </LgModal>
                                 <button className="pure-button pure-button-disabled">Delete selected</button> 
                         </div>                  
                     </div>

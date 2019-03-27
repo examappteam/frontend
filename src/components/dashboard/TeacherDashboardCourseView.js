@@ -2,6 +2,7 @@ import React, {Component} from "react"
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 
 import ScrollableListMenu from "../common/ScrollableListMenu"
+import MdModal from "../common/modals/MdModal"
 import StudentManager from "../common/StudentManager"
 import AddExamFromListDialog from "./dialogs/AddExamFromListDialog"
 import Modal from "../common/Modal"
@@ -41,6 +42,7 @@ class TeacherDashboardCourseView extends Component {
         }
         this.onScrollableListItemClicked = this.onScrollableListItemClicked.bind(this)
         this.changeShowState = this.changeShowState.bind(this)
+
     }
 
     onScrollableListItemClicked = (category, id) => (e) => {
@@ -57,7 +59,8 @@ class TeacherDashboardCourseView extends Component {
 
     changeShowState=()=>{
         this.setState(prevState=>({
-                showState: !prevState.showState       
+                showState: !prevState.showState
+            
         }));
         console.log("showstate",this.state.showState)
     }
@@ -68,11 +71,10 @@ class TeacherDashboardCourseView extends Component {
 
     render() {
         return(
-            <div>
-                <div className="pure-g">
+                <div>
+                    <div className="pure-g class-head">
                     <div className="pure-u-1-3"></div>
                     <div className="pure-u-1-3">
-                        <h1 className="floating-text">TVT17SPO</h1>
                     </div>
                 </div>
                 <div className="pure-g">
@@ -87,23 +89,24 @@ class TeacherDashboardCourseView extends Component {
                                 handler={this.onScrollableListItemClicked.bind(this)}
                             />
                             <button onClick={this.changeShowState} className="pure-button pure-button-primary">Add new student</button>
-                            <Modal close={this.changeShowState} show={this.state.showState}>
+                            <MdModal close={this.changeShowState} show={this.state.showState}>
                                 <StudentManager />
-                            </Modal>
+                            </MdModal>
                             <button className="pure-button pure-button-disabled">Remove selected</button> 
                         </div>
                     </div>
-                    <div className="pure-u-1-3">
-                        <div className="padded-box">
-                            <ScrollableListMenu 
-                                menuHeader="Previous exams" 
-                                menuItems={this.state.categories[1]}
-                                selectedItem={this.state.selectionId}
-                                selectedCategory={this.state.selectedCategoryId}
-                                category={1}
-                                handler={this.onScrollableListItemClicked.bind(this)}
-                            />
-                            <button className="pure-button pure-button-disabled">View results</button>
+                        <div className="pure-u-1-3">
+                            <div className="padded-box">
+                                <ScrollableListMenu 
+                                    menuHeader="Previous exams" 
+                                    menuItems={this.state.categories[1]}
+                                    selectedItem={this.state.selectionId}
+                                    selectedCategory={this.state.selectedCategoryId}
+                                    category={1}
+                                    handler={this.onScrollableListItemClicked.bind(this)}
+                                />
+                                <button className="pure-button pure-button-disabled">View results</button>
+                            </div>
                         </div>
                     </div>
                     <div className="pure-u-1-3">
@@ -124,7 +127,6 @@ class TeacherDashboardCourseView extends Component {
                         </div>
                     </div>
                 </div>
-            </div>
         )
     }
 }
