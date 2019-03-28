@@ -11,6 +11,7 @@ export default class Login extends React.Component{
        
         
         this.state = {
+          asd:"",
             token: "",
             email: "",
             teacherEmail: "",
@@ -25,6 +26,7 @@ export default class Login extends React.Component{
         this.handleChange = this.handleChange.bind(this);
         this.handleButton = this.handleButton.bind(this);
         this.handlebuttonfetch = this.handlebuttonfetch.bind(this);
+        this.getChange = this.getChange.bind(this);
         
     }
     
@@ -50,19 +52,24 @@ export default class Login extends React.Component{
       .then(response => response.json())
       
       .then(data => {
-        this.setState({
-          token: data
-          
-        })
-        .catch(error => {throw(error)});
-        console.log(data);
+        
+        sessionStorage.setItem('jwtToken', JSON.stringify(data));
+        
+
+       console.log(data);
         
       })
       ;
       
   
     }
-  
+    getChange (evt) {
+      evt.preventDefault(evt);
+
+      
+      //console.log(this.state.asd);
+      console.log(JSON.parse(sessionStorage.getItem('jwtToken')));
+    }
    
     handleChange (evt) {
         this.setState({ [evt.target.name]: evt.target.value });
@@ -105,6 +112,9 @@ export default class Login extends React.Component{
     <button disabled={!this.validateForm()} onClick={this.handleButton}>SUBMIT</button>
       <br />
       <button onClick={this.handlebuttonfetch}>dsa</button>
+
+      <br />
+      <button onClick={this.getChange}>dsa</button>
 
      
 
