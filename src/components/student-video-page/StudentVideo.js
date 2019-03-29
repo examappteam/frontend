@@ -3,9 +3,9 @@ import "../../style.css"
 import ChatWindow from "../teacher-exam-video-page/ChatWindow"
 
 class StudentVideo extends Component {
-    fetchAddress = " http://examapp.crenxu.com:22501/";
-    chatWindow = new ChatWindow;
-    dataTrack;
+    fetchAddress = "http://examapp.crenxu.com:22501/";
+    chatWindow = new ChatWindow();
+    dataTrack = null;
     constructor() {
         super()
         this.sendTextMessage = this.sendTextMessage.bind(this);
@@ -18,7 +18,7 @@ class StudentVideo extends Component {
     }
 
     sendTextMessage(receiver, message) {
-        if(this.dataTrack != null && message != "" && message != null) {
+        if(this.dataTrack !== null && message !== "" && message !== null) {
             this.dataTrack.send(message)
         }
     }
@@ -26,7 +26,15 @@ class StudentVideo extends Component {
     componentDidMount() {
         console.log("componentDidMmount");
         const fullAddress = this.fetchAddress.concat("user/").concat(this.id);
-        fetch(fullAddress)
+        console.log(fullAddress);
+        fetch(fullAddress, {
+            method:  'GET',
+            headers: {
+                Accept: 'application/json',
+                Authorization: sessionStorage.getItem('jwtToken'),
+                'Content-Type': 'application-json',
+            }
+        })
         .then(response => response.json())
         .then(data => {
             console.log("data");
@@ -43,7 +51,14 @@ class StudentVideo extends Component {
         //TODO fetch token from server
         const fullAddress = this.fetchAddress.concat("?identity=").concat(this.state.identity,"&roomName=",this.state.teacherIdentity);
         console.log("Address: " + fullAddress);
-        fetch(fullAddress)
+        fetch(fullAddress, {
+            method:  'GET',
+            headers: {
+                Accept: 'application/json',
+                Authorization: sessionStorage.getItem('jwtToken'),              //<------- LISÄÄ TOKEN
+                'Content-Type': 'application-json',
+            }
+        })
         .then(response => response.json())
         .then(data => {
             console.log("data");
@@ -76,7 +91,14 @@ class StudentVideo extends Component {
                         //TODO fetch token from server
                         const fullAddress = this.fetchAddress.concat("?identity=").concat(this.state.identity,"&roomName=",this.state.teacherIdentity);
                         console.log("Address: " + fullAddress);
-                        fetch(fullAddress)
+                        fetch(fullAddress, {
+                            method:  'GET',
+                            headers: {
+                                Accept: 'application/json',
+                                Authorization: sessionStorage.getItem('jwtToken'),              //<------- LISÄÄ TOKEN
+                                'Content-Type': 'application-json',
+                            }
+                        })
                         .then(response => response.json())
                         .then(data => {
                             console.log("data");
@@ -108,7 +130,14 @@ class StudentVideo extends Component {
                 //Jos participant on opettaja, luodaan peer-to-peer huone
                 if(participant.identity === room.name) {
                     this.chatWindow.setSendToName(participant.identity);
-                    fetch(fullAddress)
+                    fetch(fullAddress, {
+                        method:  'GET',
+                        headers: {
+                            Accept: 'application/json',
+                            Authorization: sessionStorage.getItem('jwtToken'),              //<------- LISÄÄ TOKEN
+                            'Content-Type': 'application-json',
+                        }
+                    })
                     .then(response => response.json())
                     .then(data => {
                         console.log("data");
