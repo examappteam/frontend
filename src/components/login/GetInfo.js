@@ -30,13 +30,13 @@ function getInfo(){
         console.log(email + "is logged in");
         
         
-        if(tidentity == objPeople[i].identity){
+        if(tidentity === objPeople[i].identity){
           console.log("Opettaja");
           tloggedin = true;
           
           return tidentity;
         }
-        if(sidentity == objPeople[i].identity){
+        if(sidentity === objPeople[i].identity){
           console.log("Opiskelija");
           sloggedin = true;
           return sidentity;
