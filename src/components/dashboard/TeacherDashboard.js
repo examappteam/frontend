@@ -1,10 +1,8 @@
 import React, {Component} from "react"
-
 import ScrollableListMenu from "../common/ScrollableListMenu"
 import WideListButtonView from "../common/WideListButtonView"
 import LgModal from "../common/modals/LgModal"
 import { BrowserRouter as Router, Route, Link} from "react-router-dom";
-
 import "./styles/DashboardStyle.css"
 import CreateNewCourseDialog from "./dialogs/CreateNewCourseDialog";
 
@@ -76,6 +74,9 @@ class TeacherDashboard extends Component {
                 <div className="pure-g">
                     <div className="pure-u-1-3">
                         <div className="padded-box">
+                        <Modal close={this.changeShowState} show={this.state.showState}>
+                            <StudentManager />
+                        </Modal>
                             <ScrollableListMenu 
                                 menuHeader="My courses" 
                                 menuItems={this.state.categories[0]}
