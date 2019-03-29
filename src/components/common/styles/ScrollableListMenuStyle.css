@@ -2,6 +2,43 @@
     border-bottom: 1px solid gray;
 }
 
+.scrollable-list-menu{
+    background: rgba(0, 0, 0, 0.75)
+}
+
+.pure-menu-scrollable::-webkit-scrollbar {
+  width: 0.8em;
+}
+
+/* Track */
+.pure-menu-scrollable::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 1em rgb(112, 112, 112); 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+.pure-menu-scrollable::-webkit-scrollbar-thumb {
+  background: #807b77;
+  border-radius: 1em;
+}
+
+/* Handle on hover */
+.pure-menu-scrollable::-webkit-scrollbar-thumb:hover {
+  background: #5e6063; 
+}
+
+.pure-menu-link{
+    color: rgb(212, 212, 212);
+}
+
+.pure-menu-link:hover{
+    background: rgba(0, 0, 0, 0.3)
+}
+
+.scrollable-list-menu h3{
+    border-bottom: 1px solid gray;
+}
+
 .scrollable-list-menu h3{
     border-bottom: 1px solid gray; 
 }

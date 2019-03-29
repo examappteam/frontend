@@ -1,12 +1,10 @@
 import React, {Component} from "react"
-
 import ScrollableListMenu from "../common/ScrollableListMenu"
 import WideListButtonView from "../common/WideListButtonView"
-import StudentManager from "../common/StudentManager"
-import Modal from "../common/Modal"
+import LgModal from "../common/modals/LgModal"
 import { BrowserRouter as Router, Route, Link} from "react-router-dom";
-
 import "./styles/DashboardStyle.css"
+import CreateNewCourseDialog from "./dialogs/CreateNewCourseDialog";
 
 class TeacherDashboard extends Component {
     constructor() {
@@ -14,29 +12,29 @@ class TeacherDashboard extends Component {
         this.state = {
             categories:[
                 [
-                    { id: 1, name: "TVT17SPO" },
-                    { id: 2, name: "TVT17SPL" },
-                    { id: 3, name: "EX16SPI" },
-                    { id: 4, name: "EX16SPO" },
-                    { id: 5, name: "TVT18SPO" },
-                    { id: 6, name: "TVT18SPL" }
+                    { id: 1, name: "Basics of Java" },
+                    { id: 2, name: "Basic beginner course" },
+                    { id: 3, name: "Object oriented analysis" },
+                    { id: 4, name: "Advanced maths" },
+                    { id: 5, name: "Best course ever" },
+                    { id: 6, name: "Java for experts" }
                 ],
                 [
-                    { id: 1, name: "Basics of Java", linkedClass: "TVT17SPO" },
-                    { id: 2, name: "Basic beginner course", linkedClass: "TVT18SPO" },
-                    { id: 3, name: "Object oriented analysis", linkedClass: "TVT18SPL" },
-                    { id: 4, name: "Advanced maths", linkedClass: "TVT16SPO" },
-                    { id: 5, name: "Best course ever", linkedClass: "TVT15SPO" },
-                    { id: 6, name: "International exam", linkedClass: "TVT14SPL" }
+                    { id: 1, name: "Programming test", linkedCourse: "Basics of Java" },
+                    { id: 2, name: "Beginner exam", linkedCourse: "Basic beginner course" },
+                    { id: 3, name: "Analysis pt. 1", linkedCourse: "Object oriented analysis" },
+                    { id: 4, name: "Vector calculation", linkedCourse: "Advanced maths" },
+                    { id: 5, name: "Best exam ever", linkedCourse: "Best course ever" },
+                    { id: 6, name: "Live coding exam", linkedCourse: "Java for experts" }
                 ],
                 [
-                    { id: 1, name: "Professional English",
+                    { id: 1, name: "Professional English test",
                       description: "The Professional English test consists of 30 questions. There’s no time limit, so take your time. You will need headphones or speakers for the listening section. You will get your results as soon as you’ve finished the test.",
                       date: "5.2.2019"},
 
-                    { id: 2,description: "The Unprofessional English test consists of 30 questions. There’s no time limit, so take your time. You will need headphones or speakers for the listening section. You will get your results as soon as you’ve finished the test.", name: "Unprofessional English", date: "14.3.2019" },
-                    { id: 3,description: "The Professional Swedish test consists of 30 questions. There’s no time limit, so take your time. You will need headphones or speakers for the listening section. You will get your results as soon as you’ve finished the test.", name: "Professional Swedish", date: "14.4.2019" },
-                    { id: 4,description: "The Engineering mathematics test consists of 30 questions. There’s no time limit, so take your time. You will need headphones or speakers for the listening section. You will get your results as soon as you’ve finished the test.", name: "Engineering mathematics", date: "15.3.2019" }
+                    { id: 2,description: "The Unprofessional English test consists of 30 questions. There’s no time limit, so take your time. You will need headphones or speakers for the listening section. You will get your results as soon as you’ve finished the test.", name: "Unprofessional English exam", date: "14.3.2019" },
+                    { id: 3,description: "The Professional Swedish test consists of 30 questions. There’s no time limit, so take your time. You will need headphones or speakers for the listening section. You will get your results as soon as you’ve finished the test.", name: "Professional Swedish test", date: "14.4.2019" },
+                    { id: 4,description: "The Engineering mathematics test consists of 30 questions. There’s no time limit, so take your time. You will need headphones or speakers for the listening section. You will get your results as soon as you’ve finished the test.", name: "Engineering mathematics test", date: "15.3.2019" }
                 ]
             ],
             selectedCategoryId: 0,
@@ -62,15 +60,14 @@ class TeacherDashboard extends Component {
 
     changeShowState=()=>{
         this.setState(prevState=>({
-                showState: !prevState.showState
-            
+                showState: !prevState.showState       
         }));
         console.log("showstate",this.state.showState)
     }
 
     render() {
         console.log(this.state.categories[this.state.selectedCategoryId][this.state.selectionId])
-        
+
         return(
             <div>
                 
@@ -81,13 +78,16 @@ class TeacherDashboard extends Component {
                             <StudentManager />
                         </Modal>
                             <ScrollableListMenu 
-                                menuHeader="My classes" 
+                                menuHeader="My courses" 
                                 menuItems={this.state.categories[0]}
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
                                 category = {0}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
-                                <button onClick={this.changeShowState} className="pure-button pure-button-primary">Add new class</button>
+                                <button onClick={this.changeShowState} className="pure-button pure-button-primary">Create new course</button>
+                                <LgModal close={this.changeShowState} show={this.state.showState}>
+                                    <CreateNewCourseDialog close={this.changeShowState}/>
+                                </LgModal>
                                 <button className="pure-button pure-button-disabled">Delete selected</button> 
                         </div>                  
                     </div>
@@ -122,10 +122,8 @@ class TeacherDashboard extends Component {
                 <div className="pure-g">
                 <div className="pure-u-3-24"></div>
                 <div className="pure-u-18-24">
-                    <div className="padded-box">
-                    
-                            <WideListButtonView title={this.state.categories[this.state.selectedCategoryId][this.state.selectionId].name} exam={this.state.categories[this.state.selectedCategoryId][this.state.selectionId]}/>
-                        
+                    <div className="padded-box">                   
+                        <WideListButtonView title={this.state.categories[this.state.selectedCategoryId][this.state.selectionId].name} exam={this.state.categories[this.state.selectedCategoryId][this.state.selectionId]}/>                     
                     </div>
                 </div>
                 <div className="pure-u-3-24"></div>

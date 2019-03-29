@@ -1,4 +1,4 @@
-import React from "react"
+import React, {} from "react"
 
 import ListMenuItem from "./ListMenuItem"
 import "./styles/ScrollableListMenuStyle.css"
@@ -15,7 +15,7 @@ function ScrollableListMenu(props) {
                 handler={props.handler(category, item.id)} 
                 id={item.id} 
                 itemName={item.name} 
-                itemExtra={item.linkedClass}    // !!!we should be able to use different item extras
+                itemExtra={item.linkedCourse}    // !!!we should be able to use different item extras
                 selectedItem={props.selectedItem}
                 categoryId={category}
                 selectedCategory={props.selectedCategory}/>
@@ -46,7 +46,7 @@ function ScrollableListMenu(props) {
 
     return(
         <div className="pure-menu pure-menu-scrollable scrollable-list-menu">
-            <p className="pure-menu-link pure-menu-heading"><h3>{props.menuHeader}</h3></p>
+            <h3 className="pure-menu-link pure-menu-heading">{props.menuHeader}</h3>
             <ul className="pure-menu-list">
                {menuItems}
             </ul>
