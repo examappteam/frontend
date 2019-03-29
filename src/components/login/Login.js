@@ -1,7 +1,8 @@
 import React from 'react';
 import './styles/App.css';
 import getInfo from './GetInfo';
-
+import jwt_decode from 'jwt-decode'
+import { get } from 'http';
 export default class Login extends React.Component{
     
 
@@ -27,9 +28,56 @@ export default class Login extends React.Component{
         this.handleButton = this.handleButton.bind(this);
         this.handlebuttonfetch = this.handlebuttonfetch.bind(this);
         this.getChange = this.getChange.bind(this);
+        this.logout = this.logout.bind(this);
+        this.getDecodedTokenData = this.getDecodedTokenData.bind(this);
         
     }
-    
+    setToken(idToken){
+      sessionStorage.setItem('jwtToken', JSON.stringify(idToken));
+    }
+    getToken(){
+      return sessionStorage.getItem('jwtToken');
+    }
+
+    getDecodedTokenData(evt){
+      evt.preventDefault(evt);
+      var tokenString = this.state.token.toString;
+      var decoded = tokenString.substring(0, tokenString.length - 3);
+      var trimmedDecode = jwt_decode(decoded);
+      console.log(trimmedDecode);
+    }
+
+    isTokenExpired(token){
+      
+        if(token.status !== 200){
+          console.log("Error et pääse sisään")
+          return false;
+        }
+        else{
+          console.log('Yee sisällä');
+          return true;
+        }
+        
+        
+      }
+      // Kirjaudutaan ulos
+    logout(){
+      sessionStorage.removeItem('jwtToken');
+    }
+
+    loggedIn(){
+      const token = this.getToken()
+      return !!token && !this.isTokenExpired(token)
+    }
+    _checkstatus(response){
+      if(response.status >= 400 && response.status < 500) {
+        console.log("Checkstatus Virheellinen Palautettu False");
+        return false;
+      }else{
+        return response;
+      }
+    }
+
     validateForm() {
       return this.state.email.length > 0 && this.state.password.length > 0;
     }
@@ -45,21 +93,54 @@ export default class Login extends React.Component{
           username: this.state.email,
           password: this.state.password,
           
-        }),
-        
+        })
+      
         
       })
+
+      
+      
       .then(response => response.json())
       
       .then(data => {
-        
-        sessionStorage.setItem('jwtToken', JSON.stringify(data));
-        
+        if((this._checkstatus(data)===false)){
+          
+        console.log(data);
+        console.log("Virheellinen");
+      }
+      else{
+      console.log(data.status);
+      this.setToken(data);
+
+      // Laitetaan krypto data stateen että saadaan avain jolla saadaan rooli käyttäjälle
+      this.setState({
+        token: data
+      })
+      /*var tokenString = this.state.token.toString;
+      var decoded = tokenString.substring(0, tokenString.length - 3);
+      var trimmedDecode = jwt_decode(decoded);
+      console.log(trimmedDecode);*/
 
        console.log(data);
-        
+       console.log("Onnisui");
+      }
       })
-      ;
+      
+      /*.then((response) =>{
+        
+        sessionStorage.setItem('jwtToken', JSON.stringify(response));
+        //console.log(response);
+        if(response.status !== 200){
+          console.log("Error et pääse sisään")
+          return 0;
+        }
+        else{
+          console.log('Yee sisällä');
+          
+          
+        }
+
+      })*/
       
   
     }
@@ -111,12 +192,14 @@ export default class Login extends React.Component{
       </div>
     <button disabled={!this.validateForm()} onClick={this.handleButton}>SUBMIT</button>
       <br />
-      <button onClick={this.handlebuttonfetch}>dsa</button>
+      <button onClick={this.handlebuttonfetch}>LoginAndGetToken</button>
 
       <br />
-      <button onClick={this.getChange}>dsa</button>
-
-     
+      <button onClick={this.getChange}>GetToken</button>
+      <br />
+      <button onClick={this.logout}>Logout</button>
+      <br />
+      <button onClick={this.getDecodedTokenData}>GetDecodedData</button>
 
       </form>
    </div>
