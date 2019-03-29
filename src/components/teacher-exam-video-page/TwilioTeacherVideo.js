@@ -4,11 +4,12 @@ import ChatWindow from "./ChatWindow";
 import ParticipantList from "./ParticipantList";
 
 class TwilioTeacherVideo extends Component {
-    testToken = "";
     localMediaContainer;
     participantList = new ParticipantList();
     chat = new ChatWindow();
+    fetchAddress = "http://examapp.crenxu.com:22501/";
     dataTrackList = [];
+    id = 0;
     constructor() {
         super()
         this.handler = this.handler.bind(this);
@@ -30,6 +31,25 @@ class TwilioTeacherVideo extends Component {
 
     componentDidMount() {
         console.log("componentDidMmount");
+        const fullAddress = this.fetchAddress.concat("user/").concat(this.id);
+        console.log(fullAddress);
+        fetch(fullAddress, {
+            method:  'GET',
+            headers: {
+                Accept: 'application/json',
+                Authorization: sessionStorage.getItem('jwtToken'),
+                'Content-Type': 'application-json',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("ASETETAAN IDENTITY");
+            console.log(data);
+            this.setState({
+                identity: data.name
+            })
+        });
+        console.log(this.state.identity);
         this.twilioConnection();
     }
 
@@ -62,25 +82,28 @@ class TwilioTeacherVideo extends Component {
             });
             console.log("Onnistui");
         }).then(function() {
-            const fetchAddress = "kevindewit.io:22777/tokens?identity=";
-            const fullAddress = fetchAddress.concat(_this.state.identity,"&roomName=",_this.state.roomName);
-            //const testTokenAddress = "https://burlywood-macaw-4586.twil.io/get_token?identity=";
-            //const testTokenFullAddress = fetchAddress.concat(_this.state.identity,"&roomName=",_this.state.roomName);
+            const fullAddress = _this.fetchAddress.concat("main/tokens?identity=").concat(_this.state.identity).concat("&roomName=").concat(_this.state.identity);
             console.log("Address: " + fullAddress);
 
-            fetch(fullAddress)
+            fetch(fullAddress, {
+                method:  'GET',
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: sessionStorage.getItem('jwtToken'),              //<------- LISÄÄ TOKEN
+                    'Content-Type': 'application-json',
+                }
+            })
                 .then(response => response.json())
                 .then(data => {
                     console.log("data");
                     console.log(data);
-                    //_this.state.token = data;
-                    this.setState({
+                    _this.setState({
                         token: data
                     })
                 });
-            console.log("Token: " + this.state.token);
-            Video.connect(this.state.token, {
-                name: "TestRoom",
+            console.log("Token: " + _this.state.token);
+            Video.connect(_this.state.token, {
+                name: _this.state.identity,
                 video: true,
                 audio: true,
                 tracks: localTracks
@@ -91,18 +114,22 @@ class TwilioTeacherVideo extends Component {
                     
                     room.participants.forEach(function(participant) {
                         //tee Peer-to-peer huone jokaisen käyttäjän kanssa. Huoneen nimi = participant.identity
-                        const fetchAddress = "kevindewit.io:22777/tokens?identity=";
-                        const fullAddress = fetchAddress.concat(_this.state.identity,"&roomName=",participant.identity);
-                        this.participantList.addParticipantToList(participant.identity);
-                        //const testAddress = "https://burlywood-macaw-4586.twil.io/create_peer_to_peer_room?student_identity=";
-                        //const fullTestAddress = fetchAddress.concat(participant.identity);
-                        fetch(fullAddress)
+                        const fullAddress = _this.fetchAddress.concat("main/tokens?identity=").concat(_this.state.identity).concat("&roomName=").concat(participant.identity);
+                        _this.participantList.addParticipantToList(participant.identity);
+                        fetch(fullAddress, {
+                            method:  'GET',
+                            headers: {
+                                Accept: 'application/json',
+                                Authorization: sessionStorage.getItem('jwtToken'),              //<------- LISÄÄ TOKEN
+                                'Content-Type': 'application-json',
+                            }
+                        })
                         .then(response => response.json())
                         .then(data => { 
                             //Yhdistä luotuun huoneeseen
                             const localDataTrack = new Video.LocalDataTrack();
                             localDataTrack.id = participant.identity;
-                            this.dataTrackList.push(localDataTrack);
+                            _this.dataTrackList.push(localDataTrack);
                             Video.connect(data, {
                                 tracks: [localDataTrack]
                             }).then(function(peer_room) {
@@ -128,18 +155,22 @@ class TwilioTeacherVideo extends Component {
                     room.on('participantConnected', participant => {
                         console.log(`Participant connected: ${participant.identity}`);
                         //tee Peer-to-peer huone jokaisen käyttäjän kanssa. Huoneen nimi = participant.identity
-                        const fetchAddress = "kevindewit.io:22777/tokens?identity=";
-                        const fullAddress = fetchAddress.concat(_this.state.identity,"&roomName=",participant.identity);
-                        this.participantList.addParticipantToList(participant.identity);
-                        //const testAddress = "https://burlywood-macaw-4586.twil.io/create_peer_to_peer_room?student_identity=";
-                        //const fullTestAddress = testAddress.concat(participant.identity);
-                        fetch(fullAddress)
+                        const fullAddress = _this.fetchAddress.concat("main/tokens?identity=").concat(_this.state.identity).concat("&roomName=").concat(participant.identity);
+                        _this.participantList.addParticipantToList(participant.identity);
+                        fetch(fullAddress, {
+                            method:  'GET',
+                            headers: {
+                                Accept: 'application/json',
+                                Authorization: sessionStorage.getItem('jwtToken'),              //<------- LISÄÄ TOKEN
+                                'Content-Type': 'application-json',
+                            }
+                        })
                         .then(response => response.json())
                         .then(data => { 
                             //Yhdistä luotuun huoneeseen
                             const localDataTrack = new Video.LocalDataTrack();
                             localDataTrack.id = participant.identity;
-                            this.dataTrackList.push(localDataTrack);
+                            _this.dataTrackList.push(localDataTrack);
                             Video.connect(data, {
                                 tracks: [localDataTrack]
                             }).then(function(peer_room) {
