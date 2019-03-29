@@ -39,12 +39,25 @@ export default class Login extends React.Component{
       return sessionStorage.getItem('jwtToken');
     }
 
+     parseJwt = (token) => {
+      try {
+        return JSON.parse(token);
+      } catch (e) {
+        return null;
+      }
+    };
+
     getDecodedTokenData(evt){
       evt.preventDefault(evt);
-      var tokenString = this.state.token.toString;
-      var decoded = tokenString.substring(0, tokenString.length - 3);
-      var trimmedDecode = jwt_decode(decoded);
+      //var tokenString = this.state.token.toString();
+      
+      //var decoded = tokenString.substring(0, ((tokenString.length) - 3));
+      
+      //var code = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdHVkZW50IiwiQVVUSCI6W3siYXV0aG9yaXR5IjoiUk9MRV9TVFVERU5UIn1dLCJpYXQiOjE1NTM4NDY1NDQsImV4cCI6MTU1MzkzMjk0NH0.-WBlrpllGFVtzt_pq-p_9FKXnbR5wo6zMjY2ApHKnIuQCHlE7ZGWU5rRVxuHzU_M9-OYaJkoReGn4mMZvUkBYQ";
+      var trimmedDecode = jwt_decode(this.state.token.accessToken);
       console.log(trimmedDecode);
+      var trimmedName = trimmedDecode.sub;
+      console.log(trimmedName);
     }
 
     isTokenExpired(token){
