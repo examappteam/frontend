@@ -1,7 +1,8 @@
 import React, {Component} from "react"
 import ScrollableListMenu from "../common/ScrollableListMenu"
 import WideListButtonView from "../common/WideListButtonView"
-import LgModal from "../common/modals/LgModal"
+import MdModal from "../common/modals/MdModal"
+import StudentManager from "../../components/common/StudentManager";
 import { BrowserRouter as Router, Route, Link} from "react-router-dom";
 import "./styles/DashboardStyle.css"
 import CreateNewCourseDialog from "./dialogs/CreateNewCourseDialog";
@@ -74,9 +75,9 @@ class TeacherDashboard extends Component {
                 <div className="pure-g">
                     <div className="pure-u-1-3">
                         <div className="padded-box">
-                        <Modal close={this.changeShowState} show={this.state.showState}>
+                        <MdModal close={this.changeShowState} show={this.state.showState}>
                             <StudentManager />
-                        </Modal>
+                        </MdModal>
                             <ScrollableListMenu 
                                 menuHeader="My courses" 
                                 menuItems={this.state.categories[0]}
@@ -85,9 +86,9 @@ class TeacherDashboard extends Component {
                                 category = {0}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
                                 <button onClick={this.changeShowState} className="pure-button pure-button-primary">Create new course</button>
-                                <LgModal close={this.changeShowState} show={this.state.showState}>
+                                <MdModal close={this.changeShowState} show={this.state.showState}>
                                     <CreateNewCourseDialog close={this.changeShowState}/>
-                                </LgModal>
+                                </MdModal>
                                 <button className="pure-button pure-button-disabled">Delete selected</button> 
                         </div>                  
                     </div>
