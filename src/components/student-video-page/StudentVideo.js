@@ -15,6 +15,15 @@ class StudentVideo extends Component {
             identity: "Student",
             teacherIdentity: "TestTeacher"
         }
+        this.attachTrack = this.attachTrack.bind(this);
+    }
+
+    attachTrack(track) {
+        if(track.kind === "video" || track.kind === "audio") {                       // HYVÄKSYTÄÄN VAIN ÄÄNI JA VIDEO TRACKIT, JÄTETÄÄN DATA TRACK TÄSSÄ VAIHEESSA VIELÄ KÄYTTÄMÄTTÄ (SITÄ TARVITAAN VASTA CHATIN LUOMISEEN)
+            var student_video = document.getElementById('teacher-preview');          
+            student_video.appendChild(track.attach());							     // TÄMÄ LISÄÄ <video> ja <audio> ELEMENTIN <div> ELEMENTIN LAPSEKSI JOLLOIN VIDEO ALKAA NÄKYÄ DIV ELEMENTIN SISÄLLÄ.
+            console.log("Track attached: " + track.kind);
+        }
     }
 
     sendTextMessage(receiver, message) {
@@ -51,7 +60,7 @@ class StudentVideo extends Component {
         //TODO fetch token from server
         const fullAddress = this.fetchAddress.concat("?identity=").concat(this.state.identity,"&roomName=",this.state.teacherIdentity);
         console.log("Address: " + fullAddress);
-        fetch(fullAddress, {
+        /*fetch(fullAddress, {
             method:  'GET',
             headers: {
                 Accept: 'application/json',
@@ -66,10 +75,14 @@ class StudentVideo extends Component {
             this.setState({
                 groupRoomToken: data
             })
-        });
+        });*/
+        this.setState({
+            groupRoomToken: "eyJjdHkiOiJ0d2lsaW8tZnBhO3Y9MSIsInR5cCI6IkpXVCIsImFsZyI6IkhTMjU2In0.eyJpc3MiOiJTSzUzNzFhZWVmN2M4Y2VkZWI5NjZiMzA2MTg4NGYzYmI5IiwiZXhwIjoxNTUzODU4NTI2LCJncmFudHMiOnsiaWRlbnRpdHkiOiJTdHVkZW50IiwidmlkZW8iOnsicm9vbSI6IlRlc3RUZWFjaGVyIn19LCJqdGkiOiJTSzUzNzFhZWVmN2M4Y2VkZWI5NjZiMzA2MTg4NGYzYmI5LTE1NTM4NTQ4NDgiLCJzdWIiOiJBQ2IzNTkxMzg1M2MxNTE2MTM2OWI5YmFjM2U0ZmYzOTg4In0.5R3Q8sjc7OFm6wk2IbTjJ71EysJ_2Q4wlk8PANTDFpI"
+        })
         //TODO fetch teacher name from server and use it as a room name
         const Video = require("twilio-video");
-        Video.connect(this.state.groupRoomToken, {
+        const _this = this;
+        Video.connect("eyJjdHkiOiJ0d2lsaW8tZnBhO3Y9MSIsInR5cCI6IkpXVCIsImFsZyI6IkhTMjU2In0.eyJpc3MiOiJTSzUzNzFhZWVmN2M4Y2VkZWI5NjZiMzA2MTg4NGYzYmI5IiwiZXhwIjoxNTUzODU4NTI2LCJncmFudHMiOnsiaWRlbnRpdHkiOiJTdHVkZW50IiwidmlkZW8iOnsicm9vbSI6IlRlc3RUZWFjaGVyIn19LCJqdGkiOiJTSzUzNzFhZWVmN2M4Y2VkZWI5NjZiMzA2MTg4NGYzYmI5LTE1NTM4NTQ4NDgiLCJzdWIiOiJBQ2IzNTkxMzg1M2MxNTE2MTM2OWI5YmFjM2U0ZmYzOTg4In0.5R3Q8sjc7OFm6wk2IbTjJ71EysJ_2Q4wlk8PANTDFpI", {
             name: this.state.teacherIdentity,
             video:false,		
             audio:false
@@ -80,16 +93,16 @@ class StudentVideo extends Component {
             room.participants.forEach(function(participant)
              {
                     console.log("Participant identity: " + participant.identity);
-                    participant.on('trackSubscribed', this.attachTrack);
+                    participant.on('trackSubscribed', _this.attachTrack);
                     participant.tracks.forEach(function(track) 
                     {                   
-                        this.attachTrack(track);
+                        _this.attachTrack(track);
                     })
                     //Jos participant on opettaja, luodaan peer-to-peer huone
                     if(participant.identity === room.name) {
-                        this.chatWindow.setSendToName(participant.identity);
+                        _this.chatWindow.setSendToName(participant.identity);
                         //TODO fetch token from server
-                        const fullAddress = this.fetchAddress.concat("?identity=").concat(this.state.identity,"&roomName=",this.state.teacherIdentity);
+                        const fullAddress = _this.fetchAddress.concat("?identity=").concat(_this.state.identity,"&roomName=",_this.state.teacherIdentity);
                         console.log("Address: " + fullAddress);
                         fetch(fullAddress, {
                             method:  'GET',
@@ -103,16 +116,16 @@ class StudentVideo extends Component {
                         .then(data => {
                             console.log("data");
                             console.log(data);
-                            this.setState({
+                            _this.setState({
                                 privateRoomToken: data
                             })
                         });
-                        this.dataTrack = new Video.LocalDataTrack();
-                        Video.connect(this.state.privateRoomToken, {
-                            name: this.state.identity,
+                        _this.dataTrack = new Video.LocalDataTrack();
+                        Video.connect(_this.state.privateRoomToken, {
+                            name: _this.state.identity,
                             video:false,		
                             audio:false,
-                            tracks: [this.dataTrack]
+                            tracks: [_this.dataTrack]
                         }).then(function(room)
                         {
                             console.log("Privaatti huone luotu: " + room.name);
@@ -122,14 +135,14 @@ class StudentVideo extends Component {
 
             room.on('participantConnected', participant => {
                 console.log("Participant identity: " + participant.identity);
-                participant.on('trackSubscribed', this.attachTrack); 
+                participant.on('trackSubscribed', _this.attachTrack); 
                 participant.tracks.forEach(function(track) 
                 {                   
-                    this.attachTrack(track);
+                    _this.attachTrack(track);
                 })
                 //Jos participant on opettaja, luodaan peer-to-peer huone
                 if(participant.identity === room.name) {
-                    this.chatWindow.setSendToName(participant.identity);
+                    _this.chatWindow.setSendToName(participant.identity);
                     fetch(fullAddress, {
                         method:  'GET',
                         headers: {
@@ -142,13 +155,13 @@ class StudentVideo extends Component {
                     .then(data => {
                         console.log("data");
                         console.log(data);
-                        this.setState({
+                        _this.setState({
                             privateRoomToken: data
                         })
                     });
                     const localDataTrack = new Video.LocalDataTrack();
                     Video.connect(this.state.privateRoomToken, {
-                        name: this.state.identity,
+                        name: _this.state.identity,
                         video:false,		
                         audio:false,
                         tracks: [localDataTrack]
@@ -159,14 +172,6 @@ class StudentVideo extends Component {
                 }
             })
         });
-    }
-
-	attachTrack(track) {
-        if(track.kind === "video" || track.kind === "audio") {                       // HYVÄKSYTÄÄN VAIN ÄÄNI JA VIDEO TRACKIT, JÄTETÄÄN DATA TRACK TÄSSÄ VAIHEESSA VIELÄ KÄYTTÄMÄTTÄ (SITÄ TARVITAAN VASTA CHATIN LUOMISEEN)
-            var student_video = document.getElementById('teacher-preview');          
-            student_video.appendChild(track.attach());							     // TÄMÄ LISÄÄ <video> ja <audio> ELEMENTIN <div> ELEMENTIN LAPSEKSI JOLLOIN VIDEO ALKAA NÄKYÄ DIV ELEMENTIN SISÄLLÄ.
-            console.log("Track attached: " + track.kind);
-        }
     }
 
     render() {

@@ -45,6 +45,7 @@ class CreateExamView extends Component {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
+                Authorization: '"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZWFjaGVyIiwiQVVUSCI6W3siYXV0aG9yaXR5IjoiUk9MRV9URUFDSEVSIn1dLCJpYXQiOjE1NTM4NTMyODUsImV4cCI6MTU1MzkzOTY4NX0.9VeObRco0YWx4p6AC0K2PUwoYefwsZ3BdaNJvVjk4wudB5JChXUogJBekYs0QmvBOPsbcovqmkOweSKZt-wZ0w"',
                 'Content-type': 'application/json',
             },
             body: JSON.stringify({
