@@ -6,6 +6,7 @@ import StudentManager from "../../components/common/StudentManager";
 import { BrowserRouter as Router, Route, Link} from "react-router-dom";
 import "./styles/DashboardStyle.css"
 import CreateNewCourseDialog from "./dialogs/CreateNewCourseDialog";
+import Login from '../login/Login';
 
 class TeacherDashboard extends Component {
     constructor() {
@@ -68,11 +69,12 @@ class TeacherDashboard extends Component {
 
     render() {
         console.log(this.state.categories[this.state.selectedCategoryId][this.state.selectionId])
-
+        console.log(sessionStorage.getItem('jwtToken'));
         return(
             <div>
                 
                 <div className="pure-g">
+                
                     <div className="pure-u-1-3">
                         <div className="padded-box">
                         <MdModal close={this.changeShowState} show={this.state.showState}>
