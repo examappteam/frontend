@@ -41,12 +41,14 @@ class CreateExamView extends Component {
     }
 
     handleSaveClick() {
-        fetch('http://examapp.crenxu.com:22501/main/exam/', {
+        /*fetch('http://examapp.crenxu.com:22501/main/exam/', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
-                Authorization: '"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZWFjaGVyIiwiQVVUSCI6W3siYXV0aG9yaXR5IjoiUk9MRV9URUFDSEVSIn1dLCJpYXQiOjE1NTM4NTMyODUsImV4cCI6MTU1MzkzOTY4NX0.9VeObRco0YWx4p6AC0K2PUwoYefwsZ3BdaNJvVjk4wudB5JChXUogJBekYs0QmvBOPsbcovqmkOweSKZt-wZ0w"',
+                Authorization: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZWFjaGVyIiwiQVVUSCI6W3siYXV0aG9yaXR5IjoiUk9MRV9URUFDSEVSIn1dLCJpYXQiOjE1NTM4NTMyODUsImV4cCI6MTU1MzkzOTY4NX0.9VeObRco0YWx4p6AC0K2PUwoYefwsZ3BdaNJvVjk4wudB5JChXUogJBekYs0QmvBOPsbcovqmkOweSKZt-wZ0w',
                 'Content-type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
             },
             body: JSON.stringify({
                 creatorId: 1,
@@ -58,7 +60,30 @@ class CreateExamView extends Component {
                     }                    
                 ]
             }),
-        });
+        });*/
+        const axios = require('axios');
+        const examInfo = {
+            creatorId: 1,
+            questionDTOs: [
+                {
+                    weightPercentage: 1,
+                    description: '',
+                    answer: ''
+                }                    
+            ]
+        }
+        const authToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZWFjaGVyIiwiQVVUSCI6W3siYXV0aG9yaXR5IjoiUk9MRV9URUFDSEVSIn1dLCJpYXQiOjE1NTM4NTc4OTIsImV4cCI6MTU1Mzk0NDI5Mn0.5RxkSDW9a4IhZ0T_d-wkhxSneufLP0UQdKyCKDvYl33p0ZmaptMf8h_1Ijj2ZK6FPtfRMNnff44pp-wDnNwcjQ"
+        const url = "http://examapp.crenxu.com:22501/main/exam/"
+        const headers = {
+            Accept: 'application/json',
+            Authorization: authToken,
+            'Content-type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+        }
+        axios.post(url, examInfo, headers)
+            .then(result => console.log(result))
+            .catch(error => console.log(error))
     }
 
     render() {
