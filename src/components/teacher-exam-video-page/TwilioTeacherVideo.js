@@ -33,6 +33,7 @@ class TwilioTeacherVideo extends Component {
         console.log("componentDidMmount");
         const fullAddress = this.fetchAddress.concat("user/").concat(this.id);
         console.log(fullAddress);
+        console.log(sessionStorage.getItem('jwtToken'));
         fetch(fullAddress, {
             method:  'GET',
             headers: {
@@ -101,6 +102,9 @@ class TwilioTeacherVideo extends Component {
                         token: data
                     })
                 });
+            _this.setState({
+                token: "eyJjdHkiOiJ0d2lsaW8tZnBhO3Y9MSIsInR5cCI6IkpXVCIsImFsZyI6IkhTMjU2In0.eyJpc3MiOiJTSzcxNmY1ZWFjNjExYWM3YmZlZWNjYjZmODVhMTQ0YzJiIiwiZXhwIjoxNTUzODU4MTIzLCJncmFudHMiOnsiaWRlbnRpdHkiOiJUZXN0VGVhY2hlciIsInZpZGVvIjp7InJvb20iOiJUZXN0VGVhY2hlciJ9fSwianRpIjoiU0s3MTZmNWVhYzYxMWFjN2JmZWVjY2I2Zjg1YTE0NGMyYi0xNTUzODU0NDY0Iiwic3ViIjoiQUNiMzU5MTM4NTNjMTUxNjEzNjliOWJhYzNlNGZmMzk4OCJ9.4j7_QpYf1MIP_SIY5xx3bdpUuWX5UN91eT4ViU6gDK0"
+            });
             console.log("Token: " + _this.state.token);
             Video.connect(_this.state.token, {
                 name: _this.state.identity,
@@ -195,7 +199,7 @@ class TwilioTeacherVideo extends Component {
                     
                     room.on('participantDisconnected', participant => {
                         console.log(`Participant disconnected: ${participant.identity}`);
-                        this.participantList.removeParticipantFromList(participant.identity);
+                        _this.participantList.removeParticipantFromList(participant.identity);
                     });
                 });
             });
