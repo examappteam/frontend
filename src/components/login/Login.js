@@ -18,6 +18,7 @@ export default class Login extends React.Component{
             teacherEmail: "",
             password: "",
             identity: "",
+            role: "",
             loggedinStudent: false,
             loggedinTeacher: false,
             error: false,
@@ -25,11 +26,11 @@ export default class Login extends React.Component{
         };
 
         this.handleChange = this.handleChange.bind(this);
-        this.handleButton = this.handleButton.bind(this);
+        //this.handleButton = this.handleButton.bind(this);
         this.handlebuttonfetch = this.handlebuttonfetch.bind(this);
-        this.getChange = this.getChange.bind(this);
-        this.logout = this.logout.bind(this);
-        this.getDecodedTokenData = this.getDecodedTokenData.bind(this);
+        //this.getChange = this.getChange.bind(this);
+        //this.logout = this.logout.bind(this);
+        //this.getDecodedTokenData = this.getDecodedTokenData.bind(this);
         
     }
     setToken(idToken){
@@ -47,7 +48,15 @@ export default class Login extends React.Component{
       }
     };
 
-    getDecodedTokenData(evt){
+    getTokenDataRole(){
+      var trimmedDecode = jwt_decode(this.state.token.accessToken);
+      console.log(trimmedDecode);
+      var trimmedName = trimmedDecode.sub;
+      console.log(trimmedName);
+      return trimmedName;
+    }
+
+    /*getDecodedTokenData(evt){
       evt.preventDefault(evt);
       //var tokenString = this.state.token.toString();
       
@@ -58,7 +67,8 @@ export default class Login extends React.Component{
       console.log(trimmedDecode);
       var trimmedName = trimmedDecode.sub;
       console.log(trimmedName);
-    }
+      
+    }*/
 
     isTokenExpired(token){
       
@@ -74,9 +84,9 @@ export default class Login extends React.Component{
         
       }
       // Kirjaudutaan ulos
-    logout(){
+    /*logout(){
       sessionStorage.removeItem('jwtToken');
-    }
+    }*/
 
     loggedIn(){
       const token = this.getToken()
@@ -124,53 +134,40 @@ export default class Login extends React.Component{
       else{
       console.log(data.status);
       this.setToken(data);
-
+      
       // Laitetaan krypto data stateen että saadaan avain jolla saadaan rooli käyttäjälle
       this.setState({
         token: data
       })
-      /*var tokenString = this.state.token.toString;
-      var decoded = tokenString.substring(0, tokenString.length - 3);
-      var trimmedDecode = jwt_decode(decoded);
-      console.log(trimmedDecode);*/
-
-       console.log(data);
-       console.log("Onnisui");
+      this.state.role = this.getTokenDataRole();
+      if(this.state.role === "student"){
+        this.loggedinStudent = true;
+      this.props.history.push("/studentdashboard");
+      }
+      if(this.state.role === "teacher"){
+        this.loggedinTeacher = true;
+        this.props.history.push("/teacherdashboard");
+      }
+      else{
+        console.log("Jokin meni pieleen loginissa")
+      }
+       //console.log(data);
+       //console.log("Onnisui");
       }
       })
       
-      /*.then((response) =>{
-        
-        sessionStorage.setItem('jwtToken', JSON.stringify(response));
-        //console.log(response);
-        if(response.status !== 200){
-          console.log("Error et pääse sisään")
-          return 0;
-        }
-        else{
-          console.log('Yee sisällä');
-          
-          
-        }
-
-      })*/
-      
-  
     }
-    getChange (evt) {
+    /*getChange (evt) {
       evt.preventDefault(evt);
-
-      
-      //console.log(this.state.asd);
       console.log(JSON.parse(sessionStorage.getItem('jwtToken')));
-    }
+    }*/
    
     handleChange (evt) {
         this.setState({ [evt.target.name]: evt.target.value });
       }
 
     
-      handleButton(evt) {
+      /*handleButton(evt) {
        
         evt.preventDefault(evt);
         this.state.identity = getInfo();
@@ -185,7 +182,7 @@ export default class Login extends React.Component{
         console.log("Ope " + this.loggedinTeacher);
         this.props.history.push("/teacherdashboard");
       }
-    }
+    }*/
     
 
   render() {
@@ -203,16 +200,7 @@ export default class Login extends React.Component{
       <div className="inputBox">
       <input className="input" type="password" id="password" name="password" placeholder="Password" onChange={this.handleChange} ></input>
       </div>
-    <button disabled={!this.validateForm()} onClick={this.handleButton}>SUBMIT</button>
-      <br />
-      <button onClick={this.handlebuttonfetch}>LoginAndGetToken</button>
-
-      <br />
-      <button onClick={this.getChange}>GetToken</button>
-      <br />
-      <button onClick={this.logout}>Logout</button>
-      <br />
-      <button onClick={this.getDecodedTokenData}>GetDecodedData</button>
+    <button disabled={!this.validateForm()} onClick={this.handlebuttonfetch}>SUBMIT</button>
 
       </form>
    </div>

@@ -10,6 +10,7 @@ import TeacherDashboard from "./components/dashboard/TeacherDashboard"
 import TeacherDashboardCourseView from "./components/dashboard/TeacherDashboardCourseView"
 import CreateExamView from "./components/create-exam-view/CreateExamView"
 import TwilioTeacherVideo from "./components/teacher-exam-video-page/TwilioTeacherVideo"
+import StudentVideo from './components/student-video-page/StudentVideo'
 import StudentInformation from "./components/StudentInformationForTeacherView/StudentInformation"
 import Footer from "./components/Footer"
 
@@ -28,6 +29,7 @@ function App()  {
           <Route path="/course_view" component={TeacherDashboardCourseView} />
           <Route path="/create_exam" component={CreateExamView} />
           <Route path="/exam_view" component={TwilioTeacherVideo} />
+          <Route path="/student_exam_view" component={StudentVideo} />
           <Footer />
           </div>
           
