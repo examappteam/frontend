@@ -1,0 +1,62 @@
+#settings2 div{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; 
+}
+
+/* 
+Grids in Settings Menu till 66
+*/
+
+#settings2 .pure-u-1-4 {
+    padding: 4em;
+    width: 100%;
+    text-align: center;
+    
+}
+
+#settings2 .pure-u-1-1{
+    margin-left: 20%;
+    margin-right: 20%;
+
+}
+#settings2 .pure-u-1-3 {
+    padding: 3em;
+    width: 50%;
+    background-color: #f3f1f1;
+}
+#settings2 .pure-u-1-2 {
+    padding: 3em;
+    
+    width: 100%;
+    border-bottom: 1px solid;
+    border-top: 1px solid;
+    border-bottom-color: #ddd;
+    border-top-color: #ddd;
+    background-color: #f3f1f1;
+    
+}
+#settings2 .img
+{
+    border-bottom:10px;
+    border-top: 10px;
+}
+
+#settings2 .pure-u-1,
+#settings2 .pure-u-1-1,
+#settings2 .pure-u-2-2 {
+    width: 100%;
+}
+
+#mleft2{
+    margin-left: 5%;
+    margin-right: 5%;
+    
+}
+#mleft2 h1{
+    border-bottom: 1px solid;
+    padding: 1em;
+    width: 100%;
+    letter-spacing: normal;
+    
+}
