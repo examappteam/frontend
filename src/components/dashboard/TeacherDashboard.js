@@ -57,7 +57,7 @@ class TeacherDashboard extends Component {
     fetchExamWithId(id) {
         var urlAddress = "http://examapp.crenxu.com:22501/main/exam/" + id
         fetch(urlAddress, {
-            method: 'GET',   
+            method: 'GET',
             headers: {
                 Accept: 'application/json',
                 Authorization: sessionStorage.getItem('jwtToken'),
@@ -92,7 +92,7 @@ class TeacherDashboard extends Component {
             this.setState(() =>{
                 return{
                     selectedCategoryId: category,
-                    selectionId: id-1                   
+                    selectionId: id-1
                 }
                 //console.log("states ", this.state.selectedCategoryId, this.state.selectionId)
             })
@@ -100,9 +100,23 @@ class TeacherDashboard extends Component {
 
     changeShowState=()=>{
         this.setState(prevState=>({
-                showState: !prevState.showState       
+                showState: !prevState.showState
         }));
         console.log("showstate",this.state.showState)
+    }
+
+    componentDidMount(){
+        fetch('https://cors-anywhere.herokuapp.com/http://examapp.crenxu.com:22501/main/exam/1', {
+            method: 'GET',
+            headers:{
+                'Content-Type': 'application/json',
+                Authorization: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZWFjaGVyIiwiQVVUSCI6W3siYXV0aG9yaXR5IjoiUk9MRV9URUFDSEVSIn1dLCJpYXQiOjE1NTM2Nzk2MjcsImV4cCI6MTU1Mzc2NjAyN30.YoXboSqq9CnPmU7HNyBmHXQFnZl5N5Nl6g1GclmJefc0ELR3oDpvdnmhfMtUJUWURa3YOzV31xdtJccVlzV6Yg',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+        })
     }
 
     render() {
@@ -110,16 +124,16 @@ class TeacherDashboard extends Component {
         console.log(sessionStorage.getItem('jwtToken'));
         return(
             <div>
-                
+
                 <div className="pure-g">
-                
+
                     <div className="pure-u-1-3">
                         <div className="padded-box">
                         <MdModal close={this.changeShowState} show={this.state.showState}>
                             <StudentManager />
                         </MdModal>
-                            <ScrollableListMenu 
-                                menuHeader="My courses" 
+                            <ScrollableListMenu
+                                menuHeader="My courses"
                                 menuItems={this.state.categories[0]}
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
@@ -129,42 +143,42 @@ class TeacherDashboard extends Component {
                                 <MdModal close={this.changeShowState} show={this.state.showState}>
                                     <CreateNewCourseDialog close={this.changeShowState}/>
                                 </MdModal>
-                                <button className="pure-button pure-button-disabled">Delete selected</button> 
-                        </div>                  
+                                <button className="pure-button pure-button-disabled">Delete selected</button>
+                        </div>
                     </div>
                     <div className="pure-u-1-3">
                         <div className="padded-box">
-                            <ScrollableListMenu 
-                                menuHeader="Ready for evaluation" 
+                            <ScrollableListMenu
+                                menuHeader="Ready for evaluation"
                                 menuItems={this.state.categories[1]}
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
                                 category = {1}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
                                 <button className="pure-button pure-button-disabled">Evaluate selected</button>
-                        </div>  
+                        </div>
                     </div>
                     <div className="pure-u-1-3">
                         <div className="padded-box">
-                            <ScrollableListMenu 
-                                menuHeader="My own exams" 
+                            <ScrollableListMenu
+                                menuHeader="My own exams"
                                 menuItems={this.state.categories[2]}
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
                                 category = {2}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
                                 <Link to="/create_exam"><button className="pure-button pure-button-primary">Create new exam</button></Link>
-                                
-                                <button className="pure-button pure-button-disabled">Delete selected</button>                         
-                        </div>  
+
+                                <button className="pure-button pure-button-disabled">Delete selected</button>
+                        </div>
                     </div>
-                    
+
                 </div>
                 <div className="pure-g">
                 <div className="pure-u-3-24"></div>
                 <div className="pure-u-18-24">
-                    <div className="padded-box">                   
-                        <WideListButtonView title={this.state.categories[this.state.selectedCategoryId][this.state.selectionId].name} exam={this.state.categories[this.state.selectedCategoryId][this.state.selectionId]}/>                     
+                    <div className="padded-box">
+                        <WideListButtonView title={this.state.categories[this.state.selectedCategoryId][this.state.selectionId].name} exam={this.state.categories[this.state.selectedCategoryId][this.state.selectionId]}/>
                     </div>
                 </div>
                 <div className="pure-u-3-24"></div>

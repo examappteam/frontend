@@ -4,14 +4,8 @@ import pic from './img/download.jpg';
 import Modal from '../common/Modal';
 import ChangeEmailContent from './ChangeEmailContent';
 import ChangePasswordContent from './ChangePasswordContent';
-/*
-menuItems = {this.state.users[0]} 
-         menuHeader = "Classes"
-         users = {0}
-*/
 
-
-class Settings extends Component{
+class StudentSettings extends Component{
     
 constructor(props){
     super(props)
@@ -28,35 +22,6 @@ constructor(props){
     }
     
 }
-
-getDataForUser(){
-    fetch('http://examapp.crenxu.com:22501/auth/signin', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: this.state.email,
-          password: this.state.password,     
-        })
-      })
-
-      .then(response => response.json())      
-      
-      .then(data => {
-        
-      this.setToken(data);
-      
-      this.setState({
-        role: this.getTokenDataRole()
-      })
-      }
-      )
-      
-    } 
-
-
 toggleModal = () => {
     this.setState({
       isOpen: !this.state.isOpen
@@ -172,4 +137,4 @@ pswDialogIsOpen: !this.state.pswDialogIsOpen
     )
 }
 }
-export default Settings; 
+export default StudentSettings; 
