@@ -11,9 +11,9 @@ class QuestionForm extends Component {
         super()
         this.state = {
             id: 1, 
-            questionName: "", 
-            questionAnswer: "", 
-            questionWeight: 1 
+            description: "", 
+            answer: "", 
+            weightPercentage: 1 
         }
         this.handleChange = this.handleChange.bind(this)
     }
@@ -27,9 +27,9 @@ class QuestionForm extends Component {
     componentDidUpdate() {
         var dataToPush = {
             id: this.state.id, 
-            questionName: this.state.questionName, 
-            questionAnswer: this.state.questionAnswer, 
-            questionWeight: this.state.questionWeight
+            description: this.state.description, 
+            answer: this.state.answer, 
+            weightPercentage: this.state.weightPercentage
         }
         questionsData[this.state.id] = dataToPush
     }
@@ -48,24 +48,24 @@ class QuestionForm extends Component {
                 <label>Question no. {this.state.id + 1}:</label>
                 <div className="form-component">
                     <FormTextInput                                 
-                        nameForInput="questionName"
-                        stateForInput={this.state.questionName}
+                        nameForInput="description"
+                        stateForInput={this.state.description}
                         handlerForInput={this.handleChange}
                         placeholderForInput="Question"
                     />
                 </div>
                 <div className="form-component">
                     <FormTextInput
-                        nameForInput="questionAnswer"
-                        stateForInput={this.state.questionAnswer}
+                        nameForInput="answer"
+                        stateForInput={this.state.answer}
                         handlerForInput={this.handleChange}
                         placeholderForInput="Answer"
                     />
                 </div>
                 <div className="form-component">
                     <FormSelectInput
-                        nameForInput="questionWeight"
-                        stateForInput={this.state.questionWeight}
+                        nameForInput="weightPercentage"
+                        stateForInput={this.state.weightPercentage}
                         handlerForInput={this.handleChange}
                     />
                 </div>                          
