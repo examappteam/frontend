@@ -17,6 +17,7 @@ import {WithAuth} from "./components/login/WithAuth"
 import {TeacherWithAuth} from "./components/login/TeacherWithAuth"
 
 
+
 /*<Route exact path="/" render={(props) => (
   isUserLoggedIn() ? (
     <Login {...props} />
@@ -31,13 +32,12 @@ import {TeacherWithAuth} from "./components/login/TeacherWithAuth"
 function App()  {
     return (
       <Router>
-                            
-        <div>
-
+           <div>              
         
-
-        <Route exact path="/" component={Login}/>
+      
+        <Route exact path="/" component={Login }/>
         <Route exact path="/login" component={Login}/>
+        
           <Header />
           
           <WithAuth path="/studentdashboard" component={StudentDashboard} />
@@ -55,8 +55,9 @@ function App()  {
           <Footer />
           </div>
           
+          </Router>
       
-      </Router>
+      
     )
 }
 
