@@ -22,7 +22,7 @@ class CreateExamView extends Component {
 
         this.setState({
             [name]: value
-        }) 
+        })
     }
 
     handleAddClick() {
@@ -37,7 +37,7 @@ class CreateExamView extends Component {
                 formsToRender: prevState.formsToRender - 1
             }))
             questionsData.pop()
-        }     
+        }
     }
 
     handleSaveClick() {
@@ -45,17 +45,13 @@ class CreateExamView extends Component {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
+                Authorization: sessionStorage.getItem('jwtToken'),
                 'Content-type': 'application/json',
             },
             body: JSON.stringify({
                 creatorId: 1,
-                questionDTOs: [
-                    {
-                        weightPercentage: 1,
-                        description: '',
-                        answer: ''
-                    }                    
-                ]
+                title: this.state.examTitle,
+                questionDTOs: this.state.examQuestions
             }),
         });
     }
@@ -63,7 +59,7 @@ class CreateExamView extends Component {
     render() {
         var formElements = []
 
-        for (var i = 0; i <= this.state.formsToRender; i++) { 
+        for (var i = 0; i <= this.state.formsToRender; i++) {
             formElements.push(<QuestionForm/>)
         }
 
@@ -75,19 +71,19 @@ class CreateExamView extends Component {
                         <div style={{marginBottom: 1 + 'em'}}>
                             <label>Title of exam: </label>
                             <input
-                                type="text" 
-                                value={this.state.examTitle} 
-                                name="examTitle" 
-                                placeholder="Your exam title here" 
+                                type="text"
+                                value={this.state.examTitle}
+                                name="examTitle"
+                                placeholder="Your exam title here"
                                 onChange={this.handleChange}
                             />
-                        </div>                                     
+                        </div>
                     </form>
-                    {formElements}    
-                    
+                    {formElements}
+
                     <button className="pure-button button-secondary" onClick={this.handleAddClick}>Add new question</button>
                     <button className="pure-button button-error" onClick={this.handleRemoveClick}>Remove question</button>
-                    <button className="pure-button pure-button-primary" onClick={this.handleSaveClick}>Done! - save this exam</button>    
+                    <button className="pure-button pure-button-primary" onClick={this.handleSaveClick}>Done! - save this exam</button>
                 </div>
             </div>
         )

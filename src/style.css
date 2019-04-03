@@ -6,7 +6,7 @@ body{
 }
 
 .navbar{
-    background: url('./kirja3.jpg');
+    background: url('./kirja2.jpg');
     background-position: right center;
     background-size: cover;
     box-shadow: 1px 2px 25px 2px rgb(158, 158, 158);
@@ -28,7 +28,6 @@ body{
     /*background: linear-gradient(to bottom, #9e9d9c, #d7cec7);*/
     background-size: fill;
 }
-
 .title {
     color: blue
 }
@@ -170,4 +169,9 @@ body{
     border-radius: 4px;
     margin: 2%;
     height: 26em;
+}
+
+#form-answerbox {
+    width: 40%;
+    margin: 0 auto;
 }
