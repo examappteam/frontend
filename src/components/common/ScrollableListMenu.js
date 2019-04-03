@@ -4,7 +4,6 @@ import ListMenuItem from "./ListMenuItem"
 import "./styles/ScrollableListMenuStyle.css"
 
 function ScrollableListMenu(props) {
-    console.log("id",props.menuItems[1].id)
     const category = props.category
     let menuItems
 
