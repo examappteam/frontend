@@ -21,7 +21,7 @@ const MdModal = (props) => {
                     }}>
                 <div className="modal-header-md">
                     
-                    <p className="close-container" onClick={props.close}><i class="close-modal-btn fas fa-times"></i></p>
+                    <p className="close-container" onClick={props.close}><i className="close-modal-btn fas fa-times"></i></p>
                 </div>
                 <div className="modal-body-md">
                     <p>
