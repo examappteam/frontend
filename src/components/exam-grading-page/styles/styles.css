@@ -1,0 +1,51 @@
+
+
+textarea {
+    width: 100%;
+    height: 130px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+  }
+
+#question-name {
+    background-color: #bdffc7;
+    background-color: hsla(106, 100%, 84%, 0.54);
+    border: 2px solid hsla(106, 100%, 54%, 0.54);
+}
+
+#review {
+    width:40%;
+    min-width:220px;
+    margin: 5px 5px;
+}
+
+#pointsDiv {
+    padding: 0px 0px 0px 20px;
+}
+
+#points {
+    float: left;
+    margin: 10px 0px;
+    height:50px;
+}
+
+.custom-restricted-width {
+    width:80%;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
+.custom-restricted-width > span {
+    background-color: #ccc;
+}
+
+#grade-navbar {
+    background-color: #e2e1e1;
+}
+
+#grade-navbar a {
+    color: rgb(17, 17, 17);
+}

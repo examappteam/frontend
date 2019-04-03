@@ -10,6 +10,7 @@ import TeacherDashboard from "./components/dashboard/TeacherDashboard"
 import TeacherDashboardCourseView from "./components/dashboard/TeacherDashboardCourseView"
 import CreateExamView from "./components/create-exam-view/CreateExamView"
 import TwilioTeacherVideo from "./components/teacher-exam-video-page/TwilioTeacherVideo"
+import ExamGradingView from "./components/exam-grading-page/ExamGradingView"
 import StudentVideo from './components/student-video-page/StudentVideo'
 import StudentInformation from "./components/StudentInformationForTeacherView/StudentInformation"
 import Footer from "./components/Footer"
@@ -39,6 +40,9 @@ function App()  {
         <Route exact path="/" component={Login}/>
         <Route exact path="/login" component={Login}/>
           <Header />
+
+          <Route path="/exam_grading" component={ExamGradingView} />
+
           
           <WithAuth path="/studentdashboard" component={StudentDashboard} />
           <WithAuth path="/student_exam_view" component={StudentVideo} />
@@ -52,6 +56,7 @@ function App()  {
 
           <TeacherWithAuth path="/settings" component={Settings} />
           
+
           <Footer />
           </div>
           
