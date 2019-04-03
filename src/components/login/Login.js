@@ -34,7 +34,7 @@ export default class Login extends React.Component{
         
     }
     setToken(idToken){
-      sessionStorage.setItem('jwtToken', JSON.stringify(idToken.accessToken));
+      sessionStorage.setItem('jwtToken', idToken.accessToken);
       console.log(sessionStorage.getItem('jwtToken'));
     }
     getToken(){
