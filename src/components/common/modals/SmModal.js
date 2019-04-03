@@ -21,7 +21,7 @@ const SmModal = (props) => {
                     }}>
                 <div className="modal-header-sm">
                     
-                    <p className="close-container" onClick={props.close}><i class="close-modal-btn fas fa-times"></i></p>
+                    <p className="close-container" onClick={props.close}><i className="close-modal-btn fas fa-times"></i></p>
                 </div>
                 <div className="modal-body-sm">
                     <p>
