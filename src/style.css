@@ -170,3 +170,8 @@ body{
     margin: 2%;
     height: 26em;
 }
+
+#form-answerbox {
+    width: 40%;
+    margin: 0 auto;
+}
