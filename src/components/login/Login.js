@@ -1,8 +1,6 @@
 import React from 'react';
 import './styles/App.css';
-import getInfo from './GetInfo';
 import jwt_decode from 'jwt-decode'
-import { get } from 'http';
 export default class Login extends React.Component{
     
 
@@ -34,7 +32,7 @@ export default class Login extends React.Component{
         
     }
     setToken(idToken){
-      sessionStorage.setItem('jwtToken', JSON.stringify(idToken.accessToken));
+      sessionStorage.setItem('jwtToken', idToken.accessToken);
     }
     getToken(){
       return sessionStorage.getItem('jwtToken');
