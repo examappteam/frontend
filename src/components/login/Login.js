@@ -1,7 +1,6 @@
 import React from 'react';
 import './styles/App.css';
 import jwt_decode from 'jwt-decode'
-
 import Auth from './Auth';
 import Sessionstorageitems from '../common/sessionstorage/Sessionstorageitems';
 import MdModal from '../common/modals/SmModal';
