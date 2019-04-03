@@ -99,7 +99,7 @@ class TeacherDashboard extends Component {
                                 selectedCategory={this.state.selectedCategoryId}
                                 category = {1}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
-                                <button className="pure-button pure-button-disabled">Evaluate selected</button>
+                                <Link to="/exam_grading"><button className="pure-button pure-button-primary">Evaluate selected</button></Link>
                         </div>  
                     </div>
                     <div className="pure-u-1-3">
