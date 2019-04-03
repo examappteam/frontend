@@ -67,23 +67,25 @@ class TeacherDashboard extends Component {
         console.log("showstate",this.state.showState)
     }
 
-    componentDidMount(){
-        fetch('https://cors-anywhere.herokuapp.com/http://examapp.crenxu.com:22501/main/exam/1', {
+    tryFetch(){
+        console.log('Running tryfetch')
+        fetch('https://cors-anywhere.herokuapp.com/examapp.crenxu.com:22501/main/exam/1', {
             method: 'GET',
             headers:{
                 'Content-Type': 'application/json',
-                Authorization: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZWFjaGVyIiwiQVVUSCI6W3siYXV0aG9yaXR5IjoiUk9MRV9URUFDSEVSIn1dLCJpYXQiOjE1NTM2Nzk2MjcsImV4cCI6MTU1Mzc2NjAyN30.YoXboSqq9CnPmU7HNyBmHXQFnZl5N5Nl6g1GclmJefc0ELR3oDpvdnmhfMtUJUWURa3YOzV31xdtJccVlzV6Yg',
+                
             }
         })
         .then(response => response.json())
         .then(data => {
+            sessionStorage.setItem('examdata', data)
             console.log(data)
         })
     }
 
     render() {
-        console.log(this.state.categories[this.state.selectedCategoryId][this.state.selectionId])
         console.log(sessionStorage.getItem('jwtToken'));
+        this.tryFetch()
         return(
             <div>
                 
@@ -91,9 +93,9 @@ class TeacherDashboard extends Component {
                 
                     <div className="pure-u-1-3">
                         <div className="padded-box">
-                        <MdModal close={this.changeShowState} show={this.state.showState}>
-                            <StudentManager />
-                        </MdModal>
+                        {/*<MdModal close={this.changeShowState} show={this.state.showState}>
+                            <StudentManager />                      //Needs to be in courseview !!
+                        </MdModal>*/}
                             <ScrollableListMenu 
                                 menuHeader="My courses" 
                                 menuItems={this.state.categories[0]}

@@ -78,8 +78,10 @@ class CreateExamView extends Component {
             Accept: 'application/json',
             Authorization: authToken,
             'Content-type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+            'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+            'Access-Control-Expose-Headers': 'access-control-allow-origin,access-control-allow-methods,access-control-allow-headers',
+            'Access-Control-Allow-Methods': 'POST'
+
         }
         axios.post(url, examInfo, headers)
             .then(result => console.log(result))
