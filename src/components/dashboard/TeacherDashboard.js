@@ -6,7 +6,7 @@ import StudentManager from "../../components/common/StudentManager";
 import { BrowserRouter as Router, Route, Link} from "react-router-dom";
 import "./styles/DashboardStyle.css"
 import CreateNewCourseDialog from "./dialogs/CreateNewCourseDialog";
-import Login from '../login/Login';
+
 
 class TeacherDashboard extends Component {
     constructor() {
