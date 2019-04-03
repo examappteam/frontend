@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Link} from "react-router-dom";
 import "./styles/WideListView.css"
 
 function WideListButtonView(props){
-        console.log(props)
         return(
                 <div className="wide-container">
                     <div className="pure-g">
