@@ -49,7 +49,7 @@ class CreateExamView extends Component {
                 'Content-type': 'application/json',
             },
             body: JSON.stringify({
-                creatorId: 1,
+                creatorId: sessionStorage.getItem('email'),
                 title: this.state.examTitle,
                 questionDTOs: this.state.examQuestions
             }),
