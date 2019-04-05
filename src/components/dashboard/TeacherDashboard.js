@@ -41,7 +41,7 @@ class TeacherDashboard extends Component {
             ],
             selectedCategoryId: 0,
             selectionId: 0,
-            test: [{id: 1, title: "test"}],
+            exams: [{id: 1, title: "test"}],
             showState: false
         }
 
@@ -55,9 +55,9 @@ class TeacherDashboard extends Component {
     }
 
     fetchExamWithId(id) {
-        var urlAddress = "http://examapp.crenxu.com:22501/main/exam/" + id
-        fetch(urlAddress, {
-            method: 'GET',
+        var urlAddress = "http://examapp.crenxu.com:22501/main/exam/" + id // This whole mess of a function
+        fetch(urlAddress, {                                                // should be replaced when we get a better endpoint
+            method: 'GET',                                                 // for fetching data
             headers: {
                 Accept: 'application/json',
                 Authorization: sessionStorage.getItem('jwtToken'),
@@ -72,9 +72,9 @@ class TeacherDashboard extends Component {
         })
         .then(response => response.json())
         .then(data => {
-            teacherExamPoolData[id - 9] = data
+            teacherExamPoolData[id - 9] = data.exam
             this.setState({
-                test: teacherExamPoolData
+                exams: teacherExamPoolData
             })
             console.log("PoolData is: ", teacherExamPoolData)
             console.log("Data is: ", this.state.test)
@@ -150,7 +150,7 @@ class TeacherDashboard extends Component {
                         <div className="padded-box">
                             <ScrollableListMenu
                                 menuHeader="My own exams"
-                                menuItems={this.state.categories[2]}
+                                menuItems={this.state.exams}
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
                                 category = {2}
