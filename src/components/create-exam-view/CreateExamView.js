@@ -1,5 +1,7 @@
 import React, {Component} from "react"
 
+import { BrowserRouter as Router, Route, Link} from "react-router-dom"
+
 import QuestionForm from "./QuestionForm"
 import questionsData from "./questionsData"
 
@@ -83,7 +85,7 @@ class CreateExamView extends Component {
 
                     <button className="pure-button button-secondary" onClick={this.handleAddClick}>Add new question</button>
                     <button className="pure-button button-error" onClick={this.handleRemoveClick}>Remove question</button>
-                    <button className="pure-button pure-button-primary" onClick={this.handleSaveClick}>Done! - save this exam</button>
+                    <Link to="/teacherdashboard"><button className="pure-button pure-button-primary" onClick={this.handleSaveClick}>Done! - save this exam</button></Link>
                 </div>
             </div>
         )
