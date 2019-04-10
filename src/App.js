@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route} from "react-router-dom";
-
+import {Component} from "react"
 import Header from "./components/Header"
 import Login from "./components/login/Login"
 import Settings from "./components/settings/Settings"
@@ -16,38 +16,33 @@ import StudentInformation from "./components/StudentInformationForTeacherView/St
 import Footer from "./components/Footer"
 import {WithAuth} from "./components/login/WithAuth"
 import {TeacherWithAuth} from "./components/login/TeacherWithAuth"
-
-
-/*<Route exact path="/" render={(props) => (
-  isUserLoggedIn() ? (
-    <Login {...props} />
-  ) : (
-    <Redirect to="/"/>
-  )
-)}/>*/
+import {Auth} from "./components/login/Auth"
 
 
 
 
-function App()  {
+class App extends Component  {
+  
+
+  render(){
+
     return (
       <Router>
-                            
-        <div>
-
+        
+           <div>              
+        
+           
+        <Route exact path="/" component={Login }/>
+        <Route exact path="/login" component={Login}/>
         
 
-        <Route exact path="/" component={Login}/>
-        <Route exact path="/login" component={Login}/>
-          <Header />
-
-          <Route path="/exam_grading" component={ExamGradingView} />
-
           
-          <WithAuth path="/studentdashboard" component={StudentDashboard} />
+
+          <WithAuth path="/studentdashboard"  component={StudentDashboard} />
           <WithAuth path="/student_exam_view" component={StudentVideo} />
           <WithAuth path="/studentsettings" component = {StudentSettings}/>
 
+          <TeacherWithAuth path="/exam_grading" component={ExamGradingView} />
           <TeacherWithAuth path="/teacherdashboard" component={TeacherDashboard} />
           <TeacherWithAuth path="/studentinformation" component={StudentInformation} />
           <TeacherWithAuth path="/course_view" component={TeacherDashboardCourseView} />
@@ -57,12 +52,13 @@ function App()  {
           <TeacherWithAuth path="/settings" component={Settings} />
           
 
-          <Footer />
+          
           </div>
           
+          </Router>
       
-      </Router>
+      
     )
 }
-
+}
 export default App;

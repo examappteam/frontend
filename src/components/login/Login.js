@@ -59,7 +59,7 @@ export default class Login extends React.Component{
       console.log(trimmedDecode);
       var trimmedName = trimmedDecode.sub;
       Sessionstorageitems.setEmail(trimmedName);
-      //sessionStorage.setItem('email', trimmedName)
+      
       console.log("Email täällä" + sessionStorage.getItem('email'));
       console.log("Täällä" + trimmedName);
       return trimmedName;
@@ -107,8 +107,8 @@ export default class Login extends React.Component{
 
       else{
       Sessionstorageitems.setToken(data);
-      //this.setToken(data);
-
+      
+      
       // Laitetaan krypto data stateen että saadaan avain jolla saadaan rooli käyttäjälle
       this.setState({
         token: data
@@ -117,8 +117,9 @@ export default class Login extends React.Component{
       this.setState({
         role: this.getTokenDataRole()
       })
-      //this.state.role = this.getTokenDataRole();
-      if(this.state.role === "student"){
+      
+      if(this.state.role === "student"){  
+
 
         this.setState({
           loggedinStudent: true
@@ -155,9 +156,9 @@ export default class Login extends React.Component{
         this.setState({ [evt.target.name]: evt.target.value });
       }
 
-  render() {
 
-
+  render() {    
+    
 
     return (
      <div>
