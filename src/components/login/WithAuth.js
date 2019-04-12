@@ -1,7 +1,6 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import Auth from "./Auth";
-import Header from "../Header";
 export const WithAuth = ({component: Component, ...rest}) => {
     return (
         <Route
@@ -9,7 +8,7 @@ export const WithAuth = ({component: Component, ...rest}) => {
         render={
             props => {
                 if((Auth.studentIsAuthenticated())){
-                return <div> <Header /> <Component{...props} /> </div>
+                return <Component{...props} />
             }
             else {
                 return <Redirect to ={

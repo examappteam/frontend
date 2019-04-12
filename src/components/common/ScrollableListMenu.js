@@ -24,8 +24,8 @@ function ScrollableListMenu(props) {
             item => <ListMenuItem 
                 handler={props.handler(category, item.id)} 
                 id={item.id} 
-                itemName={item.title}       // This is just a temporary solution
-                //itemExtra={item.date}
+                itemName={item.name} 
+                itemExtra={item.date}
                 selectedItem={props.selectedItem}
                 categoryId={category}
                 selectedCategory={props.selectedCategory}/>

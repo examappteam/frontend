@@ -19,6 +19,9 @@ class ParticipantList extends Component {
 
     componentDidMount() {
         console.log("ParticipantList mounted");
+        this.addParticipantToList("All");
+        this.addParticipantToList("Joroma");
+        this.addParticipantToList("Palle");
     }
 
     addParticipantToList(identity) {
@@ -41,7 +44,7 @@ class ParticipantList extends Component {
     render() {
         return(
             <div>
-                <div id="scrollable-list" className="pure-menu pure-menu-scrollable custom-restricted">
+                <div id="scrollable-list" class="pure-menu pure-menu-scrollable custom-restricted">
                     <ol id="participant-list">
 
                     </ol>
