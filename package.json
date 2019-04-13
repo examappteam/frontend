@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "jwt-decode": "^2.2.0",
+    "mqtt": "^2.18.8",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-router": "^4.3.1",

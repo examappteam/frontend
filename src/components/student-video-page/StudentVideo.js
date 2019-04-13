@@ -12,8 +12,8 @@ class StudentVideo extends Component {
         super()
         this.sendTextMessage = this.sendTextMessage.bind(this);
         this.state = {
-            examid: null,
-            examname: null,
+            examid: 35,
+            examname: "",
             groupRoomToken: "",
             privateRoomToken:"",
             identity: "Student",
@@ -38,35 +38,30 @@ class StudentVideo extends Component {
 
     componentDidMount() {
         console.log("componentDidMmount");
-        this.setState({
-            identity: sessionStorage.getItem('email'),
-            examid: sessionStorage.getItem('examID')
-        }).then(function() {
-            const fullAddress = this.fetchAddress.concat("main/exam/").concat(this.state.examid);
-            console.log(fullAddress);
-            fetch(fullAddress, {
-                method:  'GET',
-                headers: {
-                    Accept: 'application/json',
-                    Authorization: sessionStorage.getItem('jwtToken'),
-                    'Content-Type': 'application-json',
-                }
-            }).then(response => response.json())
-            .then(data => {
-                this.chatWindow.setSendToName(data.creatorId);
-                this.setState({
-                    teacherIdentity: data.creatorId,
-                    examname: data.title
-                }).then(function() {
-                    this.connectToRoom();
-                })
-            })
-        });
+        const _this = this;
+        this.state.identity = sessionStorage.getItem('email');
+        const fullAddress = this.fetchAddress.concat("main/exam/").concat(this.state.examid);
+        console.log(fullAddress);
+        fetch(fullAddress, {
+            method:  'GET',
+            headers: {
+                Accept: 'application/json',
+                Authorization: sessionStorage.getItem('jwtToken'),
+                'Content-Type': 'application-json',
+            }
+        }).then(response => response.json())
+        .then(data => {
+            _this.chatWindow.setSendToName(data.creatorId);
+            _this.state.teacherIdentity = data.creatorId;
+            _this.state.examname = data.title;
+            this.connectToRoom();
+            
+        })
     }
 
     connectToRoom() {
         //TODO fetch token from server
-        const fullAddress = this.fetchAddress.concat("?identity=").concat(this.state.identity,"&roomName=",this.state.examname);   //<---- USE EXAM NAME AS ROOMNAME
+        const fullAddress = this.fetchAddress.concat("main/twilio/videotoken?identity=").concat(this.state.identity,"&roomName=",this.state.examname);   //<---- USE EXAM NAME AS ROOMNAME
         console.log("Address: " + fullAddress);
         fetch(fullAddress, {
             method:  'GET',
