@@ -52,7 +52,7 @@ class TeacherDashboard extends Component {
     }
 
     componentDidMount() {
-        this.fetchExamWithId(0)
+        this.fetchExamWithId(1)
     }
 
     fetchExamWithId(id) {
