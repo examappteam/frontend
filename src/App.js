@@ -17,7 +17,7 @@ import Footer from "./components/Footer"
 import {WithAuth} from "./components/login/WithAuth"
 import {TeacherWithAuth} from "./components/login/TeacherWithAuth"
 import {Auth} from "./components/login/Auth"
-
+import {DashboardDirect} from "./components/login/DashboardDirect"
 
 
 
@@ -32,8 +32,8 @@ class App extends Component  {
            <div>              
         
            
-        <Route exact path="/" component={Login }/>
-        <Route exact path="/login" component={Login}/>
+        <DashboardDirect exact path="/" component={Login }/>
+        <Route path="/login" component={Login}/>
         
 
           
