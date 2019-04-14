@@ -9,12 +9,28 @@ class TwilioTeacherVideo extends Component {
     chat = new ChatWindow();
     fetchAddress = "http://examapp.crenxu.com:22501/";
     dataTrackList = [];
-    id = "teacher";
-    hostName = "tcp://m24.cloudmqtt.com";
-    port = 14820;
+    hostName = "wss://m24.cloudmqtt.com:34820";
     client;
     mqtt = require('mqtt');
-    options = [{ host: this.hostName, port: this.port, username: "tidpauhp", password: "wITVbwMtwaMo"}];
+    options = {
+        keepalive: 10,
+        clientId: 'teacher',
+        protocolId: 'MQTT',
+        protocolVersion: 4,
+        clean: true,
+        retain: true,
+        reconnectPeriod: 1000,
+        connectTimeout: 30 * 1000,
+        will: {
+          topic: 'exam-app',
+          payload: '',
+          qos: 0,
+          retain: true
+        },
+        username: 'tidpauhp',
+        password: 'wITVbwMtwaMo',
+        rejectUnauthorized: false
+      }
     constructor() {
         super()
         this.handler = this.handler.bind(this);
@@ -43,87 +59,29 @@ class TwilioTeacherVideo extends Component {
 
     componentDidMount() {
         console.log("componentDidMmount");
-        console.log(this.options);
-        console.log(this.hostName);
+        const _this = this;
         this.state.identity = sessionStorage.getItem('email');
         this.client = this.mqtt.connect(this.hostName,this.options);
+        console.log("Client object:")
+        console.log(this.client);
+        console.log("mqtt object:");
+        console.log(this.mqtt);
         this.client.on('connect', function () {
-            this.client.subscribe('exam-app', function (err) {
-              if (err) {
-                console.log(err);
-              }
-            })
+            _this.client.subscribe("exam-app",{qos:0});
           })
 
         this.client.on('message', function (topic, message) {
             // message is Buffer
             console.log(message.toString());
           })
-        /*this.client = new Paho.MQTT.Client(this.hostName, Number(this.port), this.state.identity);
-        this.client.onConnectionLost = this.onConnectionLost;
-        this.client.onMessageArrived = this.onMessageArrived;
-        this.client.connect({onSuccess:this.onConnect});*/
         this.twilioConnection();
-        /*this.setState({
-            identity: sessionStorage.getItem('email'),
-        }).then(function() {
-            this.twilioConnection();
-        });*/
-        
-        /*
-        const fullAddress = this.fetchAddress.concat("main/user/").concat(this.id);
-        const _this = this;
-        console.log(fullAddress);
-        console.log(sessionStorage.getItem('jwtToken'));
-        fetch(fullAddress, {
-            method:  'GET',
-            headers: {
-                Accept: 'application/json',
-                Authorization: sessionStorage.getItem('jwtToken'),
-                'Content-Type': 'application-json',
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log("ASETETAAN IDENTITY");
-            console.log(data);
-            _this.setState({
-                identity: sessionStorage.getItem('email')
-            })
-        }).then(function(){
-            console.log(_this.state.identity);
-            _this.twilioConnection();
-        });*/
     }
-    /**
-     * MQTT PAHO functions
-     */
-    /*
-    onConnect() {
-        // Once a connection has been made, make a subscription
-        console.log("onConnect");
-        this.client.subscribe("/exam-app");
-      };
-
-      onConnectionLost(responseObject) {
-        if (responseObject.errorCode !== 0)
-          console.log("onConnectionLost:"+responseObject.errorMessage);
-      };
-
-      onMessageArrived(message) {
-        console.log("onMessageArrived:"+message.payloadString);
-        this.client.disconnect(); 
-      };*/	
-    //MQTT PAHO function end
 
     componentDidUpdate() {
         this.chat.setSendToName(this.state.chosenStudent);
     }
 
     componentWillUnmount() {
-       /* this.message = new Paho.MQTT.Message("");  //<--- Empty retained message, so students won' t receive old messages
-        this.message.retain = true;
-        this.message.destinationName = "exam-app";*/
         this.client.publish("exam-app","");
     }
 
@@ -166,7 +124,7 @@ class TwilioTeacherVideo extends Component {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                _this.state.roomName = data.exam.title;
+                _this.state.roomName = data.title;
             }).then(function() {
                 const fullAddress = _this.fetchAddress.concat("main/twilio/videotoken?identity=").concat(_this.state.identity).concat("&roomName=").concat(_this.state.roomName);    //<---USE EXAM NAME AS ROOMNAME
                 console.log("Address: " + fullAddress);
@@ -197,11 +155,7 @@ class TwilioTeacherVideo extends Component {
                             console.log("Connected to room: ");
                             console.log(room.name);
                             console.log(room.participants);
-                            /*
-                            this.message = new Paho.MQTT.Message("Hello");  //<--- ADD MESSAGE: exam name, teacher name
-                            this.message.retain = true;
-                            this.message.destinationName = "/exam-app";
-                            this.client.send(this.message); */
+
                             this.client.publish("exam-app","Hello");
                             
                             room.participants.forEach(function(participant) {
