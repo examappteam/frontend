@@ -190,7 +190,7 @@ class TeacherDashboard extends Component {
                 <div className="pure-u-3-24"></div>
                 <div className="pure-u-18-24">
                     <div className="padded-box">
-                        
+                    <WideListButtonView title={"ExamTitle"} exam={this.state.exams[this.state.selectionId]}/>
                     </div>
                 </div>
                 <div className="pure-u-3-24"></div>
