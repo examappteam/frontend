@@ -19,8 +19,12 @@ class QuestionForm extends Component {
     }
 
     componentDidMount() {
+        console.log("QUESTIONS ", questionsData)
         this.setState({
-            id: questionsData.length
+            id: questionsData.length,
+            description: questionsData[questionsData.length - 1][0].description,
+            answer: questionsData[questionsData.length - 1].answer,
+            weightPercentage: questionsData[questionsData.length - 1].weightPercentage
         }) 
     }
 

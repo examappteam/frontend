@@ -41,7 +41,7 @@ class TeacherDashboard extends Component {
             ],
             selectedCategoryId: 0,
             selectionId: 0,
-            exams: [{id: 1, title: "test"}],
+            exams: [{id: 1, title: "Loading..."}],
             showState: false
         }
 
@@ -97,6 +97,9 @@ class TeacherDashboard extends Component {
                 }
                 //console.log("states ", this.state.selectedCategoryId, this.state.selectionId)
             })
+        if(this.state.selectedCategoryId === 2) {
+            sessionStorage.setItem("examToEdit", id)
+        }      
     }
 
     changeShowState=()=>{
@@ -146,6 +149,7 @@ class TeacherDashboard extends Component {
                                 menuItems={this.state.categories[0]}
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
+                                selectedLink={"/course_view"}
                                 category = {0}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
                                 <button onClick={this.changeShowState} className="pure-button pure-button-primary">Create new course</button>
@@ -162,6 +166,7 @@ class TeacherDashboard extends Component {
                                 menuItems={this.state.categories[1]}
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
+                                selectedLink={"/exam_grading"}
                                 category = {1}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
 
@@ -176,12 +181,21 @@ class TeacherDashboard extends Component {
                                 menuItems={this.state.exams}
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
+                                selectedLink={"/edit_exam"}
                                 category = {2}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
-                                <Link to="/create_exam"><button className="pure-button pure-button-primary">Create new exam</button></Link>
+                                <Link to="/create_exam">
+                                    <button className="pure-button pure-button-primary">
+                                        Create new exam
+                                    </button>
+                                </Link>
                                 {this.state.selectedCategoryId === 2 ?
-                                <button className="pure-button button-error" onClick={this.handleRemoveClick}>Delete selected</button> :
-                                <button className="pure-button pure-button-disabled">Delete selected</button>}
+                                <button className="pure-button button-error" onClick={this.handleRemoveClick}>
+                                    Delete selected
+                                </button> :
+                                <button className="pure-button pure-button-disabled">
+                                    Delete selected
+                                </button>}
                         </div>
                     </div>
 
