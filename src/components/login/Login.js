@@ -47,20 +47,22 @@ export default class Login extends React.Component{
     };
 
     getTokenDataRole(){
-      console.log("accessToken",this.state.token);
       var trimmedDecode = jwt_decode(this.state.token);
+      console.log(trimmedDecode);
+      var trimmedName = trimmedDecode.sub;
+      Sessionstorageitems.setEmail(trimmedName);
       
       var trimmedName = trimmedDecode.roles[0];
       Sessionstorageitems.setEmail(trimmedName);
       //sessionStorage.setItem('email', trimmedName)
       console.log("Email täällä" + sessionStorage.getItem('email'));
       console.log("Täällä" + trimmedName);
-      return trimmedName;
+      return trimmedDecode.roles[0];
     }
     
 
     _checkstatus(response){
-      if(response.status >= 400 && response.status < 500) {
+      if(response.status >= 400 && response.status <= 500) {
         console.log("Checkstatus Virheellinen Palautettu False");
         
         return false;
@@ -89,9 +91,9 @@ export default class Login extends React.Component{
       .then(response => response.json())      
       
       .then(data => {
-        if((this._checkstatus(data)===false)){ 
-                 
-        console.log(data);
+        if((this._checkstatus(data.token)===false)){
+
+        console.log(data.token);
         console.log("Virheellinen");
         
         this.toggleModal();
@@ -99,20 +101,20 @@ export default class Login extends React.Component{
       }
 
       else{
-        console.log(data.token)
-      Sessionstorageitems.setToken(data);
-      //this.setToken(data);
+      Sessionstorageitems.setToken(data.token);
+      
       
       // Laitetaan krypto data stateen että saadaan avain jolla saadaan rooli käyttäjälle
       this.setState({
         token: data.token
-        
       })
       this.setState({
         role: this.getTokenDataRole()
       })
-      //this.state.role = this.getTokenDataRole();
+      
       if(this.state.role === "ROLE_STUDENT"){  
+        
+
 
         this.setState({
           loggedinStudent: true

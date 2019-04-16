@@ -15,7 +15,8 @@ import StudentInformation from "./components/StudentInformationForTeacherView/St
 import Footer from "./components/Footer"
 import {WithAuth} from "./components/login/WithAuth"
 import {TeacherWithAuth} from "./components/login/TeacherWithAuth"
-
+import {Auth} from "./components/login/Auth"
+import {DashboardDirect} from "./components/login/DashboardDirect"
 
 /*<Route exact path="/" render={(props) => (
   isUserLoggedIn() ? (
@@ -31,9 +32,12 @@ import {TeacherWithAuth} from "./components/login/TeacherWithAuth"
 function App()  {
     return (
       <Router>
-                            
-        <div>
-
+        
+           <div>              
+        
+           
+        <DashboardDirect exact path="/" component={Login }/>
+        <Route path="/login" component={Login}/>
         
 
         <Route exact path="/" component={Login}/>

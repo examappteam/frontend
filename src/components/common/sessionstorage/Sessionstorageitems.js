@@ -4,8 +4,7 @@ class Sessionstorageitems{
     }
 
     setToken(idToken){
-        sessionStorage.setItem('jwtToken',(idToken.token));
-        console.log("data on:", idToken.token)
+        sessionStorage.setItem('jwtToken',(idToken));
         console.log("Onnistui tokenin laitto" + sessionStorage.getItem('jwtToken'));
     }
 

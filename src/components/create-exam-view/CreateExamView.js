@@ -17,6 +17,10 @@ class CreateExamView extends Component {
         this.handleChange = this.handleChange.bind(this)
     }
 
+    componentWillUnmount() {
+        questionsData.length = 0
+    }
+
     handleChange(event) {
         const {name, value} = event.target
 

@@ -18,10 +18,10 @@ function WideListButtonView(props){
                         </div>
                     </div>
                         <div className="wide-description">         
-                                <p>{props.exam.description}</p>
+                                <p>{"Description"}</p>
                         </div>
                         <div className="wide-date">
-                                <h3>{props.exam.date}</h3>
+                                <h3>{"Date"}</h3>
                         </div>
                     </div>
         )

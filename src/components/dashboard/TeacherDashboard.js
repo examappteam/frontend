@@ -46,6 +46,43 @@ class TeacherDashboard extends Component {
 
         this.onScrollableListItemClicked = this.onScrollableListItemClicked.bind(this)
         this.changeShowState = this.changeShowState.bind(this)
+        this.fetchExamWithId = this.fetchExamWithId.bind(this)
+        this.handleRemoveClick = this.handleRemoveClick.bind(this)
+    }
+
+    componentDidMount() {
+        this.fetchExamWithId(1)
+    }
+
+    fetchExamWithId(id) {
+        var urlAddress = "http://examapp.crenxu.com:22501/main/exam/" + id // This whole mess of a function
+        fetch(urlAddress, {                                                // should be replaced when we get a better endpoint
+            method: 'GET',                                                 // for fetching data
+            headers: {
+                Accept: 'application/json',
+                Authorization: sessionStorage.getItem('jwtToken'),
+                'Content-type': 'application/json'
+            }
+        })
+        .then(function(response) {
+            if (!response.ok) {
+                throw Error(response.statusText);
+            }
+            return response;
+        })
+        .then(response => response.json())
+        .then(data => {
+            teacherExamPoolData[id] = data.exam
+            this.setState({
+                exams: teacherExamPoolData
+            })
+            console.log("PoolData is: ", teacherExamPoolData)
+            console.log("Data is: ", this.state.test)
+            this.fetchExamWithId(id + 1)
+        })
+        .catch(function(error) {
+            console.log(error);
+        })
     }
     onScrollableListItemClicked = (category, id) => (e) => {
         console.log("event",e)
@@ -67,19 +104,25 @@ class TeacherDashboard extends Component {
         console.log("showstate",this.state.showState)
     }
 
-    tryFetch(){
-        console.log('Running tryfetch')
-        fetch('https://cors-anywhere.herokuapp.com/examapp.crenxu.com:22501/main/exam/1', {
-            method: 'GET',
-            headers:{
-                'Content-Type': 'application/json',
-                
+    handleRemoveClick() {
+        var idToRemove = this.state.selectionId + 1
+        var urlAddress = "http://examapp.crenxu.com:22501/main/exam/" + idToRemove
+        fetch(urlAddress, {                                                
+            method: 'DELETE',                                                 
+            headers: {
+                Accept: 'application/json',
+                Authorization: sessionStorage.getItem('jwtToken'),
+                'Content-type': 'application/json'
             }
         })
-        .then(response => response.json())
-        .then(data => {
-            sessionStorage.setItem('examdata', data)
-            console.log(data)
+        .then(function(response) {
+            if (response.ok) {
+                delete teacherExamPoolData[idToRemove]
+                /*this.setState({
+                    exams: teacherExamPoolData    
+                })*/
+            }
+            console.log(teacherExamPoolData)
         })
     }
 
@@ -132,17 +175,18 @@ class TeacherDashboard extends Component {
                                 category = {2}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
                                 <Link to="/create_exam"><button className="pure-button pure-button-primary">Create new exam</button></Link>
-                                
-                                <button className="pure-button pure-button-disabled">Delete selected</button>                         
-                        </div>  
+                                {this.state.selectedCategoryId === 2 ?
+                                <button className="pure-button button-error" onClick={this.handleRemoveClick}>Delete selected</button> :
+                                <button className="pure-button pure-button-disabled">Delete selected</button>}
+                        </div>
                     </div>
                     
                 </div>
                 <div className="pure-g">
                 <div className="pure-u-3-24"></div>
                 <div className="pure-u-18-24">
-                    <div className="padded-box">                   
-                        <WideListButtonView title={this.state.categories[this.state.selectedCategoryId][this.state.selectionId].name} exam={this.state.categories[this.state.selectedCategoryId][this.state.selectionId]}/>                     
+                    <div className="padded-box">
+                    <WideListButtonView title={"ExamTitle"} exam={this.state.exams[this.state.selectionId]}/>
                     </div>
                 </div>
                 <div className="pure-u-3-24"></div>
