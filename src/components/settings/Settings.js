@@ -18,7 +18,7 @@ constructor(props){
     this.state={ pswDialogIsOpen: false};
     this.state={ isOpen: false};
     this.state={
-        email: "Pekka",
+        email: "",
         users: [[
             {id: 1, gender: "Male", email: "Pekkaownaa421@Kakka.com", name: "Haluujafa", surname: "Haleba"}
         ],
@@ -30,30 +30,10 @@ constructor(props){
 }
 
 getDataForUser(){
-    fetch('http://examapp.crenxu.com:22501/auth/signin', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: this.state.email,
-          password: this.state.password,     
-        })
-      })
-
-      .then(response => response.json())      
-      
-      .then(data => {
-        
-      this.setToken(data);
-      
-      this.setState({
-        role: this.getTokenDataRole()
-      })
-      }
-      )
-      
+    
+  this.setState({
+    email: sessionStorage.getItem('email')
+  })
     } 
 
 
@@ -69,8 +49,9 @@ pswDialogIsOpen: !this.state.pswDialogIsOpen
 });
 } 
     render(){
+      
     return(
-        
+      
         
         <div>
 
@@ -126,7 +107,7 @@ pswDialogIsOpen: !this.state.pswDialogIsOpen
             
             
             <br />
-            <i>{this.state.users[this.state.stId][this.state.stId2].email}</i>
+            <i>{sessionStorage.getItem('email')}</i>
 
 
     </div>

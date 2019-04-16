@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route} from "react-router-dom";
-
+import {Component} from "react"
 import Header from "./components/Header"
 import Login from "./components/login/Login"
 import Settings from "./components/settings/Settings"
@@ -10,6 +10,7 @@ import TeacherDashboard from "./components/dashboard/TeacherDashboard"
 import TeacherDashboardCourseView from "./components/dashboard/TeacherDashboardCourseView"
 import CreateExamView from "./components/create-exam-view/CreateExamView"
 import TwilioTeacherVideo from "./components/teacher-exam-video-page/TwilioTeacherVideo"
+import ExamGradingView from "./components/exam-grading-page/ExamGradingView"
 import StudentVideo from './components/student-video-page/StudentVideo'
 import StudentInformation from "./components/StudentInformationForTeacherView/StudentInformation"
 import Footer from "./components/Footer"
@@ -18,18 +19,13 @@ import {TeacherWithAuth} from "./components/login/TeacherWithAuth"
 import {Auth} from "./components/login/Auth"
 import {DashboardDirect} from "./components/login/DashboardDirect"
 
-/*<Route exact path="/" render={(props) => (
-  isUserLoggedIn() ? (
-    <Login {...props} />
-  ) : (
-    <Redirect to="/"/>
-  )
-)}/>*/
 
 
+class App extends Component  {
+  
 
+  render(){
 
-function App()  {
     return (
       <Router>
         
@@ -40,14 +36,13 @@ function App()  {
         <Route path="/login" component={Login}/>
         
 
-        <Route exact path="/" component={Login}/>
-        <Route exact path="/login" component={Login}/>
-          <Header />
           
-          <WithAuth path="/studentdashboard" component={StudentDashboard} />
+
+          <WithAuth path="/studentdashboard"  component={StudentDashboard} />
           <WithAuth path="/student_exam_view" component={StudentVideo} />
           <WithAuth path="/studentsettings" component = {StudentSettings}/>
 
+          <TeacherWithAuth path="/exam_grading" component={ExamGradingView} />
           <TeacherWithAuth path="/teacherdashboard" component={TeacherDashboard} />
           <TeacherWithAuth path="/studentinformation" component={StudentInformation} />
           <TeacherWithAuth path="/course_view" component={TeacherDashboardCourseView} />
@@ -56,12 +51,14 @@ function App()  {
 
           <TeacherWithAuth path="/settings" component={Settings} />
           
-          <Footer />
+
+          
           </div>
           
+          </Router>
       
-      </Router>
+      
     )
 }
-
+}
 export default App;

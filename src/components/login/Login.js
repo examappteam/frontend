@@ -5,11 +5,11 @@ import Auth from './Auth';
 import Sessionstorageitems from '../common/sessionstorage/Sessionstorageitems';
 import MdModal from '../common/modals/SmModal';
 export default class Login extends React.Component{
-  
-    
+
+
     constructor(props){
         super(props)
-        this.state={ isOpen: false};     
+        this.state={ isOpen: false};
         this.state = {
             token: "",
             email: "",
@@ -19,20 +19,28 @@ export default class Login extends React.Component{
             role: "",
             loggedinStudent: false,
             loggedinTeacher: false,
-            
-                    
+
+
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handlebuttonfetch = this.handlebuttonfetch.bind(this);
+        //this.getChange = this.getChange.bind(this);
+        //this.logout = this.logout.bind(this);
+        //this.getDecodedTokenData = this.getDecodedTokenData.bind(this);
+
+    }
+    setToken(idToken){
+      sessionStorage.setItem('jwtToken', idToken.accessToken);
+      console.log(sessionStorage.getItem('jwtToken'));
     }
 
     toggleModal = () => {
       this.setState({
         isOpen: !this.state.isOpen
       });
-     
-    }    
+
+    }
 
     getToken(){
       return sessionStorage.getItem('jwtToken');
@@ -52,19 +60,16 @@ export default class Login extends React.Component{
       var trimmedName = trimmedDecode.sub;
       Sessionstorageitems.setEmail(trimmedName);
       
-      var trimmedName = trimmedDecode.roles[0];
-      Sessionstorageitems.setEmail(trimmedName);
-      //sessionStorage.setItem('email', trimmedName)
       console.log("Email täällä" + sessionStorage.getItem('email'));
       console.log("Täällä" + trimmedName);
       return trimmedDecode.roles[0];
     }
-    
+
 
     _checkstatus(response){
       if(response.status >= 400 && response.status <= 500) {
         console.log("Checkstatus Virheellinen Palautettu False");
-        
+
         return false;
       }else{
         return response;
@@ -84,20 +89,20 @@ export default class Login extends React.Component{
         },
         body: JSON.stringify({
           username: this.state.email,
-          password: this.state.password,     
+          password: this.state.password,
         })
       })
 
-      .then(response => response.json())      
-      
+      .then(response => response.json())
+
       .then(data => {
         if((this._checkstatus(data.token)===false)){
 
         console.log(data.token);
         console.log("Virheellinen");
-        
+
         this.toggleModal();
-        
+
       }
 
       else{
@@ -107,6 +112,7 @@ export default class Login extends React.Component{
       // Laitetaan krypto data stateen että saadaan avain jolla saadaan rooli käyttäjälle
       this.setState({
         token: data.token
+
       })
       this.setState({
         role: this.getTokenDataRole()
@@ -122,21 +128,21 @@ export default class Login extends React.Component{
         //this.state.loggedinStudent = true;
         Auth.setAuthenticatedUser(this.state.loggedinStudent);
       this.props.history.push("/studentdashboard");
-      
-      
-      
+
+
+
       }
 
       else if(this.state.role === "ROLE_TEACHER"){
         this.setState({
           loggedinTeacher: true
-        }) 
+        })
         //this.state.loggedinTeacher = true;
         Auth.setAuthenticatedTeacher(this.state.loggedinTeacher);
         this.props.history.push("/teacherdashboard");
-        
-        
-        
+
+
+
       }
 
       else{
@@ -144,15 +150,15 @@ export default class Login extends React.Component{
       }
       }
       })
-      
-    } 
-   
+
+    }
+
     handleChange (evt) {
         this.setState({ [evt.target.name]: evt.target.value });
       }
 
+
   render() {    
-    
     
 
     return (
@@ -163,7 +169,7 @@ export default class Login extends React.Component{
             </MdModal>
   <div id="m">
   <div className="box">
-      <h2>LOGIN</h2> 
+      <h2>LOGIN</h2>
       <form>
         <div className="inputBox">
       <input className="input" type="text" id="email" name="email" placeholder="Email" onChange={this.handleChange}></input>

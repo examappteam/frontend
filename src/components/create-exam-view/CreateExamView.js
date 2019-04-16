@@ -1,5 +1,7 @@
 import React, {Component} from "react"
 
+import { BrowserRouter as Router, Route, Link} from "react-router-dom"
+
 import QuestionForm from "./QuestionForm"
 import questionsData from "./questionsData"
 
@@ -26,7 +28,7 @@ class CreateExamView extends Component {
 
         this.setState({
             [name]: value
-        }) 
+        })
     }
 
     handleAddClick() {
@@ -41,61 +43,29 @@ class CreateExamView extends Component {
                 formsToRender: prevState.formsToRender - 1
             }))
             questionsData.pop()
-        }     
+        }
     }
 
     handleSaveClick() {
-        /*fetch('http://examapp.crenxu.com:22501/main/exam/', {
+        fetch('http://examapp.crenxu.com:22501/main/exam/', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
-                Authorization: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZWFjaGVyIiwiQVVUSCI6W3siYXV0aG9yaXR5IjoiUk9MRV9URUFDSEVSIn1dLCJpYXQiOjE1NTM4NTMyODUsImV4cCI6MTU1MzkzOTY4NX0.9VeObRco0YWx4p6AC0K2PUwoYefwsZ3BdaNJvVjk4wudB5JChXUogJBekYs0QmvBOPsbcovqmkOweSKZt-wZ0w',
+                Authorization: sessionStorage.getItem('jwtToken'),
                 'Content-type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
             },
             body: JSON.stringify({
-                creatorId: 1,
-                questionDTOs: [
-                    {
-                        weightPercentage: 1,
-                        description: '',
-                        answer: ''
-                    }                    
-                ]
+                creatorId: sessionStorage.getItem('email'),
+                title: this.state.examTitle,
+                questionDTOs: this.state.examQuestions
             }),
-        });*/
-        const axios = require('axios');
-        const examInfo = {
-            creatorId: 1,
-            questionDTOs: [
-                {
-                    weightPercentage: 1,
-                    description: '',
-                    answer: ''
-                }                    
-            ]
-        }
-        const authToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZWFjaGVyIiwiQVVUSCI6W3siYXV0aG9yaXR5IjoiUk9MRV9URUFDSEVSIn1dLCJpYXQiOjE1NTM4NTk4ODAsImV4cCI6MTU1Mzk0NjI4MH0._jS9doef5Ha5fGxzDCnYEu5cvYyaic1sM0yKpY_FnhYaNWtHmj3exC4_Uk5vNcQZW3zYMHNfZKIh5ln0NGz5EA"
-        const url = "http://examapp.crenxu.com:22501/main/exam/"
-        const headers = {
-            Accept: 'application/json',
-            Authorization: authToken,
-            'Content-type': 'application/json',
-            'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-            'Access-Control-Expose-Headers': 'access-control-allow-origin,access-control-allow-methods,access-control-allow-headers',
-            'Access-Control-Allow-Methods': 'POST'
-
-        }
-        axios.post(url, examInfo, headers)
-            .then(result => console.log(result))
-            .catch(error => console.log(error))
+        });
     }
 
     render() {
         var formElements = []
 
-        for (var i = 0; i <= this.state.formsToRender; i++) { 
+        for (var i = 0; i <= this.state.formsToRender; i++) {
             formElements.push(<QuestionForm/>)
         }
 
@@ -107,19 +77,19 @@ class CreateExamView extends Component {
                         <div style={{marginBottom: 1 + 'em'}}>
                             <label>Title of exam: </label>
                             <input
-                                type="text" 
-                                value={this.state.examTitle} 
-                                name="examTitle" 
-                                placeholder="Your exam title here" 
+                                type="text"
+                                value={this.state.examTitle}
+                                name="examTitle"
+                                placeholder="Your exam title here"
                                 onChange={this.handleChange}
                             />
-                        </div>                                     
+                        </div>
                     </form>
-                    {formElements}    
-                    
+                    {formElements}
+
                     <button className="pure-button button-secondary" onClick={this.handleAddClick}>Add new question</button>
                     <button className="pure-button button-error" onClick={this.handleRemoveClick}>Remove question</button>
-                    <button className="pure-button pure-button-primary" onClick={this.handleSaveClick}>Done! - save this exam</button>    
+                    <Link to="/teacherdashboard"><button className="pure-button pure-button-primary" onClick={this.handleSaveClick}>Done! - save this exam</button></Link>
                 </div>
             </div>
         )
