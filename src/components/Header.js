@@ -20,7 +20,7 @@ export default class Header extends React.Component{
     mqtt = require('mqtt');
     options = {
         keepalive: 10,
-        clientId: 'student',
+        clientId: 'student2',
         protocolId: 'MQTT',
         protocolVersion: 4,
         clean: true,

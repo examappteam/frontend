@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import ScrollableListMenu from "../common/ScrollableListMenu"
-import WideListButtonView from "../common/WideListButtonView"
+
 import MdModal from "../common/modals/MdModal"
 import StudentManager from "../../components/common/StudentManager"
 import { BrowserRouter as Router, Route, Link} from "react-router-dom"
@@ -142,14 +142,14 @@ class TeacherDashboard extends Component {
                     <div className="pure-u-1-3">
                         <div className="padded-box">
                             <ScrollableListMenu
-                                menuHeader="My courses"
+                                menuHeader="My classes"
                                 menuItems={this.state.categories[0]}
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
                                 selectedLink={"/course_view"}
                                 category = {0}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
-                                <button onClick={this.changeShowState} className="pure-button pure-button-primary">Create new course</button>
+                                <button onClick={this.changeShowState} className="pure-button pure-button-primary">Create new class</button>
                                 <MdModal close={this.changeShowState} show={this.state.showState}>
                                     <CreateNewCourseDialog close={this.changeShowState}/>
                                 </MdModal>
@@ -197,15 +197,7 @@ class TeacherDashboard extends Component {
                     </div>
 
                 </div>
-                <div className="pure-g">
-                <div className="pure-u-3-24"></div>
-                <div className="pure-u-18-24">
-                    <div className="padded-box">
-                    <WideListButtonView title={"ExamTitle"} exam={teacherExamPoolData[this.state.selectionId]}/>
-                    </div>
-                </div>
-                <div className="pure-u-3-24"></div>
-                </div>
+                
             </div>
         )
     }

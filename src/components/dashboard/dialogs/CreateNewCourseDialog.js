@@ -21,15 +21,25 @@ class CreateNewCourseDialog extends Component {
         }) 
     }
 
-    handleClick(props) {
-        this.props.close()
+    handleClick() {
+        fetch('http://examapp.crenxu.com:22501/main/classroom/', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                Authorization: 'Bearer ' + sessionStorage.getItem('jwtToken'),
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify({
+                classRoomName: this.state.courseName
+            }),
+        });
     }
 
     render(props) {
         return(
             <div className="padded-box">
                 <form className="pure-form pure-form-aligned">
-                    <label>Name of the course: </label>
+                    <label>Name of the class: </label>
                     <input
                         type="text" 
                         value={this.state.courseName} 
@@ -38,7 +48,7 @@ class CreateNewCourseDialog extends Component {
                         onChange={this.handleChange}
                     />            
                 </form>
-                <button onClick={this.handleClick} className="pure-button btn-continue">Create course</button>
+                <button onClick={this.handleClick} className="pure-button btn-continue">Create class</button>
             </div>        
         )
     }
