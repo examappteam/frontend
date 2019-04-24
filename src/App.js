@@ -14,7 +14,6 @@ import TwilioTeacherVideo from "./components/teacher-exam-video-page/TwilioTeach
 import ExamGradingView from "./components/exam-grading-page/ExamGradingView"
 import StudentVideo from './components/student-video-page/StudentVideo'
 import StudentInformation from "./components/StudentInformationForTeacherView/StudentInformation"
-import Footer from "./components/Footer"
 import {WithAuth} from "./components/login/WithAuth"
 import {TeacherWithAuth} from "./components/login/TeacherWithAuth"
 import {Auth} from "./components/login/Auth"
