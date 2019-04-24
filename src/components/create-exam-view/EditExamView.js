@@ -10,6 +10,7 @@ class EditExamView extends Component {
         super()
         this.state = {
             formsToRender: 0,
+            renderForms: 0,
             examTitle: "",
             examQuestions: questionsData,
             examQuestionsTempHolder: 'undefined'
@@ -35,7 +36,8 @@ class EditExamView extends Component {
             this.setState({
                 examTitle: data.exam.title,
                 examQuestionsTempHolder: data.exam.questions,          
-                formsToRender: data.exam.questions.length - 1
+                formsToRender: data.exam.questions.length - 1,
+                renderForms: 1
             })
             console.log("FormsToRender: ", this.state.formsToRender)
         })
@@ -86,36 +88,44 @@ class EditExamView extends Component {
     }
 
     render() {
-        var formElements = []
+        if(this.state.renderForms === 1) {
+            var formElements = []
 
-        for (var i = 0; i <= this.state.formsToRender; i++) {
-            formElements.push(<QuestionForm id={i} question={this.state.examQuestionsTempHolder[i]}/>)
-        }
+            for (var i = 0; i <= this.state.formsToRender; i++) {
+                formElements.push(<QuestionForm id={i} question={this.state.examQuestionsTempHolder[i]}/>)
+            }
 
-        return (
-            <div className="pure-g padded-box">
-                <div className="pure-u-1-3"></div>
-                <div className="pure-u-1-3">
-                    <form className="pure-form pure-form-aligned">
-                        <div style={{marginBottom: 1 + 'em'}}>
-                            <label>Title of exam: </label>
-                            <input
-                                type="text"
-                                value={this.state.examTitle}
-                                name="examTitle"
-                                placeholder="Your exam title here"
-                                onChange={this.handleChange}
-                            />
-                        </div>
-                    </form>
-                    {formElements}
+            return (
+                <div className="pure-g padded-box">
+                    <div className="pure-u-1-3"></div>
+                    <div className="pure-u-1-3">
+                        <form className="pure-form pure-form-aligned">
+                            <div style={{marginBottom: 1 + 'em'}}>
+                                <label>Title of exam: </label>
+                                <input
+                                    type="text"
+                                    value={this.state.examTitle}
+                                    name="examTitle"
+                                    placeholder="Your exam title here"
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+                        </form>
+                        {formElements}
 
-                    <button className="pure-button button-secondary" onClick={this.handleAddClick}>Add new question</button>
-                    <button className="pure-button button-error" onClick={this.handleRemoveClick}>Remove question</button>
-                    <Link to="/teacherdashboard"><button className="pure-button pure-button-primary" onClick={this.handleSaveClick}>Done! - save changes</button></Link>
+                        <button className="pure-button button-secondary" onClick={this.handleAddClick}>Add new question</button>
+                        <button className="pure-button button-error" onClick={this.handleRemoveClick}>Remove question</button>
+                        <Link to="/teacherdashboard"><button className="pure-button pure-button-primary" onClick={this.handleSaveClick}>Done! - save changes</button></Link>
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        } else {
+            return(
+                <div>
+                    <p>Loading...</p>
+                </div>
+            )
+        }   
     }
 }
 
