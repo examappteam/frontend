@@ -5,18 +5,40 @@ import { BrowserRouter as Router, Route, Link} from "react-router-dom"
 import QuestionForm from "./QuestionForm"
 import questionsData from "./questionsData"
 
-class CreateExamView extends Component {
+class EditExamView extends Component {
     constructor() {
         super()
         this.state = {
             formsToRender: 0,
             examTitle: "",
-            examQuestions: questionsData
+            examQuestions: questionsData,
+            examQuestionsTempHolder: 'undefined'
         }
         this.handleAddClick = this.handleAddClick.bind(this)
         this.handleRemoveClick = this.handleRemoveClick.bind(this)
         this.handleSaveClick = this.handleSaveClick.bind(this)
         this.handleChange = this.handleChange.bind(this)
+    }
+
+    componentDidMount() {
+        var urlAddress = "http://examapp.crenxu.com:22501/main/exam/" + sessionStorage.getItem("examToEdit")
+        fetch(urlAddress, {                                                
+            method: 'GET',                                                 
+            headers: {
+                Accept: 'application/json',
+                Authorization: sessionStorage.getItem('jwtToken'),
+                'Content-type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            this.setState({
+                examTitle: data.exam.title,
+                examQuestionsTempHolder: data.exam.questions,          
+                formsToRender: data.exam.questions.length - 1
+            })
+            console.log("FormsToRender: ", this.state.formsToRender)
+        })
     }
 
     componentWillUnmount() {
@@ -47,17 +69,18 @@ class CreateExamView extends Component {
     }
 
     handleSaveClick() {
-        fetch('http://examapp.crenxu.com:22501/main/exam/', {
-            method: 'POST',
+        var urlAddress = "http://examapp.crenxu.com:22501/main/exam/" + sessionStorage.getItem("examToEdit")
+        fetch(urlAddress, {
+            method: 'PUT',
             headers: {
                 Accept: 'application/json',
                 Authorization: sessionStorage.getItem('jwtToken'),
                 'Content-type': 'application/json',
             },
             body: JSON.stringify({
-                creatorId: sessionStorage.getItem('email'),
-                title: this.state.examTitle,
-                questionDTOs: this.state.examQuestions
+                creatorId: sessionStorage.getItem('email'),               
+                questionDTOs: this.state.examQuestions,
+                title: this.state.examTitle
             }),
         });
     }
@@ -66,7 +89,7 @@ class CreateExamView extends Component {
         var formElements = []
 
         for (var i = 0; i <= this.state.formsToRender; i++) {
-            formElements.push(<QuestionForm id={i}/>)
+            formElements.push(<QuestionForm id={i} question={this.state.examQuestionsTempHolder[i]}/>)
         }
 
         return (
@@ -89,11 +112,11 @@ class CreateExamView extends Component {
 
                     <button className="pure-button button-secondary" onClick={this.handleAddClick}>Add new question</button>
                     <button className="pure-button button-error" onClick={this.handleRemoveClick}>Remove question</button>
-                    <Link to="/teacherdashboard"><button className="pure-button pure-button-primary" onClick={this.handleSaveClick}>Done! - save this exam</button></Link>
+                    <Link to="/teacherdashboard"><button className="pure-button pure-button-primary" onClick={this.handleSaveClick}>Done! - save changes</button></Link>
                 </div>
             </div>
         )
     }
 }
 
-export default CreateExamView
+export default EditExamView

@@ -41,17 +41,18 @@ class TeacherDashboard extends Component {
             ],
             selectedCategoryId: 0,
             selectionId: 0,
-            exams: [{id: 1, title: "test"}],
+            exams: [{id: 1, title: "Loading..."}],
             showState: false
         }
 
         this.onScrollableListItemClicked = this.onScrollableListItemClicked.bind(this)
         this.changeShowState = this.changeShowState.bind(this)
         this.fetchExamWithId = this.fetchExamWithId.bind(this)
+        this.handleRemoveClick = this.handleRemoveClick.bind(this)
     }
 
     componentDidMount() {
-        this.fetchExamWithId(10)
+        this.fetchExamWithId(1)
     }
 
     fetchExamWithId(id) {
@@ -72,7 +73,7 @@ class TeacherDashboard extends Component {
         })
         .then(response => response.json())
         .then(data => {
-            teacherExamPoolData[id - 9] = data.exam
+            teacherExamPoolData[id] = data.exam
             this.setState({
                 exams: teacherExamPoolData
             })
@@ -96,6 +97,9 @@ class TeacherDashboard extends Component {
                 }
                 //console.log("states ", this.state.selectedCategoryId, this.state.selectionId)
             })
+        if(this.state.selectedCategoryId === 2) {
+            sessionStorage.setItem("examToEdit", id)
+        }      
     }
 
     changeShowState=()=>{
@@ -103,6 +107,28 @@ class TeacherDashboard extends Component {
                 showState: !prevState.showState
         }));
         console.log("showstate",this.state.showState)
+    }
+
+    handleRemoveClick() {
+        var idToRemove = this.state.selectionId + 1
+        var urlAddress = "http://examapp.crenxu.com:22501/main/exam/" + idToRemove
+        fetch(urlAddress, {                                                
+            method: 'DELETE',                                                 
+            headers: {
+                Accept: 'application/json',
+                Authorization: sessionStorage.getItem('jwtToken'),
+                'Content-type': 'application/json'
+            }
+        })
+        .then(function(response) {
+            if (response.ok) {
+                delete teacherExamPoolData[idToRemove]
+                /*this.setState({
+                    exams: teacherExamPoolData    
+                })*/
+            }
+            console.log(teacherExamPoolData)
+        })
     }
 
     render() {
@@ -123,6 +149,7 @@ class TeacherDashboard extends Component {
                                 menuItems={this.state.categories[0]}
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
+                                selectedLink={"/course_view"}
                                 category = {0}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
                                 <button onClick={this.changeShowState} className="pure-button pure-button-primary">Create new course</button>
@@ -139,6 +166,7 @@ class TeacherDashboard extends Component {
                                 menuItems={this.state.categories[1]}
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
+                                selectedLink={"/exam_grading"}
                                 category = {1}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
 
@@ -153,11 +181,21 @@ class TeacherDashboard extends Component {
                                 menuItems={this.state.exams}
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
+                                selectedLink={"/edit_exam"}
                                 category = {2}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
-                                <Link to="/create_exam"><button className="pure-button pure-button-primary">Create new exam</button></Link>
-
-                                <button className="pure-button pure-button-disabled">Delete selected</button>
+                                <Link to="/create_exam">
+                                    <button className="pure-button pure-button-primary">
+                                        Create new exam
+                                    </button>
+                                </Link>
+                                {this.state.selectedCategoryId === 2 ?
+                                <button className="pure-button button-error" onClick={this.handleRemoveClick}>
+                                    Delete selected
+                                </button> :
+                                <button className="pure-button pure-button-disabled">
+                                    Delete selected
+                                </button>}
                         </div>
                     </div>
 
@@ -166,7 +204,7 @@ class TeacherDashboard extends Component {
                 <div className="pure-u-3-24"></div>
                 <div className="pure-u-18-24">
                     <div className="padded-box">
-                        <WideListButtonView title={this.state.categories[this.state.selectedCategoryId][this.state.selectionId].name} exam={this.state.categories[this.state.selectedCategoryId][this.state.selectionId]}/>
+                    <WideListButtonView title={"ExamTitle"} exam={this.state.exams[this.state.selectionId]}/>
                     </div>
                 </div>
                 <div className="pure-u-3-24"></div>

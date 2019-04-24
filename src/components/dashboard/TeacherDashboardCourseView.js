@@ -80,10 +80,11 @@ class TeacherDashboardCourseView extends Component {
                     <div className="pure-u-1-3">
                         <div className="padded-box">
                             <ScrollableListMenu 
-                                menuHeader="List of students in course" 
+                                menuHeader="Students in course" 
                                 menuItems={this.state.categories[0]}
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
+                                selectedLink={"/course_view"}
                                 category={0}
                                 handler={this.onScrollableListItemClicked.bind(this)}
                             />
@@ -101,6 +102,7 @@ class TeacherDashboardCourseView extends Component {
                                 menuItems={this.state.categories[1]}
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
+                                selectedLink={"/course_view"}
                                 category={1}
                                 handler={this.onScrollableListItemClicked.bind(this)}
                             />
@@ -114,6 +116,7 @@ class TeacherDashboardCourseView extends Component {
                                 menuItems={this.state.categories[2]}
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
+                                selectedLink={"/course_view"}
                                 category={2}
                                 handler={this.onScrollableListItemClicked.bind(this)
                             }/>
