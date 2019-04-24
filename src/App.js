@@ -22,7 +22,6 @@ import CreateStudent from "./components/settings/CreateStudent"
 class App extends Component  {
   render(){
     return (
-<<<<<<< HEAD
       <Router>
         
            <div>              
@@ -49,26 +48,6 @@ class App extends Component  {
           
 
           
-=======
-      <Router>        
-          <div>                      
-            <DashboardDirect exact path="/" component={Login }/>
-            <Route path="/login" component={Login}/>        
-
-            <WithAuth path="/studentdashboard"  component={StudentDashboard} />
-            <WithAuth path="/student_exam_view" component={StudentVideo} />
-            <WithAuth path="/studentsettings" component = {StudentSettings}/>
-
-            <TeacherWithAuth path="/exam_grading" component={ExamGradingView} />
-            <TeacherWithAuth path="/teacherdashboard" component={TeacherDashboard} />
-            <TeacherWithAuth path="/studentinformation" component={StudentInformation} />
-            <TeacherWithAuth path="/course_view" component={TeacherDashboardCourseView} />
-            <TeacherWithAuth path="/create_exam" component={CreateExamView} />
-            <TeacherWithAuth path="/edit_exam" component={EditExamView} />
-            <TeacherWithAuth path="/exam_view" component={TwilioTeacherVideo} />
-
-            <TeacherWithAuth path="/settings" component={Settings} />
->>>>>>> 9cf6d758c6e9a905b5b25352d7c29fd2785e5b01
           </div>
       </Router>    
     )
