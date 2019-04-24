@@ -5,7 +5,10 @@ import "./styles/WideListView.css"
 function WideListButtonView(props){
         return(
             
-                <div className="wide-container">
+                <div className="wide-container"
+                style={{
+                    visibility: props.show ? 'visible' : 'hidden',
+                    }}>>
                 {console.log("props exam",props.exam)}
                     <div className="pure-g">
                         <div className="pure-u-4-5">
@@ -13,8 +16,12 @@ function WideListButtonView(props){
                         </div>
                         <div className="pure-u-1-5">
                         
-                            <Link to="/exam_view">
-                                <button onClick={console.log(props.exam)} id="wide-button" className="pure-button pure-button-primary">
+                            <Link to={{
+                                pathname: "/exam_view",
+                                state:{
+                                    examID: 1 //Proper passing of examid still needs to be implemented
+                                }}}>
+                                <button onClick={()=>console.log(props.exam)} id="wide-button" className="pure-button pure-button-primary">
                                     Start exam
                                 </button>
                             </Link>

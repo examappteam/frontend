@@ -1,4 +1,7 @@
 import React, {Component} from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Question from "./Question";
+
 
 import "../../style.css";
 import "./styles/styles.css";
@@ -9,20 +12,41 @@ import Questions from "./Questions"
 import AnswerForm from "./AnswerForm"
 
 class ExamGradingView extends Component {
-    constructor() {
+    constructor(id) {
         super()
         this.state = {
-            questionExample1: "How does Java enable high performance?",
-            questionId: 1,
-            answerExample: "Java uses What Was It compiler to enable high performance. WWI is used to convert the instructions into bytecodes.",
-            answerId: 1,
-            value: "You must give points to the current answer in order to continue."
+            questions:[],
+            examid: sessionStorage.getItem("examToEdit"),
             }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.handleFirstClick = this.handleFirstClick.bind(this)
         this.handleSecondClick = this.handleSecondClick.bind(this)
         this.handleThirdClick = this.handleThirdClick.bind(this)
+
+        fetch('http://145.93.168.176:22501/main/exam/finished/'+this.state.examid, {
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
+              'Content-type': 'application/json',
+              Authorization: sessionStorage.getItem('jwtToken'),
+            }
+          })
+        .then(response => response.json())
+        .then(data => {
+            data.answeredQuestions.forEach(q => {
+                let question = new Question(q.id, q.description, q.answer)
+                this.state.questions.push(question)
+            });
+        })
+        // let question1 = new Question(1, "1How does Java enable high performance?", "1Java uses What Was It compiler to enable high performance. WWI is used to convert the instructions into bytecodes.");
+        // let question2 = new Question(2, "2How does Java enable high performance?", "2Java uses What Was It compiler to enable high performance. WWI is used to convert the instructions into bytecodes.");
+        // let question3 = new Question(3, "3How does Java enable high performance?", "3Java uses What Was It compiler to enable high performance. WWI is used to convert the instructions into bytecodes.");
+        // let question4 = new Question(4, "4How does Java enable high performance?", "4Java uses What Was It compiler to enable high performance. WWI is used to convert the instructions into bytecodes.");
+        // // this.state.questions = [question1, question2, question3, question4]
+    }
+
+    componentDidMount(){
 
     }
 
@@ -73,18 +97,30 @@ class ExamGradingView extends Component {
                 <div className="pure-u-2-3">
                     <h1>{examName} - {courseName}</h1>
                     <form className="pure-form">
+                        {this.state.questions.map((Question, index) => {
+                            return (
                         <fieldset>
                             <Questions
-                                question={this.state}
-                                />
+                                question={this.state.questions[index]}
+                            />
                             <AnswerForm
-                                answer={this.state}
-                                handleSubmit={this.handleSubmit}
-                                handleChange={this.handleChange}
-                                handleClick={this.handleClick}
+                                answer={this.state.questions[index]}
                                 />
                         </fieldset>
-                    </form>    
+                            )})
+                        }
+                        
+                    </form>
+                    <div className="pure-button-group" role="group" aria-label="...">
+                        <Link to="../dashboard">
+                            <button 
+                                id="review" 
+                                type="submit" 
+                                className="pure-button button-success pure-button-active" >
+                                    <i className="fas fa-check"></i> Finish grading
+                            </button>
+                        </Link>
+                    </div>
                 </div>
             </div>
         )
