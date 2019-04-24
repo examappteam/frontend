@@ -150,6 +150,7 @@ class TeacherDashboard extends Component {
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
                                 selectedLink={"/course_view"}
+                                passedId={this.state.selectionId}
                                 category = {0}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
                                 <button onClick={this.changeShowState} className="pure-button pure-button-primary">Create new course</button>
@@ -167,6 +168,7 @@ class TeacherDashboard extends Component {
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
                                 selectedLink={"/exam_grading"}
+                                passedId={this.state.selectionId}
                                 category = {1}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
 
@@ -182,6 +184,7 @@ class TeacherDashboard extends Component {
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
                                 selectedLink={"/edit_exam"}
+                                passedId={this.state.selectionId + 1}
                                 category = {2}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
                                 <Link to="/create_exam">
