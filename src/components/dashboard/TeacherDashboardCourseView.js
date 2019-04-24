@@ -5,7 +5,7 @@ import ScrollableListMenu from "../common/ScrollableListMenu"
 import MdModal from "../common/modals/MdModal"
 import StudentManager from "../common/StudentManager"
 import AddExamFromListDialog from "./dialogs/AddExamFromListDialog"
-import SmModal from "../common/modals/SmModal"
+import LgModal from "../common/modals/LgModal"
 
 import "./styles/DashboardStyle.css"
 
@@ -38,10 +38,12 @@ class TeacherDashboardCourseView extends Component {
             ],
             selectedCategoryId: 0,
             selectionId: 0,
-            showState: false
+            showAddStudent: false,
+            showAddExam: false
         }
         this.onScrollableListItemClicked = this.onScrollableListItemClicked.bind(this)
-        this.changeShowState = this.changeShowState.bind(this)
+        this.changeShowAddExam = this.changeShowAddExam.bind(this)
+        this.changeShowAddStudent = this.changeShowAddStudent.bind(this)
 
     }
 
@@ -57,12 +59,19 @@ class TeacherDashboardCourseView extends Component {
         })
     }
 
-    changeShowState=()=>{
+    changeShowAddStudent=()=>{
         this.setState(prevState=>({
-                showState: !prevState.showState
+                showAddStudent: !prevState.showAddStudent
             
         }));
-        console.log("showstate",this.state.showState)
+    }
+
+    
+    changeShowAddExam=()=>{
+        this.setState(prevState=>({
+                showAddExam: !prevState.showAddExam
+            
+        }));
     }
 
     componentDidMount() {
@@ -87,8 +96,8 @@ class TeacherDashboardCourseView extends Component {
                                 category={0}
                                 handler={this.onScrollableListItemClicked.bind(this)}
                             />
-                            <button onClick={this.changeShowState} className="pure-button pure-button-primary">Add new student</button>
-                            <MdModal close={this.changeShowState} show={this.state.showState}>
+                            <button onClick={this.changeShowAddStudent} className="pure-button pure-button-primary">Add new student</button>
+                            <MdModal close={this.changeShowAddStudent} show={this.state.showAddStudent}>
                                 <StudentManager />
                             </MdModal>
                             <button className="pure-button pure-button-disabled">Remove selected</button> 
@@ -117,10 +126,10 @@ class TeacherDashboardCourseView extends Component {
                                 category={2}
                                 handler={this.onScrollableListItemClicked.bind(this)
                             }/>
-                            <button onClick={this.changeShowState} className="pure-button pure-button-primary">Add exam from list</button>
-                            <MdModal close={this.changeShowState} show={this.state.showState}>
-                                <AddExamFromListDialog close={this.changeShowState}/>
-                            </MdModal>
+                            <button onClick={this.changeShowAddExam} className="pure-button pure-button-primary">Add exam from list</button>
+                            <LgModal close={this.changeShowAddExam} show={this.state.showAddExam}>
+                                <AddExamFromListDialog close={this.changeShowAddExam}/>
+                            </LgModal>
                             <button className="pure-button pure-button-disabled">Remove selected</button>
                         </div>
                     </div>
