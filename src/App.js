@@ -16,8 +16,8 @@ import StudentInformation from "./components/StudentInformationForTeacherView/St
 import Footer from "./components/Footer"
 import {WithAuth} from "./components/login/WithAuth"
 import {TeacherWithAuth} from "./components/login/TeacherWithAuth"
-import {Auth} from "./components/login/Auth"
-import {DashboardDirect} from "./components/login/DashboardDirect"
+import CreateStudent from "./components/settings/CreateStudent"
+
 
 
 
@@ -32,7 +32,7 @@ class App extends Component  {
            <div>              
         
            
-        <DashboardDirect exact path="/" component={Login }/>
+        <Route exact path="/" component={Login }/>
         <Route path="/login" component={Login}/>
         
 
@@ -48,7 +48,7 @@ class App extends Component  {
           <TeacherWithAuth path="/course_view" component={TeacherDashboardCourseView} />
           <TeacherWithAuth path="/create_exam" component={CreateExamView} />
           <TeacherWithAuth path="/exam_view" component={TwilioTeacherVideo} />
-
+          <TeacherWithAuth path="/createstudent" component={CreateStudent}/>
           <TeacherWithAuth path="/settings" component={Settings} />
           
 

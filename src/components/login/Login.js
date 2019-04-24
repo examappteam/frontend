@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles/App.css';
-import jwt_decode from 'jwt-decode'
+import jwt_decode from 'jwt-decode';
 import Auth from './Auth';
 import Sessionstorageitems from '../common/sessionstorage/Sessionstorageitems';
 import MdModal from '../common/modals/SmModal';
@@ -25,9 +25,7 @@ export default class Login extends React.Component{
 
         this.handleChange = this.handleChange.bind(this);
         this.handlebuttonfetch = this.handlebuttonfetch.bind(this);
-        //this.getChange = this.getChange.bind(this);
-        //this.logout = this.logout.bind(this);
-        //this.getDecodedTokenData = this.getDecodedTokenData.bind(this);
+
 
     }
     setToken(idToken){
@@ -57,11 +55,7 @@ export default class Login extends React.Component{
     getTokenDataRole(){
       var trimmedDecode = jwt_decode(this.state.token);
       console.log(trimmedDecode);
-      var trimmedName = trimmedDecode.sub;
-      Sessionstorageitems.setEmail(trimmedName);
-      
-      console.log("Email täällä" + sessionStorage.getItem('email'));
-      console.log("Täällä" + trimmedName);
+     // var trimmedName = trimmedDecode.sub;
       return trimmedDecode.roles[0];
     }
 
@@ -125,7 +119,7 @@ export default class Login extends React.Component{
         this.setState({
           loggedinStudent: true
         })
-        //this.state.loggedinStudent = true;
+
         Auth.setAuthenticatedUser(this.state.loggedinStudent);
       this.props.history.push("/studentdashboard");
 
@@ -137,7 +131,7 @@ export default class Login extends React.Component{
         this.setState({
           loggedinTeacher: true
         })
-        //this.state.loggedinTeacher = true;
+
         Auth.setAuthenticatedTeacher(this.state.loggedinTeacher);
         this.props.history.push("/teacherdashboard");
 
@@ -146,7 +140,7 @@ export default class Login extends React.Component{
       }
 
       else{
-        console.log("Jokin meni pieleen loginissa")
+        console.log("Sth went wrong in login")
       }
       }
       })
