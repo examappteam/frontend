@@ -66,7 +66,7 @@ class CreateExamView extends Component {
         var formElements = []
 
         for (var i = 0; i <= this.state.formsToRender; i++) {
-            formElements.push(<QuestionForm/>)
+            formElements.push(<QuestionForm id={i}/>)
         }
 
         return (
