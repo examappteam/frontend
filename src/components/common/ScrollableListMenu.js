@@ -17,7 +17,8 @@ function ScrollableListMenu(props) {
                 itemExtra={item.linkedCourse}    // !!!we should be able to use different item extras
                 selectedItem={props.selectedItem}
                 categoryId={category}
-                selectedCategory={props.selectedCategory}/>
+                selectedCategory={props.selectedCategory}
+                selectedLink={props.selectedLink}/>
         )
     } else if(category === 2) {
         menuItems = props.menuItems.map(
@@ -28,7 +29,8 @@ function ScrollableListMenu(props) {
                 //itemExtra={item.date}
                 selectedItem={props.selectedItem}
                 categoryId={category}
-                selectedCategory={props.selectedCategory}/>
+                selectedCategory={props.selectedCategory}
+                selectedLink={props.selectedLink}/>
         )
     } else {
         menuItems = props.menuItems.map(
@@ -39,7 +41,8 @@ function ScrollableListMenu(props) {
                 itemExtra=""
                 selectedItem={props.selectedItem}
                 categoryId={category}
-                selectedCategory={props.selectedCategory}/>
+                selectedCategory={props.selectedCategory}
+                selectedLink={props.selectedLink}/>
         )
     }
 
