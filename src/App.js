@@ -42,9 +42,11 @@ class App extends Component  {
           <TeacherWithAuth path="/studentinformation" component={StudentInformation} />
           <TeacherWithAuth path="/course_view" component={TeacherDashboardCourseView} />
           <TeacherWithAuth path="/create_exam" component={CreateExamView} />
+          <TeacherWithAuth path="/edit_exam" component={EditExamView} />
           <TeacherWithAuth path="/exam_view" component={TwilioTeacherVideo} />
           <TeacherWithAuth path="/createstudent" component={CreateStudent}/>
           <TeacherWithAuth path="/settings" component={Settings} />
+
           
 
           
