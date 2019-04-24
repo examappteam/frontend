@@ -17,6 +17,7 @@ import StudentInformation from "./components/StudentInformationForTeacherView/St
 import {WithAuth} from "./components/login/WithAuth"
 import {TeacherWithAuth} from "./components/login/TeacherWithAuth"
 import CreateStudent from "./components/settings/CreateStudent"
+import AssignStudent from './components/settings/AssignStudent';
 
 
 class App extends Component  {
@@ -42,9 +43,11 @@ class App extends Component  {
           <TeacherWithAuth path="/studentinformation" component={StudentInformation} />
           <TeacherWithAuth path="/course_view" component={TeacherDashboardCourseView} />
           <TeacherWithAuth path="/create_exam" component={CreateExamView} />
+          <TeacherWithAuth path="/edit_exam" component={EditExamView} />
           <TeacherWithAuth path="/exam_view" component={TwilioTeacherVideo} />
           <TeacherWithAuth path="/createstudent" component={CreateStudent}/>
           <TeacherWithAuth path="/settings" component={Settings} />
+          <TeacherWithAuth path="/assignstudent" component={AssignStudent} />
           
 
           

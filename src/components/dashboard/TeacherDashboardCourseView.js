@@ -113,6 +113,7 @@ class TeacherDashboardCourseView extends Component {
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
                                 selectedLink={"/course_view"}
+                                passedId={this.state.selectionId}
                                 category={0}
                                 handler={this.onScrollableListItemClicked.bind(this)}
                             />
@@ -131,6 +132,7 @@ class TeacherDashboardCourseView extends Component {
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
                                 selectedLink={"/course_view"}
+                                passedId={this.state.selectionId}
                                 category={1}
                                 handler={this.onScrollableListItemClicked.bind(this)}
                             />
@@ -145,6 +147,7 @@ class TeacherDashboardCourseView extends Component {
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
                                 selectedLink={"/course_view"}
+                                passedId={this.state.selectionId}
                                 category={2}
                                 handler={this.onScrollableListItemClicked.bind(this)
                             }/>

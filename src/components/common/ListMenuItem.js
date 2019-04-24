@@ -7,17 +7,24 @@ function ListMenuItem(props) {
     return(
         <div className="listMenuItem" onClick = {(e) => props.handler(e)}>
             <li className="pure-menu-item">
-                <p className="pure-menu-link">
-                    {props.itemName} 
-                    {props.categoryId === props.selectedCategory ?
-                        props.id === props.selectedItem + 1 ? 
-                            <Link to={props.selectedLink}>                           
+                <div className="pure-menu-link">
+                    <p>
+                        {props.itemName} 
+                        {props.categoryId === props.selectedCategory ?
+                            props.id === props.selectedItem + 1 ? 
+                            <Link to={{
+                                pathname: props.selectedLink,
+                                state: {
+                                    passedId: props.passedId
+                                }
+                            }}>                          
                                 <i className="fa fa-arrow-circle-right fa-lg list-button"></i>                           
                             </Link> 
-                        : "" 
-                    : ""}
-                    <p>{props.itemExtra}</p>                 
-                </p>
+                            : "" 
+                        : ""}                 
+                    </p>
+                    <p>{props.itemExtra}</p>
+                </div>           
             </li>
         </div>
     )

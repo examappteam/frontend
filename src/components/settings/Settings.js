@@ -113,7 +113,7 @@ pswDialogIsOpen: !this.state.pswDialogIsOpen
     
     <input className="buttonchangepswemail" onClick={this.toggleModal2} type="button" value="Change Password" />
     <Link to = "/createstudent"><input className="buttonchangepswemail"  type="button" value="Create student" /></Link>
-    
+    <Link to = "/assignstudent"><input className="buttonchangepswemail"  type="button" value="Assign student" /></Link>
 
   </div>
 </div>

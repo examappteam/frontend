@@ -24,13 +24,10 @@ const LgModal = (props) => {
                     <p className="close-container" onClick={props.close}><i class="close-modal-btn fas fa-times"></i></p>
                 </div>
                 <div className="modal-body-lg">
-                    <p>
-                        {props.children}
-                    </p>
+                    {props.children}
                 </div>
-                        <button className="pure-button btn-cancel" onClick={props.close}>Cancel</button>         
-                    
-            </div>
+                    <button className="pure-button btn-cancel" onClick={props.close}>Cancel</button>                           
+                </div>
         </div>
     )
 }
