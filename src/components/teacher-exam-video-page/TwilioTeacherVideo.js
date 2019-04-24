@@ -9,8 +9,10 @@ class TwilioTeacherVideo extends Component {
     chat = new ChatWindow();
     fetchAddress = "http://examapp.crenxu.com:22501/";
     dataTrackList = [];
+    peerRooms = [];
     hostName = "wss://m24.cloudmqtt.com:34820";
     client;
+    mRoom;
     mqtt = require('mqtt');
     options = {
         keepalive: 10,
@@ -45,7 +47,7 @@ class TwilioTeacherVideo extends Component {
             token: null,
             identity: null,
             roomName: null,
-            examid: "30",
+            examid: "1",
             chosenStudent: "All"
         }
     }
@@ -83,6 +85,13 @@ class TwilioTeacherVideo extends Component {
 
     componentWillUnmount() {
         this.client.publish("exam-app","");
+        if(this.mRoom != null) {
+            this.mRoom.disconnect();
+        }
+        this.peerRooms.forEach(function(room) {
+            room.disconnect();
+        })
+        this.peerRooms = [];
     }
 
     sendTextMessage(receiver, message) {
@@ -105,7 +114,7 @@ class TwilioTeacherVideo extends Component {
             localTracks = tracks;
             localTracks.forEach(function(track){
                 console.log("Track: " + track);
-                var mediaElement = track.attach();
+                const mediaElement = track.attach();
                 document.getElementById('teacher-preview').appendChild(mediaElement);
             });
             console.log("Onnistui");
@@ -122,9 +131,9 @@ class TwilioTeacherVideo extends Component {
                 }
             })
             .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                _this.state.roomName = data.title;
+            .then(data1 => {
+                console.log(data1);
+                _this.state.roomName = data1.exam.title;
             }).then(function() {
                 const fullAddress = _this.fetchAddress.concat("main/twilio/videotoken?identity=").concat(_this.state.identity).concat("&roomName=").concat(_this.state.roomName);    //<---USE EXAM NAME AS ROOMNAME
                 console.log("Address: " + fullAddress);
@@ -137,12 +146,12 @@ class TwilioTeacherVideo extends Component {
                         'Content-Type': 'application-json',
                     }
                 })
-                    .then(response => response.json())
-                    .then(data => {
+                    .then(response => response.text())
+                    .then(data2 => {
                         console.log("data on: ");
-                        console.log(data);
+                        console.log(data2);
                         _this.setState({
-                            token: data
+                            token: data2
                         })
                     }).then(function() {
                     console.log("Token: " + _this.state.token);
@@ -155,8 +164,8 @@ class TwilioTeacherVideo extends Component {
                             console.log("Connected to room: ");
                             console.log(room.name);
                             console.log(room.participants);
-
-                            this.client.publish("exam-app","Hello");
+                            _this.mRoom = room;
+                            _this.client.publish("exam-app","room:".concat(room.name).concat("|").concat("examid:").concat(_this.state.examid).concat("|").concat("teacher:").concat(_this.state.identity).concat("|"));
                             
                             room.participants.forEach(function(participant) {
                                 //tee Peer-to-peer huone jokaisen käyttäjän kanssa. Huoneen nimi = participant.identity
@@ -180,6 +189,7 @@ class TwilioTeacherVideo extends Component {
                                         tracks: [localDataTrack]
                                     }).then(function(peer_room) {
                                         console.log('Successfully joined a Room: ', peer_room);
+                                        _this.peerRooms.push(peer_room);
                                         //kuuntele jos oppilas lähettää viestin huoneessa ja näytä se Teacher chat elementissä
                                         peer_room.participants.forEach(function(participant) {
                                             participant.on('trackSubscribed', track => {
@@ -221,6 +231,7 @@ class TwilioTeacherVideo extends Component {
                                         tracks: [localDataTrack]
                                     }).then(function(peer_room) {
                                         console.log('Successfully joined a Room: ', peer_room);
+                                        _this.peerRooms.push(peer_room);
                                         //kuuntele jos oppilas lähettää viestin huoneessa ja näytä se Teacher chat elementissä
                                         peer_room.participants.forEach(function(participant) {
                                             participant.on('trackSubscribed', track => {
@@ -242,6 +253,14 @@ class TwilioTeacherVideo extends Component {
                             room.on('participantDisconnected', participant => {
                                 console.log(`Participant disconnected: ${participant.identity}`);
                                 _this.participantList.removeParticipantFromList(participant.identity);
+                            });
+
+                            room.on('disconnect', room => {
+                                console.log("Disconnected from room.");
+                                room.localParticipant.tracks.forEach(publication => {
+                                    const attachedElements = publication.track.detach();
+                                    attachedElements.forEach(element => element.remove());                                
+                                })
                             });
                         });
                     });
