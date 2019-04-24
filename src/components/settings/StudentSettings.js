@@ -12,15 +12,44 @@ constructor(props){
     this.state={ pswDialogIsOpen: false};
     this.state={ isOpen: false};
     this.state={
-        email: "Pekka",
-        users: [[
-            {id: 1, gender: "Male", email: "Pekkaownaa421@Kakka.com", name: "Haluujafa", surname: "Haleba"}
-        ],
-    ],
+        email: "",
+        firstName: "",
+        lastName: "",
+        username: "",
         stId: 0,
         stId2: 0,
     }
     
+}
+componentDidMount(){
+        
+    var urlAddress = "http://examapp.crenxu.com:22501/auth/user";
+    fetch(urlAddress, {
+      method: 'GET',
+      headers: {
+       
+        Accept: 'application/json',
+        Authorization: "Bearer " +(sessionStorage.getItem('jwtToken')),
+        'Content-type': 'application/json'
+    }
+})
+
+.then(response => response.json())
+
+    .then(data => {
+        console.log(data)
+        this.setState({
+            email: data.email,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            username: data.username
+
+        })
+        
+    })
+    .catch(function(error) {
+        console.log(error);
+    })
 }
 toggleModal = () => {
     this.setState({
@@ -91,7 +120,7 @@ pswDialogIsOpen: !this.state.pswDialogIsOpen
             
             
             <br />
-            <i>{this.state.users[this.state.stId][this.state.stId2].email}</i>
+            <i>{this.state.email}</i>
 
 
     </div>
@@ -105,14 +134,14 @@ pswDialogIsOpen: !this.state.pswDialogIsOpen
             
             <h2>Name</h2>
             <br />
-            <i>{this.state.users[this.state.stId][this.state.stId2].name}</i>
+            <i>{this.state.firstName}</i>
             
             </div>
             <div className="pure-u-1-3">
             
             <h2>Surname</h2>
             <br />
-            <i>{this.state.users[this.state.stId][this.state.stId2].surname}</i>
+            <i>{this.state.lastName}</i>
             
             </div>
         </div>  
@@ -120,9 +149,9 @@ pswDialogIsOpen: !this.state.pswDialogIsOpen
                     <div className="pure-g">
                 <div className="pure-u-1-2">
 
-                <h2>Gender</h2>
+                <h2>Username</h2>
                 <br />
-                <i>{this.state.users[this.state.stId][this.state.stId2].gender}</i>
+                <i>{this.state.username}</i>
                 
                 </div>
                 

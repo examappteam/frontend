@@ -2,14 +2,108 @@ import React from "react"
 import "../style.css"
 import { BrowserRouter as Router, Route, Link} from "react-router-dom";
 import Auth from './login/Auth';
+import jwt_decode from 'jwt-decode';
+import MdModal from "../components/common/modals/MdModal"
 
 
 export default class Header extends React.Component{
- 
+
+    constructor() {
+        super()
+        this.state = {
+            showState: false
+        }
+        this.changeShowStateTrue = this.changeShowStateTrue.bind(this);
+        this.changeShowStateFalse = this.changeShowStateFalse.bind(this);
+    }
+
+    mqtt = require('mqtt');
+    options = {
+        keepalive: 10,
+        clientId: 'student',
+        protocolId: 'MQTT',
+        protocolVersion: 4,
+        clean: true,
+        retain: true,
+        reconnectPeriod: 1000,
+        connectTimeout: 30 * 1000,
+        will: {
+          topic: 'exam-app',
+          payload: '',
+          qos: 0,
+          retain: true
+        },
+        username: 'tidpauhp',
+        password: 'wITVbwMtwaMo',
+        rejectUnauthorized: false
+      }
+    client;
+    hostName = "wss://m24.cloudmqtt.com:34820";
     logout(){
         
       sessionStorage.removeItem('jwtToken');
       Auth.logOutAuthentication();
+    }
+
+    changeShowStateTrue=()=>{
+        this.setState(prevState=>({
+                showState: true
+        }));
+        console.log("showstate",this.state.showState)
+    }
+
+    changeShowStateFalse=()=>{
+        this.setState(prevState=>({
+                showState: false
+        }));
+        console.log("showstate",this.state.showState)
+    }
+
+    componentDidMount() {
+        const _this = this;
+        const trimmedDecode = jwt_decode(sessionStorage.getItem('jwtToken'));
+        console.log(trimmedDecode);
+        var trimmedRole = trimmedDecode.roles[0];
+        if(trimmedRole === "ROLE_STUDENT") {
+            console.log(trimmedRole);
+            this.client = this.mqtt.connect(this.hostName,this.options);
+            this.client.on('connect', function () {
+                console.log("Connected to mqtt")
+                _this.client.subscribe("exam-app",{qos:0});
+              })
+    
+            this.client.on('message', function (topic, message) {
+                // message is Buffer
+                if(message == "") {
+
+                }
+                else {
+                    console.log(message.toString());
+                    const roomName = message.slice(message.indexOf(':') + 1, message.indexOf('|')).toString();
+                    console.log(roomName);
+                    const examID = message.slice(message.indexOf(':',message.indexOf(':') + 1) + 1, message.indexOf('|', message.indexOf('|')+1)).toString();
+                    console.log(examID);
+                    const teacherName = message.slice(message.lastIndexOf(':') + 1, message.lastIndexOf('|')).toString();
+                    console.log(teacherName);
+                    const confimationMessage = teacherName.concat(' invites you to join exam: ').concat(roomName);
+                    sessionStorage.setItem('roomToJoin', roomName);
+                    sessionStorage.setItem('onGoingExamID',examID);
+                    sessionStorage.setItem('teacherName',teacherName);
+                    const popupText = document.getElementById("popupMessage");
+                    popupText.innerText = confimationMessage;
+                    _this.changeShowStateTrue();
+                    /*
+                    const confirmation = window.confirm(confimationMessage);
+                    if (confirmation) {
+                        // Join the exam
+
+
+                    } else {
+                        // Do nothing!
+                    }*/
+                }
+              })
+        }
     }
 
     render(){
@@ -23,7 +117,10 @@ export default class Header extends React.Component{
                     <img id="logo" src="images/examapp-logo.png" alt="Examapp"></img>
                 </div>
                 <div className="pure-u-1 pure-u-md-1-3">                
-                    <Link to="/student_exam_view"><button className="pure-button">Student exam page #REMOVE#</button></Link> 
+                    <Link to="/student_exam_view"><button className="pure-button">Student exam page #REMOVE#</button></Link>
+                    <MdModal close={this.changeShowStateFalse} show={this.state.showState}>
+                            <p id="popupMessage"></p>
+                    </MdModal> 
                     
                     
                     { sessionStorage.getItem('teacherAuthenticated') == 'true' ? 

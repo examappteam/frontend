@@ -7,13 +7,14 @@ class StudentVideo extends Component {
     fetchAddress = "http://examapp.crenxu.com:22501/";
     chatWindow = new ChatWindow();
     dataTrack = null;
-    id = 1;
+    groupRoom = null;
+    peerRoom = null;
     constructor() {
         super()
         this.sendTextMessage = this.sendTextMessage.bind(this);
         this.state = {
             examid: null,
-            examname: null,
+            examname: "",
             groupRoomToken: "",
             privateRoomToken:"",
             identity: "Student",
@@ -38,35 +39,44 @@ class StudentVideo extends Component {
 
     componentDidMount() {
         console.log("componentDidMmount");
-        this.setState({
-            identity: sessionStorage.getItem('email'),
-            examid: sessionStorage.getItem('examID')
-        }).then(function() {
-            const fullAddress = this.fetchAddress.concat("main/exam/").concat(this.state.examid);
-            console.log(fullAddress);
-            fetch(fullAddress, {
-                method:  'GET',
-                headers: {
-                    Accept: 'application/json',
-                    Authorization: sessionStorage.getItem('jwtToken'),
-                    'Content-Type': 'application-json',
-                }
-            }).then(response => response.json())
-            .then(data => {
-                this.chatWindow.setSendToName(data.creatorId);
-                this.setState({
-                    teacherIdentity: data.creatorId,
-                    examname: data.title
-                }).then(function() {
-                    this.connectToRoom();
-                })
-            })
-        });
+        const _this = this;
+        this.state.identity = sessionStorage.getItem('email');
+        this.state.examid = sessionStorage.getItem('onGoingExamID');
+        const fullAddress = this.fetchAddress.concat("main/exam/").concat(this.state.examid);
+        console.log(fullAddress);
+        fetch(fullAddress, {
+            method:  'GET',
+            headers: {
+                Accept: 'application/json',
+                Authorization: sessionStorage.getItem('jwtToken'),
+                'Content-Type': 'application-json',
+            }
+        }).then(response => response.json())
+        .then(data => {
+            _this.chatWindow.setSendToName(data.creatorId);
+            _this.state.teacherIdentity = data.creatorId;
+            _this.state.examname = data.title;
+            this.connectToRoom();
+            
+        })
+    }
+
+    componentWillUnmount() {
+        if(this.groupRoom != null) {
+            console.log("Disconnectiing from grouproom")
+            this.groupRoom.disconnect();
+            this.groupRoom = null;
+        }
+        if(this.peerRoom != null) {
+            console.log("Disconnecting from peerroom");
+            this.peerRoom.disconnect();
+            this.peerRoom = null;
+        }
     }
 
     connectToRoom() {
         //TODO fetch token from server
-        const fullAddress = this.fetchAddress.concat("?identity=").concat(this.state.identity,"&roomName=",this.state.examname);   //<---- USE EXAM NAME AS ROOMNAME
+        const fullAddress = this.fetchAddress.concat("main/twilio/videotoken?identity=").concat(this.state.identity,"&roomName=",this.state.examname);   //<---- USE EXAM NAME AS ROOMNAME
         console.log("Address: " + fullAddress);
         fetch(fullAddress, {
             method:  'GET',
@@ -78,7 +88,7 @@ class StudentVideo extends Component {
         })
         .then(response => response.json())
         .then(data => {
-            console.log("data");
+            console.log("data from token fetch:");
             console.log(data);
             this.setState({
                 groupRoomToken: data
@@ -95,6 +105,7 @@ class StudentVideo extends Component {
             {
                 console.log("Connected student to room: " + room.name);   //room MUUTTUJA SISÄLTÄÄ TIEDOT HUONEESTA, KUTEN NIMEN, SID:N, HUONEESSA OLEVAT KÄYTTÄJÄT (participants)
                 console.log("Room participants" + room.participants);
+                this.groupRoom = room;
                 room.participants.forEach(function(participant)
                 {
                         console.log("Participant identity: " + participant.identity);
@@ -134,6 +145,7 @@ class StudentVideo extends Component {
                             }).then(function(room)
                             {
                                 console.log("Privaatti huone luotu: " + room.name);
+                                this.peerRoom = room;
                             })
                         }
                 })
