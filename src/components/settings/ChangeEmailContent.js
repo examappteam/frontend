@@ -8,9 +8,11 @@ class ChangeEmailContent extends Component{
     <div id="mleft">
         <h1>Change Email</h1>
         <input type="text" autoComplete="off" placeholder="Email" ></input>
+        <br />
         <input type="text" autoComplete="off" placeholder="New Email" ></input>
-
+        <br />
         <input type="password" name="password" placeholder="Password" ></input>
+        <br />
         <input type="password" name="password" placeholder="Password" ></input>
     </div>
     )

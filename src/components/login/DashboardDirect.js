@@ -13,7 +13,7 @@ export const DashboardDirect = ({component: Component, ...rest}) => {
                 var trimmedDecode = jwt_decode(sessionStorage.getItem('jwtToken'));
       
                 var trimmedName = trimmedDecode.roles[0];
-                console.log("Täällä olen" + trimmedName);
+                
                 if((trimmedName) == "ROLE_TEACHER" ){
                  if(((Auth.teacherIsAuthenticated()) || (Auth.studentIsAuthenticated()) ) == null){
                 return <Component{...props} />

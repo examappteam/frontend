@@ -62,6 +62,8 @@ export default class Login extends React.Component{
       console.log("Email täällä" + sessionStorage.getItem('email'));
       console.log("Täällä" + trimmedName);
      // var trimmedName = trimmedDecode.sub;
+      
+     
       return trimmedDecode.roles[0];
     }
 
