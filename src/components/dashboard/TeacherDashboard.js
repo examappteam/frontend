@@ -141,15 +141,13 @@ class TeacherDashboard extends Component {
 
                     <div className="pure-u-1-3">
                         <div className="padded-box">
-                        <MdModal close={this.changeShowState} show={this.state.showState}>
-                            <StudentManager />
-                        </MdModal>
                             <ScrollableListMenu
                                 menuHeader="My courses"
                                 menuItems={this.state.categories[0]}
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
                                 selectedLink={"/course_view"}
+                                passedId={this.state.selectionId}
                                 category = {0}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
                                 <button onClick={this.changeShowState} className="pure-button pure-button-primary">Create new course</button>
@@ -167,6 +165,7 @@ class TeacherDashboard extends Component {
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
                                 selectedLink={"/exam_grading"}
+                                passedId={this.state.selectionId}
                                 category = {1}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
 
@@ -182,6 +181,7 @@ class TeacherDashboard extends Component {
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
                                 selectedLink={"/edit_exam"}
+                                passedId={this.state.selectionId + 1}
                                 category = {2}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
                                 <Link to="/create_exam">
@@ -204,7 +204,7 @@ class TeacherDashboard extends Component {
                 <div className="pure-u-3-24"></div>
                 <div className="pure-u-18-24">
                     <div className="padded-box">
-                    <WideListButtonView title={"ExamTitle"} exam={this.state.exams[this.state.selectionId]}/>
+                    <WideListButtonView title={"ExamTitle"} exam={teacherExamPoolData[this.state.selectionId]}/>
                     </div>
                 </div>
                 <div className="pure-u-3-24"></div>

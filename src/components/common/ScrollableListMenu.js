@@ -18,7 +18,8 @@ function ScrollableListMenu(props) {
                 selectedItem={props.selectedItem}
                 categoryId={category}
                 selectedCategory={props.selectedCategory}
-                selectedLink={props.selectedLink}/>
+                selectedLink={props.selectedLink}
+                passedId={props.passedId}/>
         )
     } else if(category === 2) {
         menuItems = props.menuItems.map(
@@ -30,7 +31,8 @@ function ScrollableListMenu(props) {
                 selectedItem={props.selectedItem}
                 categoryId={category}
                 selectedCategory={props.selectedCategory}
-                selectedLink={props.selectedLink}/>
+                selectedLink={props.selectedLink}
+                passedId={props.passedId}/>
         )
     } else {
         menuItems = props.menuItems.map(
@@ -42,7 +44,8 @@ function ScrollableListMenu(props) {
                 selectedItem={props.selectedItem}
                 categoryId={category}
                 selectedCategory={props.selectedCategory}
-                selectedLink={props.selectedLink}/>
+                selectedLink={props.selectedLink}
+                passedId={props.passedId}/>
         )
     }
 
