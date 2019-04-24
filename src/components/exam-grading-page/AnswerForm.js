@@ -6,7 +6,7 @@ function AnswerForm(props) {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <legend>Student's answer {props.answer.answerId}</legend>
+                <legend>Student's answer {props.answer.id}</legend>
                 
                 {/** ANSWER BOX, READ-ONLY **/}
                 <div className="pure-u-1-1">
@@ -15,7 +15,7 @@ function AnswerForm(props) {
                             <textarea 
                                 id="studentAnswer" 
                                 type="text" 
-                                value={props.answer.answerExample}
+                                value={props.answer.answer}
                                 readOnly 
                                 />
                         </p>
@@ -25,7 +25,7 @@ function AnswerForm(props) {
                     <div id="pointsDiv" className="pure-u-1-12">
                         <p>
                             <label for="points"> Points: </label><br/>
-                            <select id="points" value={props.answer.value} onChange={props.handleChange}>
+                            <select id="points" value={props.answer.grade} onChange={props.handleChange}>
                                 <option value="0">0</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -33,14 +33,18 @@ function AnswerForm(props) {
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                                 <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
                             </select>
                         </p>
                     </div>
                 </div>
 
-            <div className="pure-u-4-5">    
+            {/* <div className="pure-u-4-5">     */}
             {/* First two buttons */}
-                <div className="pure-button-group" role="group" aria-label="..."> 
+                {/* <div className="pure-button-group" role="group" aria-label="..."> 
                     <button 
                         id="review" 
                         type="submit" 
@@ -53,10 +57,10 @@ function AnswerForm(props) {
                         className="pure-button">
                             Next question <i className="fas fa-angle-right"></i>
                     </button>
-                </div>
+                </div> */}
 
             {/* Second two buttons */}
-                <div className="pure-button-group" role="group" aria-label="...">
+                {/* <div className="pure-button-group" role="group" aria-label="...">
                     <Link to="../dashboard">
                         <button 
                             id="review" 
@@ -74,7 +78,7 @@ function AnswerForm(props) {
                         </button>
                     </Link>
                 </div>
-            </div>
+            </div> */}
 
         </div>
     </form>
