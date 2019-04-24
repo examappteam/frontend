@@ -20,19 +20,13 @@ export default class Header extends React.Component{
     mqtt = require('mqtt');
     options = {
         keepalive: 10,
-        clientId: 'student',
+        clientId: 'studentexample',
         protocolId: 'MQTT',
         protocolVersion: 4,
         clean: true,
         retain: true,
         reconnectPeriod: 1000,
         connectTimeout: 30 * 1000,
-        will: {
-          topic: 'exam-app',
-          payload: '',
-          qos: 0,
-          retain: true
-        },
         username: 'tidpauhp',
         password: 'wITVbwMtwaMo',
         rejectUnauthorized: false
@@ -46,16 +40,16 @@ export default class Header extends React.Component{
     }
 
     changeShowStateTrue=()=>{
-        this.setState(prevState=>({
+        this.setState({
                 showState: true
-        }));
+        });
         console.log("showstate",this.state.showState)
     }
 
     changeShowStateFalse=()=>{
-        this.setState(prevState=>({
+        this.setState({
                 showState: false
-        }));
+        });
         console.log("showstate",this.state.showState)
     }
 
@@ -74,33 +68,27 @@ export default class Header extends React.Component{
     
             this.client.on('message', function (topic, message) {
                 // message is Buffer
-                if(message == "") {
+                console.log("Exam start message started");
+                console.log(topic);
+                if(topic === "exam-app") {
+                    if(message == "") {
 
-                }
-                else {
-                    console.log(message.toString());
-                    const roomName = message.slice(message.indexOf(':') + 1, message.indexOf('|')).toString();
-                    console.log(roomName);
-                    const examID = message.slice(message.indexOf(':',message.indexOf(':') + 1) + 1, message.indexOf('|', message.indexOf('|')+1)).toString();
-                    console.log(examID);
-                    const teacherName = message.slice(message.lastIndexOf(':') + 1, message.lastIndexOf('|')).toString();
-                    console.log(teacherName);
-                    const confimationMessage = teacherName.concat(' invites you to join exam: ').concat(roomName);
-                    sessionStorage.setItem('roomToJoin', roomName);
-                    sessionStorage.setItem('onGoingExamID',examID);
-                    sessionStorage.setItem('teacherName',teacherName);
-                    const popupText = document.getElementById("popupMessage");
-                    popupText.innerText = confimationMessage;
-                    _this.changeShowStateTrue();
-                    /*
-                    const confirmation = window.confirm(confimationMessage);
-                    if (confirmation) {
-                        // Join the exam
-
-
-                    } else {
-                        // Do nothing!
-                    }*/
+                    }
+                    else {
+                        console.log(message.toString());
+                        const roomName = message.slice(message.indexOf(':') + 1, message.indexOf('|')).toString();
+                        console.log(roomName);
+                        const examID = message.slice(message.indexOf(':',message.indexOf(':') + 1) + 1, message.indexOf('|', message.indexOf('|')+1)).toString();
+                        console.log(examID);
+                        const teacherName = message.slice(message.lastIndexOf(':') + 1, message.lastIndexOf('|')).toString();
+                        console.log(teacherName);
+                        const confimationMessage = teacherName.concat(' invites you to join exam: ').concat(roomName);
+                        sessionStorage.setItem('roomToJoin', roomName);
+                        sessionStorage.setItem('teacherName',teacherName);
+                        const popupText = document.getElementById("popupMessage");
+                        popupText.innerText = confimationMessage;
+                        _this.changeShowStateTrue();
+                    }
                 }
               })
         }
@@ -117,9 +105,10 @@ export default class Header extends React.Component{
                     <img id="logo" src="images/examapp-logo.png" alt="Examapp"></img>
                 </div>
                 <div className="pure-u-1 pure-u-md-1-3">                
-                    <Link to="/student_exam_view"><button className="pure-button">Student exam page #REMOVE#</button></Link>
+                   
                     <MdModal close={this.changeShowStateFalse} show={this.state.showState}>
                             <p id="popupMessage"></p>
+                            <Link to="/student_exam_view"><button className="pure-button">Join Exam</button></Link>
                     </MdModal> 
                     
                     
