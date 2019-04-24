@@ -25,7 +25,7 @@ export default class Login extends React.Component{
 
         this.handleChange = this.handleChange.bind(this);
         this.handlebuttonfetch = this.handlebuttonfetch.bind(this);
-        
+
 
 
     }
@@ -55,15 +55,12 @@ export default class Login extends React.Component{
 
     getTokenDataRole(){
       var trimmedDecode = jwt_decode(this.state.token);
-      console.log(trimmedDecode);
       var trimmedName = trimmedDecode.sub;
-      Sessionstorageitems.setEmail(trimmedName);
-      
+      sessionStorage.setItem("email",(trimmedName));
+
       console.log("Email täällä" + sessionStorage.getItem('email'));
       console.log("Täällä" + trimmedName);
-     // var trimmedName = trimmedDecode.sub;
-      
-     
+
       return trimmedDecode.roles[0];
     }
 
@@ -84,19 +81,20 @@ export default class Login extends React.Component{
           password: this.state.password,
         })
       })
-      
+
       .then(function(response) {
         if (!response.ok) {
             throw Error(response.statusText);
-            
+
         }
-        
+
         return response;
     })
       .then(response => response.json())
 
       .then(data => {
-       
+        console.log(data);
+
       Sessionstorageitems.setToken(data.token);
 
       this.setState({
@@ -106,8 +104,8 @@ export default class Login extends React.Component{
       this.setState({
         role: this.getTokenDataRole()
       })
-      
-      if(this.state.role === "ROLE_STUDENT"){  
+
+      if(this.state.role === "ROLE_STUDENT"){
         this.setState({
           loggedinStudent: true
         })
@@ -128,24 +126,24 @@ export default class Login extends React.Component{
       else{
         console.log("Sth went wrong in login")
       }
-      
+
       })
       .catch(function(error) {
         console.log(error);
         console.log("Virheellinen");
         _this.toggleModal();
-        
+
     })
     }
-    
+
 
     handleChange (evt) {
         this.setState({ [evt.target.name]: evt.target.value });
       }
 
 
-  render() {    
-    
+  render() {
+
 
     return (
      <div>
