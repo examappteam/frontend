@@ -96,10 +96,7 @@ class TeacherDashboard extends Component {
                     selectionId: id-1
                 }
                 //console.log("states ", this.state.selectedCategoryId, this.state.selectionId)
-            })
-        if(this.state.selectedCategoryId === 2) {
-            sessionStorage.setItem("examToEdit", id)
-        }      
+            })     
     }
 
     changeShowState=()=>{
