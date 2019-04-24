@@ -11,7 +11,7 @@ function ListMenuItem(props) {
                     {props.itemName} 
                     {props.categoryId === props.selectedCategory ?
                         props.id === props.selectedItem + 1 ? 
-                            <Link to="/course_view">                           
+                            <Link to={props.selectedLink}>                           
                                 <i className="fa fa-arrow-circle-right fa-lg list-button"></i>                           
                             </Link> 
                         : "" 
