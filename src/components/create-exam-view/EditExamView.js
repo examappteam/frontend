@@ -10,7 +10,7 @@ class EditExamView extends Component {
         super()
         this.state = {
             formsToRender: 0,
-            renderForms: 0,
+            renderForms: false,
             examTitle: "",
             examQuestions: questionsData,
             examQuestionsTempHolder: 'undefined'
@@ -37,7 +37,7 @@ class EditExamView extends Component {
                 examTitle: data.exam.title,
                 examQuestionsTempHolder: data.exam.questions,          
                 formsToRender: data.exam.questions.length - 1,
-                renderForms: 1
+                renderForms: true
             })
             console.log("FormsToRender: ", this.state.formsToRender)
         })
@@ -88,7 +88,7 @@ class EditExamView extends Component {
     }
 
     render() {
-        if(this.state.renderForms === 1) {
+        if(this.state.renderForms === true) {
             var formElements = []
 
             for (var i = 0; i <= this.state.formsToRender; i++) {
