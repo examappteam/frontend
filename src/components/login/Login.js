@@ -55,8 +55,8 @@ export default class Login extends React.Component{
 
     getTokenDataRole(){
       var trimmedDecode = jwt_decode(this.state.token);
-      console.log(trimmedDecode);
-     // var trimmedName = trimmedDecode.sub;
+      
+     
       return trimmedDecode.roles[0];
     }
 
