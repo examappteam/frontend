@@ -55,7 +55,11 @@ export default class Login extends React.Component{
 
     getTokenDataRole(){
       var trimmedDecode = jwt_decode(this.state.token);
-      
+      var trimmedName = trimmedDecode.sub;
+      sessionStorage.setItem("email",(trimmedName));
+
+      console.log("Email täällä" + sessionStorage.getItem('email'));
+      console.log("Täällä" + trimmedName);
      
       return trimmedDecode.roles[0];
     }
@@ -89,6 +93,7 @@ export default class Login extends React.Component{
       .then(response => response.json())
 
       .then(data => {
+        console.log(data);
        
       Sessionstorageitems.setToken(data.token);
 
