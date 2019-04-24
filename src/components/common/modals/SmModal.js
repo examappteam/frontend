@@ -24,12 +24,9 @@ const SmModal = (props) => {
                     <p className="close-container" onClick={props.close}><i className="close-modal-btn fas fa-times"></i></p>
                 </div>
                 <div className="modal-body-sm">
-                    <p>
-                        {props.children}
-                    </p>
+                    {props.children}
                 </div>
-                        <button className="pure-button btn-cancel" onClick={props.close}>Cancel</button>         
-                    
+                    <button className="pure-button btn-cancel" onClick={props.close}>Cancel</button>                 
             </div>
         </div>
     )
