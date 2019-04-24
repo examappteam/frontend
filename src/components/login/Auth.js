@@ -7,10 +7,7 @@ setAuthenticatedUser(studentUser){
 sessionStorage.setItem('studentAuthenticated',studentUser);
 
 }
-getpath(){
-    
-    return sessionStorage.getItem('email');
-}
+
 setAuthenticatedTeacher(teacherUser){
     sessionStorage.setItem('teacherAuthenticated',teacherUser);
     

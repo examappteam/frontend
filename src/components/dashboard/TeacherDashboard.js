@@ -141,9 +141,6 @@ class TeacherDashboard extends Component {
 
                     <div className="pure-u-1-3">
                         <div className="padded-box">
-                        <MdModal close={this.changeShowState} show={this.state.showState}>
-                            <StudentManager />
-                        </MdModal>
                             <ScrollableListMenu
                                 menuHeader="My courses"
                                 menuItems={this.state.categories[0]}
@@ -207,7 +204,7 @@ class TeacherDashboard extends Component {
                 <div className="pure-u-3-24"></div>
                 <div className="pure-u-18-24">
                     <div className="padded-box">
-                    <WideListButtonView title={"ExamTitle"} exam={this.state.exams[this.state.selectionId]}/>
+                    <WideListButtonView title={"ExamTitle"} exam={teacherExamPoolData[this.state.selectionId]}/>
                     </div>
                 </div>
                 <div className="pure-u-3-24"></div>

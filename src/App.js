@@ -16,30 +16,38 @@ import StudentVideo from './components/student-video-page/StudentVideo'
 import StudentInformation from "./components/StudentInformationForTeacherView/StudentInformation"
 import {WithAuth} from "./components/login/WithAuth"
 import {TeacherWithAuth} from "./components/login/TeacherWithAuth"
-import {Auth} from "./components/login/Auth"
-import {DashboardDirect} from "./components/login/DashboardDirect"
+import CreateStudent from "./components/settings/CreateStudent"
+
 
 class App extends Component  {
   render(){
     return (
-      <Router>        
-          <div>                      
-            <DashboardDirect exact path="/" component={Login }/>
-            <Route path="/login" component={Login}/>        
+      <Router>
+        
+           <div>              
+        
+           
+        <Route exact path="/" component={Login }/>
+        <Route path="/login" component={Login}/>
+        
 
-            <WithAuth path="/studentdashboard"  component={StudentDashboard} />
-            <WithAuth path="/student_exam_view" component={StudentVideo} />
-            <WithAuth path="/studentsettings" component = {StudentSettings}/>
+          
 
-            <TeacherWithAuth path="/exam_grading" component={ExamGradingView} />
-            <TeacherWithAuth path="/teacherdashboard" component={TeacherDashboard} />
-            <TeacherWithAuth path="/studentinformation" component={StudentInformation} />
-            <TeacherWithAuth path="/course_view" component={TeacherDashboardCourseView} />
-            <TeacherWithAuth path="/create_exam" component={CreateExamView} />
-            <TeacherWithAuth path="/edit_exam" component={EditExamView} />
-            <TeacherWithAuth path="/exam_view" component={TwilioTeacherVideo} />
+          <WithAuth path="/studentdashboard"  component={StudentDashboard} />
+          <WithAuth path="/student_exam_view" component={StudentVideo} />
+          <WithAuth path="/studentsettings" component = {StudentSettings}/>
 
-            <TeacherWithAuth path="/settings" component={Settings} />
+          <TeacherWithAuth path="/exam_grading" component={ExamGradingView} />
+          <TeacherWithAuth path="/teacherdashboard" component={TeacherDashboard} />
+          <TeacherWithAuth path="/studentinformation" component={StudentInformation} />
+          <TeacherWithAuth path="/course_view" component={TeacherDashboardCourseView} />
+          <TeacherWithAuth path="/create_exam" component={CreateExamView} />
+          <TeacherWithAuth path="/exam_view" component={TwilioTeacherVideo} />
+          <TeacherWithAuth path="/createstudent" component={CreateStudent}/>
+          <TeacherWithAuth path="/settings" component={Settings} />
+          
+
+          
           </div>
       </Router>    
     )

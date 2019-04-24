@@ -8,10 +8,6 @@ class Sessionstorageitems{
         console.log("Onnistui tokenin laitto" + sessionStorage.getItem('jwtToken'));
     }
 
-    setEmail(idEmailToken){
-        sessionStorage.setItem('email', idEmailToken);
-        console.log("Onnistui emailin laitto" + sessionStorage.getItem('email'));
-    }
     getToken(){
         return sessionStorage.getItem('jwtToken');
     }
