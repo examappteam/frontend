@@ -55,6 +55,52 @@ class TeacherDashboard extends Component {
         this.fetchExamWithId(1)
     }
 
+    addExamToClass(){
+        var urlAddress = "http://145.93.168.176:22501/main/classroom/ICT2017/exam"
+        fetch(urlAddress,{
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                Authorization: sessionStorage.getItem('jwtToken'),
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(teacherExamPoolData[1])
+        })
+        .then(function(response) {
+            if(!response.ok){
+                throw Error(response.statusText);
+            }
+            return response;
+        })
+        .then(response => response.json())
+        .then(data=>{
+            console.log("Received classes",data)
+            })
+    }
+
+
+    fetchClassesByTeacher(){
+        var urlAddress = "http://145.93.168.176:22501/main/classroom/teacher"
+        fetch(urlAddress,{
+            method: 'GET',                                                 // for fetching data
+            headers: {
+                Accept: 'application/json',
+                Authorization: sessionStorage.getItem('jwtToken'),
+                'Content-type': 'application/json'
+            }
+        })
+        .then(function(response) {
+            if(!response.ok){
+                throw Error(response.statusText);
+            }
+            return response;
+        })
+        .then(response => response.json())
+        .then(data=>{
+            console.log("Received classes",data)
+            })
+    }
+
     fetchExamWithId(id) {
         var urlAddress = "http://examapp.crenxu.com:22501/main/exam/" + id // This whole mess of a function
         fetch(urlAddress, {                                                // should be replaced when we get a better endpoint
@@ -136,7 +182,6 @@ class TeacherDashboard extends Component {
         console.log(sessionStorage.getItem('jwtToken'));
         return(
             <div>
-
                 <div className="pure-g">
 
                     <div className="pure-u-1-3">
