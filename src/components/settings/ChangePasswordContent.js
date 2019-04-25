@@ -10,8 +10,9 @@ class ChangePasswordContent extends Component{
 
 
         <input  type="password" autoComplete="off" name="password" placeholder="Password" ></input>
-
+        <br />
         <input type="password" name="password" placeholder="New Password" ></input>
+        <br />
         <input type="password" name="password" placeholder="New Password" ></input>
         
         </div>

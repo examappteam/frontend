@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles/App.css';
-import jwt_decode from 'jwt-decode'
+import jwt_decode from 'jwt-decode';
 import Auth from './Auth';
 import Sessionstorageitems from '../common/sessionstorage/Sessionstorageitems';
 import MdModal from '../common/modals/SmModal';
@@ -25,9 +25,8 @@ export default class Login extends React.Component{
 
         this.handleChange = this.handleChange.bind(this);
         this.handlebuttonfetch = this.handlebuttonfetch.bind(this);
-        //this.getChange = this.getChange.bind(this);
-        //this.logout = this.logout.bind(this);
-        //this.getDecodedTokenData = this.getDecodedTokenData.bind(this);
+
+
 
     }
     setToken(idToken){
@@ -56,30 +55,20 @@ export default class Login extends React.Component{
 
     getTokenDataRole(){
       var trimmedDecode = jwt_decode(this.state.token);
-      console.log(trimmedDecode);
       var trimmedName = trimmedDecode.sub;
-      Sessionstorageitems.setEmail(trimmedName);
-      
+      sessionStorage.setItem("email",(trimmedName));
+
       console.log("Email täällä" + sessionStorage.getItem('email'));
       console.log("Täällä" + trimmedName);
+
       return trimmedDecode.roles[0];
-    }
-
-
-    _checkstatus(response){
-      if(response.status >= 400 && response.status <= 500) {
-        console.log("Checkstatus Virheellinen Palautettu False");
-
-        return false;
-      }else{
-        return response;
-      }
     }
 
     validateForm() {
       return this.state.email.length > 0 && this.state.password.length > 0;
     }
     handlebuttonfetch(evt){
+      const _this = this;
       evt.preventDefault(evt);
       fetch('http://examapp.crenxu.com:22501/auth/signin', {
         method: 'POST',
@@ -93,73 +82,68 @@ export default class Login extends React.Component{
         })
       })
 
+      .then(function(response) {
+        if (!response.ok) {
+            throw Error(response.statusText);
+
+        }
+
+        return response;
+    })
       .then(response => response.json())
 
       .then(data => {
-        if((this._checkstatus(data.token)===false)){
+        console.log(data);
 
-        console.log(data.token);
-        console.log("Virheellinen");
-
-        this.toggleModal();
-
-      }
-
-      else{
       Sessionstorageitems.setToken(data.token);
-      
-      
-      // Laitetaan krypto data stateen että saadaan avain jolla saadaan rooli käyttäjälle
+
       this.setState({
         token: data.token
-
       })
+
       this.setState({
         role: this.getTokenDataRole()
       })
-      
-      if(this.state.role === "ROLE_STUDENT"){  
-        
 
-
+      if(this.state.role === "ROLE_STUDENT"){
         this.setState({
           loggedinStudent: true
         })
-        //this.state.loggedinStudent = true;
+
         Auth.setAuthenticatedUser(this.state.loggedinStudent);
       this.props.history.push("/studentdashboard");
-
-
-
       }
 
       else if(this.state.role === "ROLE_TEACHER"){
         this.setState({
           loggedinTeacher: true
         })
-        //this.state.loggedinTeacher = true;
+
         Auth.setAuthenticatedTeacher(this.state.loggedinTeacher);
         this.props.history.push("/teacherdashboard");
-
-
-
       }
 
       else{
-        console.log("Jokin meni pieleen loginissa")
+        console.log("Sth went wrong in login")
       }
-      }
-      })
 
+      })
+      .catch(function(error) {
+        console.log(error);
+        console.log("Virheellinen");
+        _this.toggleModal();
+
+    })
     }
+
 
     handleChange (evt) {
         this.setState({ [evt.target.name]: evt.target.value });
       }
 
 
-  render() {    
-    
+  render() {
+
 
     return (
      <div>

@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import ScrollableListMenu from "../common/ScrollableListMenu"
-import WideListButtonView from "../common/WideListButtonView"
+
 import MdModal from "../common/modals/MdModal"
 import StudentManager from "../../components/common/StudentManager"
 import { BrowserRouter as Router, Route, Link} from "react-router-dom"
@@ -55,6 +55,52 @@ class TeacherDashboard extends Component {
         this.fetchExamWithId(1)
     }
 
+    addExamToClass(){
+        var urlAddress = "http://145.93.168.176:22501/main/classroom/ICT2017/exam"
+        fetch(urlAddress,{
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                Authorization: sessionStorage.getItem('jwtToken'),
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(teacherExamPoolData[1])
+        })
+        .then(function(response) {
+            if(!response.ok){
+                throw Error(response.statusText);
+            }
+            return response;
+        })
+        .then(response => response.json())
+        .then(data=>{
+            console.log("Received classes",data)
+            })
+    }
+
+
+    fetchClassesByTeacher(){
+        var urlAddress = "http://145.93.168.176:22501/main/classroom/teacher"
+        fetch(urlAddress,{
+            method: 'GET',                                                 // for fetching data
+            headers: {
+                Accept: 'application/json',
+                Authorization: sessionStorage.getItem('jwtToken'),
+                'Content-type': 'application/json'
+            }
+        })
+        .then(function(response) {
+            if(!response.ok){
+                throw Error(response.statusText);
+            }
+            return response;
+        })
+        .then(response => response.json())
+        .then(data=>{
+            console.log("Received classes",data)
+            })
+    }
+
     fetchExamWithId(id) {
         var urlAddress = "http://examapp.crenxu.com:22501/main/exam/" + id // This whole mess of a function
         fetch(urlAddress, {                                                // should be replaced when we get a better endpoint
@@ -96,10 +142,7 @@ class TeacherDashboard extends Component {
                     selectionId: id-1
                 }
                 //console.log("states ", this.state.selectedCategoryId, this.state.selectionId)
-            })
-        if(this.state.selectedCategoryId === 2) {
-            sessionStorage.setItem("examToEdit", id)
-        }      
+            })     
     }
 
     changeShowState=()=>{
@@ -136,23 +179,20 @@ class TeacherDashboard extends Component {
         console.log(sessionStorage.getItem('jwtToken'));
         return(
             <div>
-
                 <div className="pure-g">
 
                     <div className="pure-u-1-3">
                         <div className="padded-box">
-                        <MdModal close={this.changeShowState} show={this.state.showState}>
-                            <StudentManager />
-                        </MdModal>
                             <ScrollableListMenu
-                                menuHeader="My courses"
+                                menuHeader="My classes"
                                 menuItems={this.state.categories[0]}
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
                                 selectedLink={"/course_view"}
+                                passedId={this.state.selectionId}
                                 category = {0}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
-                                <button onClick={this.changeShowState} className="pure-button pure-button-primary">Create new course</button>
+                                <button onClick={this.changeShowState} className="pure-button pure-button-primary">Create new class</button>
                                 <MdModal close={this.changeShowState} show={this.state.showState}>
                                     <CreateNewCourseDialog close={this.changeShowState}/>
                                 </MdModal>
@@ -167,6 +207,7 @@ class TeacherDashboard extends Component {
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
                                 selectedLink={"/exam_grading"}
+                                passedId={this.state.selectionId}
                                 category = {1}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
 
@@ -182,6 +223,7 @@ class TeacherDashboard extends Component {
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
                                 selectedLink={"/edit_exam"}
+                                passedId={this.state.selectionId + 1}
                                 category = {2}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
                                 <Link to="/create_exam">
@@ -200,15 +242,7 @@ class TeacherDashboard extends Component {
                     </div>
 
                 </div>
-                <div className="pure-g">
-                <div className="pure-u-3-24"></div>
-                <div className="pure-u-18-24">
-                    <div className="padded-box">
-                    <WideListButtonView title={"ExamTitle"} exam={this.state.exams[this.state.selectionId]}/>
-                    </div>
-                </div>
-                <div className="pure-u-3-24"></div>
-                </div>
+                
             </div>
         )
     }

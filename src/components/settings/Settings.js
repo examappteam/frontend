@@ -4,6 +4,7 @@ import pic from './img/download.jpg';
 import Modal from '../common/Modal';
 import ChangeEmailContent from './ChangeEmailContent';
 import ChangePasswordContent from './ChangePasswordContent';
+import { BrowserRouter as Router, Route, Link} from "react-router-dom"
 /*
 menuItems = {this.state.users[0]} 
          menuHeader = "Classes"
@@ -18,23 +19,47 @@ constructor(props){
     this.state={ pswDialogIsOpen: false};
     this.state={ isOpen: false};
     this.state={
-        email: "",
-        users: [[
-            {id: 1, gender: "Male", email: "Pekkaownaa421@Kakka.com", name: "Haluujafa", surname: "Haleba"}
-        ],
-    ],
+        email: "a",
+        firstName: "",
+        lastName: "",
+        username: "",
+        
         stId: 0,
         stId2: 0,
     }
     
 }
-
-getDataForUser(){
     
-  this.setState({
-    email: sessionStorage.getItem('email')
-  })
-    } 
+    componentDidMount(){
+        
+        var urlAddress = "http://examapp.crenxu.com:22501/auth/user";
+        fetch(urlAddress, {
+          method: 'GET',
+          headers: {
+           
+            Accept: 'application/json',
+            Authorization: "Bearer " +(sessionStorage.getItem('jwtToken')),
+            'Content-type': 'application/json'
+        }
+    })
+    
+    .then(response => response.json())
+    
+        .then(data => {
+            console.log(data)
+            this.setState({
+                email: data.email,
+                firstName: data.firstName,
+                lastName: data.lastName,
+                username: data.username
+
+            })
+            
+        })
+        .catch(function(error) {
+            console.log(error);
+        })
+    }
 
 
 toggleModal = () => {
@@ -87,8 +112,8 @@ pswDialogIsOpen: !this.state.pswDialogIsOpen
     
     
     <input className="buttonchangepswemail" onClick={this.toggleModal2} type="button" value="Change Password" />
-    
-    
+    <Link to = "/createstudent"><input className="buttonchangepswemail"  type="button" value="Create student" /></Link>
+    <Link to = "/assignstudent"><input className="buttonchangepswemail"  type="button" value="Assign student" /></Link>
 
   </div>
 </div>
@@ -107,7 +132,7 @@ pswDialogIsOpen: !this.state.pswDialogIsOpen
             
             
             <br />
-            <i>{sessionStorage.getItem('email')}</i>
+            <i>{this.state.email}</i>
 
 
     </div>
@@ -121,14 +146,14 @@ pswDialogIsOpen: !this.state.pswDialogIsOpen
             
             <h2>Name</h2>
             <br />
-            <i>{this.state.users[this.state.stId][this.state.stId2].name}</i>
+            <i>{this.state.firstName}</i>
             
             </div>
             <div className="pure-u-1-3">
             
             <h2>Surname</h2>
             <br />
-            <i>{this.state.users[this.state.stId][this.state.stId2].surname}</i>
+            <i>{this.state.lastName}</i>
             
             </div>
         </div>  
@@ -136,9 +161,9 @@ pswDialogIsOpen: !this.state.pswDialogIsOpen
                     <div className="pure-g">
                 <div className="pure-u-1-2">
 
-                <h2>Gender</h2>
+                <h2>Username</h2>
                 <br />
-                <i>{this.state.users[this.state.stId][this.state.stId2].gender}</i>
+                <i>{this.state.username}</i>
                 
                 </div>
                 

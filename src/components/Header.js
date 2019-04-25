@@ -121,7 +121,7 @@ export default class Header extends React.Component{
                     { sessionStorage.getItem('teacherAuthenticated') == 'true' ? 
                     <div>
                         <Link to="/"> <button id="logout-button" onClick={this.logout} className="pure-button button-error"><i className="fa fa-sign-out-alt fa-lg"></i> Logout</button></Link>
-                    <Link to ="/settings"> <button id="logout-button" className="pure-button button-secondary">Settings</button></Link>
+                    <Link to ="/settings"> <button id="logout-button" className="pure-button button-secondary"><i className="fa fa-cog fa-lg"></i> Settings</button></Link>
                     <Link to="/teacherdashboard"><button id="logout-button" className="pure-button pure-button-primary"><i className="fa fa-user-circle fa-lg"></i> Dashboard</button></Link>
                     
                     </div>
@@ -130,7 +130,7 @@ export default class Header extends React.Component{
                     { sessionStorage.getItem('studentAuthenticated') == 'true' ? 
                     <div>
                         <Link to="/"> <button id="logout-button" onClick={this.logout} className="pure-button button-error"><i className="fa fa-sign-out-alt fa-lg"></i> Logout</button></Link>
-                    <Link to ="/studentsettings"> <button id="logout-button" className="pure-button button-secondary">Settings</button></Link>
+                    <Link to ="/studentsettings"> <button id="logout-button" className="pure-button button-secondary"><i className="fa fa-cog fa-lg"></i> Settings</button></Link>
                     <Link to="/studentdashboard"><button id="logout-button" className="pure-button pure-button-primary"><i className="fa fa-user-circle fa-lg"></i> Dashboard</button></Link>
                     
                     </div>

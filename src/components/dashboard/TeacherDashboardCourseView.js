@@ -5,7 +5,9 @@ import ScrollableListMenu from "../common/ScrollableListMenu"
 import MdModal from "../common/modals/MdModal"
 import StudentManager from "../common/StudentManager"
 import AddExamFromListDialog from "./dialogs/AddExamFromListDialog"
-import SmModal from "../common/modals/SmModal"
+import LgModal from "../common/modals/LgModal"
+import WideListButtonView from "../common/WideListButtonView"
+import teacherExamPoolData from "./teacherExamPoolData"
 
 import "./styles/DashboardStyle.css"
 
@@ -38,16 +40,35 @@ class TeacherDashboardCourseView extends Component {
             ],
             selectedCategoryId: 0,
             selectionId: 0,
-            showState: false
+            showAddStudent: false,
+            showAddExam: false,
+            showWideView: false
         }
         this.onScrollableListItemClicked = this.onScrollableListItemClicked.bind(this)
-        this.changeShowState = this.changeShowState.bind(this)
+        this.changeShowAddExam = this.changeShowAddExam.bind(this)
+        this.changeShowAddStudent = this.changeShowAddStudent.bind(this)
 
     }
 
     onScrollableListItemClicked = (category, id) => (e) => {
         console.log("event",e)
         e.preventDefault()
+        
+        if(category == 2)
+        {
+            
+            this.setState({
+                showWideView: true
+            })
+            console.log("category was 2. Show wide view", this.state.showWideView)
+        }
+        else{
+            
+            this.setState({
+                showWideView: false
+            })
+            console.log("show wide view: ", this.state.showWideView)
+        }
         console.log("ran itemclick", category, id)
         this.setState( () => {
             return {
@@ -57,12 +78,19 @@ class TeacherDashboardCourseView extends Component {
         })
     }
 
-    changeShowState=()=>{
+    changeShowAddStudent=()=>{
         this.setState(prevState=>({
-                showState: !prevState.showState
+                showAddStudent: !prevState.showAddStudent
             
         }));
-        console.log("showstate",this.state.showState)
+    }
+
+    
+    changeShowAddExam=()=>{
+        this.setState(prevState=>({
+                showAddExam: !prevState.showAddExam
+            
+        }));
     }
 
     componentDidMount() {
@@ -80,16 +108,17 @@ class TeacherDashboardCourseView extends Component {
                     <div className="pure-u-1-3">
                         <div className="padded-box">
                             <ScrollableListMenu 
-                                menuHeader="Students in course" 
+                                menuHeader="Students in class" 
                                 menuItems={this.state.categories[0]}
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
                                 selectedLink={"/course_view"}
+                                passedId={this.state.selectionId}
                                 category={0}
                                 handler={this.onScrollableListItemClicked.bind(this)}
                             />
-                            <button onClick={this.changeShowState} className="pure-button pure-button-primary">Add new student</button>
-                            <MdModal close={this.changeShowState} show={this.state.showState}>
+                            <button onClick={this.changeShowAddStudent} className="pure-button pure-button-primary">Add new student</button>
+                            <MdModal close={this.changeShowAddStudent} show={this.state.showAddStudent}>
                                 <StudentManager />
                             </MdModal>
                             <button className="pure-button pure-button-disabled">Remove selected</button> 
@@ -103,6 +132,7 @@ class TeacherDashboardCourseView extends Component {
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
                                 selectedLink={"/course_view"}
+                                passedId={this.state.selectionId}
                                 category={1}
                                 handler={this.onScrollableListItemClicked.bind(this)}
                             />
@@ -117,16 +147,26 @@ class TeacherDashboardCourseView extends Component {
                                 selectedItem={this.state.selectionId}
                                 selectedCategory={this.state.selectedCategoryId}
                                 selectedLink={"/course_view"}
+                                passedId={this.state.selectionId}
                                 category={2}
                                 handler={this.onScrollableListItemClicked.bind(this)
                             }/>
-                            <button onClick={this.changeShowState} className="pure-button pure-button-primary">Add exam from list</button>
-                            <MdModal close={this.changeShowState} show={this.state.showState}>
-                                <AddExamFromListDialog close={this.changeShowState}/>
-                            </MdModal>
+                            <button onClick={this.changeShowAddExam} className="pure-button pure-button-primary">Add exam from list</button>
+                            <LgModal close={this.changeShowAddExam} show={this.state.showAddExam}>
+                                <AddExamFromListDialog close={this.changeShowAddExam}/>
+                            </LgModal>
                             <button className="pure-button pure-button-disabled">Remove selected</button>
                         </div>
                     </div>
+                </div>
+                <div className="pure-g">
+                <div className="pure-u-3-24"></div>
+                <div className="pure-u-18-24">
+                    <div className="padded-box">
+                    <WideListButtonView show={this.state.showWideView} title={"title"} exam={teacherExamPoolData[this.state.selectionId]}/>
+                    </div>
+                </div>
+                <div className="pure-u-3-24"></div>
                 </div>
             </div>
         )
