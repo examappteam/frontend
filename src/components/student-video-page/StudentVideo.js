@@ -9,6 +9,7 @@ class StudentVideo extends Component {
     dataTrack = null;
     groupRoom = null;
     peerRoom = null;
+    lastMessage = "";
     constructor() {
         super()
         this.sendTextMessage = this.sendTextMessage.bind(this);
@@ -23,6 +24,23 @@ class StudentVideo extends Component {
         this.attachTrack = this.attachTrack.bind(this);
     }
 
+    mqtt = require('mqtt');
+    options = {
+        keepalive: 10,
+        clientId: 'chatreceiver',
+        protocolId: 'MQTT',
+        protocolVersion: 4,
+        clean: true,
+        retain: false,
+        reconnectPeriod: 1000,
+        connectTimeout: 30 * 1000,
+        username: 'tidpauhp',
+        password: 'wITVbwMtwaMo',
+        rejectUnauthorized: false
+      }
+    client;
+    hostName = "wss://m24.cloudmqtt.com:34820";
+
     attachTrack(track) {
         if(track.kind === "video" || track.kind === "audio") {                       // HYVÄKSYTÄÄN VAIN ÄÄNI JA VIDEO TRACKIT, JÄTETÄÄN DATA TRACK TÄSSÄ VAIHEESSA VIELÄ KÄYTTÄMÄTTÄ (SITÄ TARVITAAN VASTA CHATIN LUOMISEEN)
             var student_video = document.getElementById('teacher-preview');          
@@ -32,33 +50,31 @@ class StudentVideo extends Component {
     }
 
     sendTextMessage(receiver, message) {
-        if(this.dataTrack !== null && message !== "" && message !== null) {
-            this.dataTrack.send(message)
+        if(message !== "" && message !== null) {
+            this.lastMessage = message;
+            this.client.publish(this.state.identity,message);
         }
     }
 
     componentDidMount() {
         console.log("componentDidMmount");
         const _this = this;
-        this.state.identity = sessionStorage.getItem('email');
-        this.state.examid = sessionStorage.getItem('onGoingExamID');
-        const fullAddress = this.fetchAddress.concat("main/exam/").concat(this.state.examid);
-        console.log(fullAddress);
-        fetch(fullAddress, {
-            method:  'GET',
-            headers: {
-                Accept: 'application/json',
-                Authorization: sessionStorage.getItem('jwtToken'),
-                'Content-Type': 'application-json',
+        this.client = this.mqtt.connect(this.hostName,this.options);
+        this.client.on('connect', function () {
+            _this.client.subscribe(_this.state.identity,{qos:0});
+            })
+
+        this.client.on('message', function (topic, message) {
+            if(topic === _this.state.identity) {
+                if(message != _this.lastMessage) {
+                    _this.chatWindow.showMessage(_this.state.teacherIdentity,_this.state.identity,message);
+                }
             }
-        }).then(response => response.json())
-        .then(data => {
-            _this.chatWindow.setSendToName(data.creatorId);
-            _this.state.teacherIdentity = data.creatorId;
-            _this.state.examname = data.title;
-            this.connectToRoom();
-            
-        })
+        });
+        this.state.identity = sessionStorage.getItem('email');
+        this.state.examname = sessionStorage.getItem('roomToJoin');
+        this.state.teacherIdentity = sessionStorage.getItem('teacherName');
+        this.connectToRoom();
     }
 
     componentWillUnmount() {
@@ -72,11 +88,13 @@ class StudentVideo extends Component {
             this.peerRoom.disconnect();
             this.peerRoom = null;
         }
+        this.client.end();
     }
 
     connectToRoom() {
         //TODO fetch token from server
-        const fullAddress = this.fetchAddress.concat("main/twilio/videotoken?identity=").concat(this.state.identity,"&roomName=",this.state.examname);   //<---- USE EXAM NAME AS ROOMNAME
+        const _this = this;
+        var fullAddress = this.fetchAddress.concat("main/twilio/videotoken?identity=").concat(this.state.identity,"&roomName=",this.state.examname);   //<---- USE EXAM NAME AS ROOMNAME
         console.log("Address: " + fullAddress);
         fetch(fullAddress, {
             method:  'GET',
@@ -86,8 +104,8 @@ class StudentVideo extends Component {
                 'Content-Type': 'application-json',
             }
         })
-        .then(response => response.json())
-        .then(data => {
+        .then(response => response.text())
+            .then(data => {
             console.log("data from token fetch:");
             console.log(data);
             this.setState({
@@ -96,29 +114,28 @@ class StudentVideo extends Component {
         }).then(function() {
             //TODO fetch teacher name from server and use it as a room name
             const Video = require("twilio-video");
-            const _this = this;
-            Video.connect(this.state.groupRoomToken, {
-                name: this.state.examname,
+            Video.connect(_this.state.groupRoomToken, {
+                name: _this.state.examname,
                 video:false,		
                 audio:false
             }).then(function(room)
             {
                 console.log("Connected student to room: " + room.name);   //room MUUTTUJA SISÄLTÄÄ TIEDOT HUONEESTA, KUTEN NIMEN, SID:N, HUONEESSA OLEVAT KÄYTTÄJÄT (participants)
                 console.log("Room participants" + room.participants);
-                this.groupRoom = room;
+                _this.groupRoom = room;
                 room.participants.forEach(function(participant)
                 {
                         console.log("Participant identity: " + participant.identity);
-                        participant.on('trackSubscribed', _this.attachTrack);
+                        participant.on('trackAdded', _this.attachTrack);
                         participant.tracks.forEach(function(track) 
-                        {                   
+                        {           
                             _this.attachTrack(track);
                         })
                         //Jos participant on opettaja, luodaan peer-to-peer huone
                         if(participant.identity === _this.state.teacherIdentity) {
                             _this.chatWindow.setSendToName(participant.identity);
                             //TODO fetch token from server
-                            const fullAddress = _this.fetchAddress.concat("?identity=").concat(_this.state.identity,"&roomName=",_this.state.teacherIdentity);
+                            const fullAddress = _this.fetchAddress.concat("main/twilio/videotoken?identity=").concat(_this.state.identity,"&roomName=",_this.state.identity);
                             console.log("Address: " + fullAddress);
                             fetch(fullAddress, {
                                 method:  'GET',
@@ -128,25 +145,22 @@ class StudentVideo extends Component {
                                     'Content-Type': 'application-json',
                                 }
                             })
-                            .then(response => response.json())
+                            .then(response => response.text())
                             .then(data => {
                                 console.log("data");
                                 console.log(data);
-                                _this.setState({
-                                    privateRoomToken: data
+                                _this.dataTrack = new Video.LocalDataTrack();
+                                Video.connect(data, {
+                                    name: _this.state.identity,
+                                    video:false,		
+                                    audio:false,
+                                    tracks: [_this.dataTrack]
+                                }).then(function(room)
+                                {
+                                    console.log("Privaatti huone luotu: " + room.name);
+                                    _this.peerRoom = room;
                                 })
                             });
-                            _this.dataTrack = new Video.LocalDataTrack();
-                            Video.connect(_this.state.privateRoomToken, {
-                                name: _this.state.identity,
-                                video:false,		
-                                audio:false,
-                                tracks: [_this.dataTrack]
-                            }).then(function(room)
-                            {
-                                console.log("Privaatti huone luotu: " + room.name);
-                                this.peerRoom = room;
-                            })
                         }
                 })
 
@@ -160,6 +174,7 @@ class StudentVideo extends Component {
                     //Jos participant on opettaja, luodaan peer-to-peer huone
                     if(participant.identity === room.name) {
                         _this.chatWindow.setSendToName(participant.identity);
+                        fullAddress = this.fetchAddress.concat("main/twilio/videotoken?identity=").concat(this.state.identity,"&roomName=",this.state.identity);
                         fetch(fullAddress, {
                             method:  'GET',
                             headers: {
@@ -168,24 +183,21 @@ class StudentVideo extends Component {
                                 'Content-Type': 'application-json',
                             }
                         })
-                        .then(response => response.json())
+                        .then(response => response.text())
                         .then(data => {
                             console.log("data");
-                            console.log(data);
-                            _this.setState({
-                                privateRoomToken: data
-                            })
-                        }).then(function() {
-                            const localDataTrack = new Video.LocalDataTrack();
-                            Video.connect(this.state.privateRoomToken, {
-                                name: _this.state.identity,
-                                video:false,		
-                                audio:false,
-                                tracks: [localDataTrack]
-                            }).then(function(room)
-                            {
-                                console.log("Privaatti huone luotu: " + room.name);
-                            })
+                                console.log(data);
+                                _this.dataTrack = new Video.LocalDataTrack();
+                                Video.connect(data, {
+                                    name: _this.state.identity,
+                                    video:false,		
+                                    audio:false,
+                                    tracks: [_this.dataTrack]
+                                }).then(function(room)
+                                {
+                                    console.log("Privaatti huone luotu: " + room.name);
+                                    this.peerRoom = room;
+                                })
                         })
                     }
                 })

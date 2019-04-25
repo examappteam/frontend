@@ -4,7 +4,8 @@ import "../../style.css"
 class ParticipantList extends Component {
     constructor(props) {
         super(props);
-        console.log(props);
+        console.log("Listan propsit");
+        console.log(this.props);
         this.state = {
             studentId: "Testi",
             handler: null
@@ -14,11 +15,13 @@ class ParticipantList extends Component {
     };
 
     handleClick(e) {
+        console.log(this.props);
         this.props.handler(e.target.id);
     }
 
     componentDidMount() {
         console.log("ParticipantList mounted");
+        console.log(this.props);
     }
 
     addParticipantToList(identity) {
