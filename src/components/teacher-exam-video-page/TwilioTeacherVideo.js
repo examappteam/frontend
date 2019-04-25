@@ -98,6 +98,7 @@ class TwilioTeacherVideo extends Component {
             room.disconnect();
         })
         this.peerRooms = [];
+        this.client.end();
     }
 
     sendTextMessage(receiver, message) {
@@ -205,20 +206,6 @@ class TwilioTeacherVideo extends Component {
                                         tracks: [localDataTrack]
                                     }).then(function(peer_room) {
                                         console.log('Successfully joined a Room: ', peer_room);
-                                        /*
-                                        _this.peerRooms.push(peer_room);
-                                        //kuuntele jos oppilas lähettää viestin huoneessa ja näytä se Teacher chat elementissä
-                                        peer_room.participants.forEach(function(participant) {
-                                            participant.on('trackSubscribed', track => {
-                                                console.log(`Participant "${participant.identity}" added ${track.kind} Track ${track.sid}`);
-                                                if (track.kind === 'data') {
-                                                    track.on('message', data => {
-                                                    _this.chat.showMessage(participant,_this.state.identity,data);
-                                                    });
-                                                }
-                                            });
-                                                
-                                        });*/
                                     }, function(error) {
                                         console.error('Unable to connect to Room: ' +  error.message);
                                         });
@@ -287,14 +274,13 @@ class TwilioTeacherVideo extends Component {
         }
 
     render() {
-        var handler = this.handler;
         var sendTextMessage = this.sendTextMessage;
         return (
             <div>
                 <div className="pure-g">
                     <div id="teacher-preview" className="pure-u-1-3 pure-u-md-1-3" ></div>
                     <div className="pure-u-1-3 pure-u-md-1-3"><div id="teacher-chat"><ChatWindow sendTextMessage = {sendTextMessage.bind(this)} identity={this.state.identity}/></div></div>
-                    <div className="pure-u-1-3 pure-u-md-1-3"><div id="participant-list-component"><ParticipantList handler = {handler.bind(this)} /></div></div>
+                    <div className="pure-u-1-3 pure-u-md-1-3"><div id="participant-list-component"><ParticipantList handler = {this.handler.bind(this)} /></div></div>
                 </div>
             </div>
         )

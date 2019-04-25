@@ -88,12 +88,13 @@ class StudentVideo extends Component {
             this.peerRoom.disconnect();
             this.peerRoom = null;
         }
+        this.client.end();
     }
 
     connectToRoom() {
         //TODO fetch token from server
         const _this = this;
-        const fullAddress = this.fetchAddress.concat("main/twilio/videotoken?identity=").concat(this.state.identity,"&roomName=",this.state.examname);   //<---- USE EXAM NAME AS ROOMNAME
+        var fullAddress = this.fetchAddress.concat("main/twilio/videotoken?identity=").concat(this.state.identity,"&roomName=",this.state.examname);   //<---- USE EXAM NAME AS ROOMNAME
         console.log("Address: " + fullAddress);
         fetch(fullAddress, {
             method:  'GET',

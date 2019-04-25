@@ -94,6 +94,12 @@ export default class Header extends React.Component{
         }
     }
 
+    componentWillUnmount() {
+        if(this.client != null) {
+            this.client.end();
+        }
+    }
+
     render(){
         console.log(sessionStorage.getItem('studentAuthenticated'))
     return (
