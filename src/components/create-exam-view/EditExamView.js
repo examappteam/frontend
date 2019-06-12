@@ -22,7 +22,7 @@ class EditExamView extends Component {
     }
 
     componentDidMount(props) {
-        var urlAddress = "http://examapp.crenxu.com:22501/main/exam/" + this.props.location.state.passedId
+        var urlAddress = "http://localhost:22501/main/exam/" + this.props.location.state.passedId
         fetch(urlAddress, {                                                
             method: 'GET',                                                 
             headers: {
@@ -71,7 +71,7 @@ class EditExamView extends Component {
     }
 
     handleSaveClick() {
-        var urlAddress = "http://examapp.crenxu.com:22501/main/exam/" + this.props.location.state.passedId
+        var urlAddress = "http://localhost:22501/main/exam/" + this.props.location.state.passedId
         fetch(urlAddress, {
             method: 'PUT',
             headers: {

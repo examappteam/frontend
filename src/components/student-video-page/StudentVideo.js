@@ -4,7 +4,7 @@ import ChatWindow from "../teacher-exam-video-page/ChatWindow"
 import AnswerBox from "./AnswerBox"
 
 class StudentVideo extends Component {
-    fetchAddress = "http://examapp.crenxu.com:22501/";
+    fetchAddress = "http://localhost:22501/";
     chatWindow = new ChatWindow();
     dataTrack = null;
     groupRoom = null;

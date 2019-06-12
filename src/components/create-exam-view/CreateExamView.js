@@ -47,7 +47,7 @@ class CreateExamView extends Component {
     }
 
     handleSaveClick() {
-        fetch('http://examapp.crenxu.com:22501/main/exam/', {
+        fetch('http://localhost:22501/main/exam/', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',

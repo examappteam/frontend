@@ -70,7 +70,7 @@ export default class Login extends React.Component{
     handlebuttonfetch(evt){
       const _this = this;
       evt.preventDefault(evt);
-      fetch('http://examapp.crenxu.com:22501/auth/signin', {
+      fetch('http://localhost:22501/auth/signin', {
         method: 'POST',
         headers: {
           Accept: 'application/json',

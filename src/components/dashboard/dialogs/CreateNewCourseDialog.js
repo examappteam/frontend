@@ -22,7 +22,7 @@ class CreateNewCourseDialog extends Component {
     }
 
     handleClick() {
-        fetch('http://examapp.crenxu.com:22501/main/classroom/', {
+        fetch('http://localhost:22501/main/classroom/', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',

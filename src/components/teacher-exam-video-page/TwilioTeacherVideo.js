@@ -7,7 +7,7 @@ class TwilioTeacherVideo extends Component {
     localMediaContainer;
     participantList = new ParticipantList();
     chat = new ChatWindow();
-    fetchAddress = "http://examapp.crenxu.com:22501/";
+    fetchAddress = "http://localhost:22501/";
     dataTrackList = [];
     peerRooms = [];
     hostName = "wss://m24.cloudmqtt.com:34820";

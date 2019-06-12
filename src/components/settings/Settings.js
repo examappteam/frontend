@@ -32,7 +32,7 @@ constructor(props){
     
     componentDidMount(){
         
-        var urlAddress = "http://examapp.crenxu.com:22501/auth/user";
+        var urlAddress = "http://localhost:22501/auth/user";
         fetch(urlAddress, {
           method: 'GET',
           headers: {

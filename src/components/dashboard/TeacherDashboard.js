@@ -102,7 +102,7 @@ class TeacherDashboard extends Component {
     }
 
     fetchExamWithId(id) {
-        var urlAddress = "http://examapp.crenxu.com:22501/main/exam/" + id // This whole mess of a function
+        var urlAddress = "http://localhost:22501/main/exam/" + id // This whole mess of a function
         fetch(urlAddress, {                                                // should be replaced when we get a better endpoint
             method: 'GET',                                                 // for fetching data
             headers: {
@@ -154,7 +154,7 @@ class TeacherDashboard extends Component {
 
     handleRemoveClick() {
         var idToRemove = this.state.selectionId + 1
-        var urlAddress = "http://examapp.crenxu.com:22501/main/exam/" + idToRemove
+        var urlAddress = "http://localhost:22501/main/exam/" + idToRemove
         fetch(urlAddress, {                                                
             method: 'DELETE',                                                 
             headers: {

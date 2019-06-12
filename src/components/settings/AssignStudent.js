@@ -18,7 +18,7 @@ handleChange (evt) {
 }
 handlebuttonfetch(evt){
     evt.preventDefault(evt);
-    fetch('http://examapp.crenxu.com:22501/auth/createstudent', {
+    fetch('http://localhost:22501/auth/createstudent', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
