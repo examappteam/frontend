@@ -199,6 +199,7 @@ class TeacherDashboard extends Component {
                                 <button className="pure-button pure-button-disabled">Delete selected</button>
                         </div>
                     </div>
+                    
                     <div className="pure-u-1-3">
                         <div className="padded-box">
                             <ScrollableListMenu
@@ -211,10 +212,13 @@ class TeacherDashboard extends Component {
                                 category = {1}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
 
-                                <Link to="/exam_grading"><button className="pure-button pure-button-primary">Evaluate selected</button></Link>
+                                <Router>
+                                    <Link to="/exam_grading"><button className="pure-button pure-button-primary">Evaluate selected</button></Link>
+                                </Router>
                         </div>  
 
                     </div>
+                    
                     <div className="pure-u-1-3">
                         <div className="padded-box">
                             <ScrollableListMenu
@@ -226,16 +230,18 @@ class TeacherDashboard extends Component {
                                 passedId={this.state.selectionId + 1}
                                 category = {2}
                                 handler = {this.onScrollableListItemClicked.bind(this)}/>
-                                <Link to="/create_exam">
-                                    <button className="pure-button pure-button-primary">
-                                        Create new exam
-                                    </button>
-                                </Link>
+                                <Router>
+                                    <Link to="/create_exam">
+                                        <button className="pure-button pure-button-primary">
+                                            Create new exam
+                                        </button>
+                                    </Link>
+                                </Router>
                                 {this.state.selectedCategoryId === 2 ?
-                                <button className="pure-button button-error" onClick={this.handleRemoveClick}>
+                                <button id="delete-exam-button" className="pure-button button-error" onClick={this.handleRemoveClick}>
                                     Delete selected
                                 </button> :
-                                <button className="pure-button pure-button-disabled">
+                                <button id="delete-exam-disabled-button" className="pure-button pure-button-disabled">
                                     Delete selected
                                 </button>}
                         </div>

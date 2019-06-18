@@ -12,14 +12,16 @@ function ListMenuItem(props) {
                         {props.itemName} 
                         {props.categoryId === props.selectedCategory ?
                             props.id === props.selectedItem + 1 ? 
-                            <Link to={{
-                                pathname: props.selectedLink,
-                                state: {
-                                    passedId: props.passedId
-                                }
-                            }}>                          
-                                <i className="fa fa-arrow-circle-right fa-lg list-button"></i>                           
-                            </Link> 
+                            <Router>
+                                <Link to={{
+                                    pathname: props.selectedLink,
+                                    state: {
+                                        passedId: props.passedId
+                                    }
+                                }}>                          
+                                    <i className="fa fa-arrow-circle-right fa-lg list-button"></i>                           
+                                </Link>
+                            </Router> 
                             : "" 
                         : ""}                 
                     </p>
