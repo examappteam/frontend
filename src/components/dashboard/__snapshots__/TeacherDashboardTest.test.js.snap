@@ -1,0 +1,443 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TeacherDashboard it matches the snapshot 1`] = `
+<div>
+  <div
+    className="pure-g"
+  >
+    <div
+      className="pure-u-1-3"
+    >
+      <div
+        className="padded-box"
+      >
+        <div
+          className="pure-menu pure-menu-scrollable scrollable-list-menu"
+        >
+          <h3
+            className="pure-menu-link pure-menu-heading"
+          >
+            My classes
+          </h3>
+          <ul
+            className="pure-menu-list"
+          >
+            <div
+              className="listMenuItem"
+              onClick={[Function]}
+            >
+              <li
+                className="pure-menu-item"
+              >
+                <div
+                  className="pure-menu-link"
+                >
+                  <p>
+                    Basics of Java
+                    <a
+                      href="/course_view"
+                      onClick={[Function]}
+                    >
+                      <i
+                        className="fa fa-arrow-circle-right fa-lg list-button"
+                      />
+                    </a>
+                  </p>
+                  <p>
+                    
+                  </p>
+                </div>
+              </li>
+            </div>
+            <div
+              className="listMenuItem"
+              onClick={[Function]}
+            >
+              <li
+                className="pure-menu-item"
+              >
+                <div
+                  className="pure-menu-link"
+                >
+                  <p>
+                    Basic beginner course
+                    
+                  </p>
+                  <p>
+                    
+                  </p>
+                </div>
+              </li>
+            </div>
+            <div
+              className="listMenuItem"
+              onClick={[Function]}
+            >
+              <li
+                className="pure-menu-item"
+              >
+                <div
+                  className="pure-menu-link"
+                >
+                  <p>
+                    Object oriented analysis
+                    
+                  </p>
+                  <p>
+                    
+                  </p>
+                </div>
+              </li>
+            </div>
+            <div
+              className="listMenuItem"
+              onClick={[Function]}
+            >
+              <li
+                className="pure-menu-item"
+              >
+                <div
+                  className="pure-menu-link"
+                >
+                  <p>
+                    Advanced maths
+                    
+                  </p>
+                  <p>
+                    
+                  </p>
+                </div>
+              </li>
+            </div>
+            <div
+              className="listMenuItem"
+              onClick={[Function]}
+            >
+              <li
+                className="pure-menu-item"
+              >
+                <div
+                  className="pure-menu-link"
+                >
+                  <p>
+                    Best course ever
+                    
+                  </p>
+                  <p>
+                    
+                  </p>
+                </div>
+              </li>
+            </div>
+            <div
+              className="listMenuItem"
+              onClick={[Function]}
+            >
+              <li
+                className="pure-menu-item"
+              >
+                <div
+                  className="pure-menu-link"
+                >
+                  <p>
+                    Java for experts
+                    
+                  </p>
+                  <p>
+                    
+                  </p>
+                </div>
+              </li>
+            </div>
+          </ul>
+        </div>
+        <button
+          className="pure-button pure-button-primary"
+          onClick={[Function]}
+        >
+          Create new class
+        </button>
+        <div
+          className="back-drop"
+          style={
+            Object {
+              "opacity": "0",
+              "transform": "translateZ(-100vh)",
+              "visibility": "hidden",
+            }
+          }
+        >
+          <div
+            className="modal-wrapper-md"
+            style={
+              Object {
+                "opacity": "0",
+                "transform": "translateZ(-100vh)",
+                "visibility": "hidden",
+              }
+            }
+          >
+            <div
+              className="modal-header-md"
+            >
+              <p
+                className="close-container"
+                onClick={[Function]}
+              >
+                <i
+                  className="close-modal-btn fas fa-times"
+                />
+              </p>
+            </div>
+            <div
+              className="modal-body-md"
+            >
+              <div
+                className="padded-box"
+              >
+                <form
+                  className="pure-form pure-form-aligned"
+                >
+                  <label>
+                    Name of the class: 
+                  </label>
+                  <input
+                    name="courseName"
+                    onChange={[Function]}
+                    placeholder="eg. Basic Electronics"
+                    type="text"
+                    value=""
+                  />
+                </form>
+                <button
+                  className="pure-button btn-continue"
+                  onClick={[Function]}
+                >
+                  Create class
+                </button>
+              </div>
+            </div>
+            <button
+              className="pure-button btn-cancel"
+              onClick={[Function]}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+        <button
+          className="pure-button pure-button-disabled"
+        >
+          Delete selected
+        </button>
+      </div>
+    </div>
+    <div
+      className="pure-u-1-3"
+    >
+      <div
+        className="padded-box"
+      >
+        <div
+          className="pure-menu pure-menu-scrollable scrollable-list-menu"
+        >
+          <h3
+            className="pure-menu-link pure-menu-heading"
+          >
+            Ready for evaluation
+          </h3>
+          <ul
+            className="pure-menu-list"
+          >
+            <div
+              className="listMenuItem"
+              onClick={[Function]}
+            >
+              <li
+                className="pure-menu-item"
+              >
+                <div
+                  className="pure-menu-link"
+                >
+                  <p>
+                    Programming test
+                    
+                  </p>
+                  <p>
+                    Basics of Java
+                  </p>
+                </div>
+              </li>
+            </div>
+            <div
+              className="listMenuItem"
+              onClick={[Function]}
+            >
+              <li
+                className="pure-menu-item"
+              >
+                <div
+                  className="pure-menu-link"
+                >
+                  <p>
+                    Beginner exam
+                    
+                  </p>
+                  <p>
+                    Basic beginner course
+                  </p>
+                </div>
+              </li>
+            </div>
+            <div
+              className="listMenuItem"
+              onClick={[Function]}
+            >
+              <li
+                className="pure-menu-item"
+              >
+                <div
+                  className="pure-menu-link"
+                >
+                  <p>
+                    Analysis pt. 1
+                    
+                  </p>
+                  <p>
+                    Object oriented analysis
+                  </p>
+                </div>
+              </li>
+            </div>
+            <div
+              className="listMenuItem"
+              onClick={[Function]}
+            >
+              <li
+                className="pure-menu-item"
+              >
+                <div
+                  className="pure-menu-link"
+                >
+                  <p>
+                    Vector calculation
+                    
+                  </p>
+                  <p>
+                    Advanced maths
+                  </p>
+                </div>
+              </li>
+            </div>
+            <div
+              className="listMenuItem"
+              onClick={[Function]}
+            >
+              <li
+                className="pure-menu-item"
+              >
+                <div
+                  className="pure-menu-link"
+                >
+                  <p>
+                    Best exam ever
+                    
+                  </p>
+                  <p>
+                    Best course ever
+                  </p>
+                </div>
+              </li>
+            </div>
+            <div
+              className="listMenuItem"
+              onClick={[Function]}
+            >
+              <li
+                className="pure-menu-item"
+              >
+                <div
+                  className="pure-menu-link"
+                >
+                  <p>
+                    Live coding exam
+                    
+                  </p>
+                  <p>
+                    Java for experts
+                  </p>
+                </div>
+              </li>
+            </div>
+          </ul>
+        </div>
+        <a
+          href="/exam_grading"
+          onClick={[Function]}
+        >
+          <button
+            className="pure-button pure-button-primary"
+          >
+            Evaluate selected
+          </button>
+        </a>
+      </div>
+    </div>
+    <div
+      className="pure-u-1-3"
+    >
+      <div
+        className="padded-box"
+      >
+        <div
+          className="pure-menu pure-menu-scrollable scrollable-list-menu"
+        >
+          <h3
+            className="pure-menu-link pure-menu-heading"
+          >
+            My own exams
+          </h3>
+          <ul
+            className="pure-menu-list"
+          >
+            <div
+              className="listMenuItem"
+              onClick={[Function]}
+            >
+              <li
+                className="pure-menu-item"
+              >
+                <div
+                  className="pure-menu-link"
+                >
+                  <p>
+                    Loading...
+                    
+                  </p>
+                  <p />
+                </div>
+              </li>
+            </div>
+          </ul>
+        </div>
+        <a
+          href="/create_exam"
+          onClick={[Function]}
+        >
+          <button
+            className="pure-button pure-button-primary"
+          >
+            Create new exam
+          </button>
+        </a>
+        <button
+          className="pure-button pure-button-disabled"
+          id="delete-exam-disabled-button"
+        >
+          Delete selected
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
